@@ -12,6 +12,11 @@ export default defineConfig({
       filename: "my-sw.ts",
     }),
   ],
+  resolve: {
+    alias: {
+      "@": "/src",
+    },
+  },
   server: {
     proxy: {
       "/backend": {
