@@ -1,14 +1,10 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "flowbite";
-import { initFlowbite } from "flowbite";
 import PageLoader from "@/components/PageLoader";
 import React from "react";
 
 function App() {
-  useEffect(() => {
-    initFlowbite();
-  }, []);
 
   return (
     <Router>

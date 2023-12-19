@@ -54,8 +54,8 @@ i18n
   });
 
 // new usage
-i18n.services.formatter.add('DATE_HUGE', (value, lng, options) => {
-  return DateTime.fromJSDate(value).setLocale(lng).toLocaleString(DateTime.DATE_HUGE)
-});
+// i18n.services.formatter.add('DATE_HUGE', (value, lng, options) => {
+//   return DateTime.fromJSDate(value).setLocale(lng).toLocaleString(DateTime.DATE_HUGE)
+// });
 
 export default i18n;

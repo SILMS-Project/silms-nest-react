@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 import "flowbite";
+import NavBar from "./NavBar";
 
 const Demo: React.FC = () => {
   const [count, setCount] = useState(0);
@@ -22,6 +23,7 @@ const Demo: React.FC = () => {
 
   return (
     <>
+    <NavBar/>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -35,8 +37,11 @@ const Demo: React.FC = () => {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
+        <p className="text-6xl">
           Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+        <p>
+
         </p>
         <p>
           <h3>Message from the backend:</h3>
