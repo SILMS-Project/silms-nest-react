@@ -19,7 +19,12 @@
     "noFallthroughCasesInSwitch": false,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@modules/*": ["src/modules/*"],
+      "@utils/*": ["src/utils/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@providers": ["src/providers/*"],
+      "@configurations/*": ["src/configurations/*"]
     }
   }
 }
