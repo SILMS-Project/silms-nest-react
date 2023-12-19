@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHellov1(): string {
+  async getHellov1():Promise<string> {
     return 'Hello World, This is version 1!';
   }
 
-  getHellov2(): string {
+  async getHellov2(): Promise<string> {
     return 'Hello World, This is version 2!';
   }
 }
