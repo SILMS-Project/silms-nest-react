@@ -83,6 +83,15 @@ Swagger UI can be accessed via:
 http://localhost:3000/api
 ```
 
+## Branching Structure
+
+- **main:** Represents the stable, production-ready code.
+- **dev:** Branch for ongoing development.
+- **frontend/xyz:** Feature-specific branches for frontend changes.
+- **backend/abc:** Bug fix branches specific to the backend.
+- **testing/123:** Branch dedicated to QA and testing purposes.
+
+
 ## License
 This project is licensed under the MIT License. You can find the license information in the LICENSE file.
 
