@@ -11,15 +11,18 @@ Welcome to the Student Information Learning Management System (SILMS) repository
 - **Turbo for Optimized Builds** ✅
 - **Monorepo Structure** ✅
 - **Tailwind CSS and Flowbite for UI** ✅
-- **SSR, API Versioning, PWA** ✅
-- **Router v6, Code Splitting, Lazy Loading** ✅
-- **Internationalization and and Localization** with react-i18next ✅
+- **SSR** ✅
+- **API Versioning** ✅
+- **PWA** ✅
+- **Router v6** ✅
+- **Code Splitting** ✅
+- **Lazy Loading** ✅
+- **Internationalization with react-i18next** ✅
+- **Localization** ✅
 - **OpenAPI (Swagger) Implementation** ✅
 - **Server Query via Redux RTK-Query** ✅
 - **Backend: NestJS** ✅
 - **Frontend: Vite with React** ✅
-
-
 
 ## Setup Instructions
 
