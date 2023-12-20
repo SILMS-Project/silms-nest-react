@@ -6,6 +6,7 @@ Welcome to the Student Information Learning Management System (SILMS) repository
 
 - Node.js
 - npm
+- PostgreSQL
 
 ## Implemented Technologies and Practices
 - **Turbo for Optimized Builds** ✅
@@ -54,6 +55,36 @@ silms-nest-react/
 │   ├── silms-backend/
 │   └── silms-frontend/
 
+```
+
+## Setting Up PostgreSQL
+
+To run this application, ensure you have PostgreSQL installed and running on your machine. If you haven't installed PostgreSQL yet, you can download it from [here](https://www.postgresql.org/download/).
+
+### Configuring PostgreSQL Credentials
+
+Ensure you have the necessary PostgreSQL credentials set up in the `.env` file located in the **root directory of the backend**. Modify the following environment variables with your PostgreSQL credentials:
+
+```dotenv
+# .env file
+
+APP_NAME=
+APP_DESCRIPTION=
+APP_SERVER_LISTEN_PORT=
+APP_SERVER_LISTEN_IP=
+API_VERSION=
+GLOBAL_PREFIX=
+
+
+#jwt
+JWT_SECRET=
+JWT_TIME=
+
+DB_HOST=your_postgres_host
+DB_PORT=your_postgres_port
+DB_USERNAME=your_postgres_username
+DB_PASSWORD=your_postgres_password
+DB_NAME=your_postgres_database_name
 ```
 
 ### Running the Application
