@@ -14,7 +14,8 @@ import { ErrorFilter } from './filters/error.filter';
 import { Logger, MiddlewareConsumer, Module } from '@nestjs/common';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { RequestLoggerMiddleware } from './utils/request-logger.middleware';
-
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeOrmConfig } from './configurations/typeorm.config';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RequestLoggerMiddleware } from './utils/request-logger.middleware';
       rootPath: join(__dirname, '../..', 'silms-frontend', 'dist'),
       exclude: ['/api*'],
     }),
+    TypeOrmModule.forRoot(typeOrmConfig),
     ConfigModule.forRoot({ isGlobal: true }),
     WinstonModule.forRoot({
       transports: [
@@ -60,4 +62,3 @@ export class AppModule {
     consumer.apply(RequestLoggerMiddleware).forRoutes('*');
   }
 }
-
