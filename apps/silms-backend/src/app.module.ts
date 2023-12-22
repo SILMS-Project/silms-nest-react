@@ -17,7 +17,6 @@ import { RequestLoggerMiddleware } from './utils/request-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './configurations/typeorm.config';
 import { UsersModule } from './modules/users/users.module';
-import { ProfilesModule } from './modules/profiles/profiles.module';
 import { SchoolsModule } from './modules/schools/schools.module';
 import { ProgramsModule } from './modules/programs/programs.module';
 import { StudentsModule } from './modules/students/students.module';
@@ -50,7 +49,6 @@ import { AuthModule } from './modules/auth/auth.module';
       ],
     }),
     UsersModule,
-    ProfilesModule,
     SchoolsModule,
     ProgramsModule,
     StudentsModule,
