@@ -16,6 +16,14 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { RequestLoggerMiddleware } from './utils/request-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './configurations/typeorm.config';
+import { UsersModule } from './modules/users/users.module';
+import { ProfilesModule } from './modules/profiles/profiles.module';
+import { SchoolsModule } from './modules/schools/schools.module';
+import { ProgramsModule } from './modules/programs/programs.module';
+import { StudentsModule } from './modules/students/students.module';
+import { CoursesModule } from './modules/courses/courses.module';
+import { LecturersModule } from './modules/lecturers/lecturers.module';
+import { StudentCoursesModule } from './modules/student-courses/student-courses.module';
 
 @Module({
   imports: [
@@ -40,6 +48,14 @@ import { typeOrmConfig } from './configurations/typeorm.config';
         }),
       ],
     }),
+    UsersModule,
+    ProfilesModule,
+    SchoolsModule,
+    ProgramsModule,
+    StudentsModule,
+    CoursesModule,
+    LecturersModule,
+    StudentCoursesModule,
   ],
   controllers: [AppController],
   providers: [
