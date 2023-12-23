@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { version } from 'os';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -12,6 +13,7 @@ export class AuthController {
   // @ApiOperation is added to provide information about the endpoint in Swagger documentation
   // @ApiResponse is added to specify the response status and description
 
+  @Version('1')
   // POST /auth
   @Post()
   @ApiOperation({ summary: 'Create a new authentication record' })
@@ -20,6 +22,7 @@ export class AuthController {
     return this.authService.create(createAuthDto);
   }
 
+  @Version('1')
   // GET /auth
   @Get()
   @ApiOperation({ summary: 'Get all authentication records' })
@@ -28,6 +31,7 @@ export class AuthController {
     return this.authService.findAll();
   }
 
+  @Version('1')
   // GET /auth/:id
   @Get(':id')
   @ApiOperation({ summary: 'Get an authentication record by ID' })
@@ -37,6 +41,7 @@ export class AuthController {
     return this.authService.findOne(+id);
   }
 
+  @Version('1')
   // PATCH /auth/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update an authentication record by ID' })
@@ -46,6 +51,7 @@ export class AuthController {
     return this.authService.update(+id, updateAuthDto);
   }
 
+  @Version('1')
   // DELETE /auth/:id
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an authentication record by ID' })

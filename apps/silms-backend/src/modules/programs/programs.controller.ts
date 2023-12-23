@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ProgramsService } from './programs.service';
 import { CreateProgramDto } from './dto/create-program.dto';
@@ -12,6 +12,7 @@ export class ProgramsController {
   // @ApiOperation is added to provide information about the endpoint in Swagger documentation
   // @ApiResponse is added to specify the response status and description
 
+  @Version('1')
   // POST /programs
   @Post()
   @ApiOperation({ summary: 'Create a new program' })
@@ -20,6 +21,7 @@ export class ProgramsController {
     return this.programsService.create(createProgramDto);
   }
 
+  @Version('1')
   // GET /programs
   @Get()
   @ApiOperation({ summary: 'Get all programs' })
@@ -28,6 +30,7 @@ export class ProgramsController {
     return this.programsService.findAll();
   }
 
+  @Version('1')
   // GET /programs/:id
   @Get(':id')
   @ApiOperation({ summary: 'Get a program by ID' })
@@ -37,6 +40,7 @@ export class ProgramsController {
     return this.programsService.findOne(+id);
   }
 
+  @Version('1')
   // PATCH /programs/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update a program by ID' })
@@ -46,6 +50,7 @@ export class ProgramsController {
     return this.programsService.update(+id, updateProgramDto);
   }
 
+  @Version('1')
   // DELETE /programs/:id
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a program by ID' })

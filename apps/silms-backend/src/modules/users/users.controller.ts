@@ -34,7 +34,7 @@
 // }
 
 
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -48,6 +48,7 @@ export class UsersController {
   // @ApiOperation is added to provide information about the endpoint in Swagger documentation
   // @ApiResponse is added to specify the response status and description
 
+  @Version('1')
   // POST /users
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
@@ -56,6 +57,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @Version('1')
   // GET /users
   @Get()
   @ApiOperation({ summary: 'Get all users' })
@@ -64,6 +66,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Version('1')
   // GET /users/:id
   @Get(':id')
   @ApiOperation({ summary: 'Get a user by ID' })
@@ -73,6 +76,7 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
+  @Version('1')
   // PATCH /users/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update a user by ID' })
@@ -82,6 +86,7 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  @Version('1')
   // DELETE /users/:id
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a user by ID' })

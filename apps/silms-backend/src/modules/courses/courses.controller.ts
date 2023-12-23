@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
@@ -12,6 +12,7 @@ export class CoursesController {
   // @ApiOperation is added to provide information about the endpoint in Swagger documentation
   // @ApiResponse is added to specify the response status and description
 
+  @Version('1')
   // POST /courses
   @Post()
   @ApiOperation({ summary: 'Create a new course' })
@@ -20,6 +21,7 @@ export class CoursesController {
     return this.coursesService.create(createCourseDto);
   }
 
+  @Version('1')
   // GET /courses
   @Get()
   @ApiOperation({ summary: 'Get all courses' })
@@ -28,6 +30,7 @@ export class CoursesController {
     return this.coursesService.findAll();
   }
 
+  @Version('1')
   // GET /courses/:id
   @Get(':id')
   @ApiOperation({ summary: 'Get a course by ID' })
@@ -37,6 +40,7 @@ export class CoursesController {
     return this.coursesService.findOne(+id);
   }
 
+  @Version('1')
   // PATCH /courses/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update a course by ID' })
@@ -46,6 +50,7 @@ export class CoursesController {
     return this.coursesService.update(+id, updateCourseDto);
   }
 
+  @Version('1')
   // DELETE /courses/:id
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a course by ID' })
