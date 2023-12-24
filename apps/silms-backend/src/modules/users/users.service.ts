@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export type User = {
   id: number,
   name: string,
-  username: string,
+  email: string,
   password: string
 }
 
@@ -15,13 +15,13 @@ export class UsersService {
     {
       id: 1,
       name: 'George',
-      username: 'georgeuwagbale',
+      email: 'uwagbalegeorge@gmail.com',
       password: 'password'
     },
     {
       id: 2,
       name: 'Ade',
-      username: 'Ogunde',
+      email: 'Ogunde',
       password: 'password1'
     }
   ]
@@ -33,9 +33,9 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  async findOne(username: string) : Promise<User | undefined> {
+  async findOne(email: string) : Promise<User | undefined> {
     // return `This action returns a #${id} user`;
-    return this.users.find(user => user.username === username);
+    return this.users.find(user => user.email === email);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
