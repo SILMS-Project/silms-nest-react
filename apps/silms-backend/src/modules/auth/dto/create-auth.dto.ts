@@ -1,6 +1,6 @@
 import { Role } from '@/utils/constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { Equals, IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateAuthDto {
   @ApiProperty()
@@ -53,16 +53,16 @@ export class LoginUserDto {
   
     @ApiProperty()
     @IsNotEmpty({ message: 'Confirm password is required' })
-    // @Equals('password', { message: 'Passwords do not match' })
+    @Equals('password', { message: 'Passwords do not match' })
     cpassword: string;
   
     @ApiProperty()
     @IsNotEmpty({ message: 'Invalid request, id is required' })
     id: string;
   
-    @ApiProperty()
-    @IsNotEmpty({ message: 'Invalid request, code is required' })
-    code: string;
+    // @ApiProperty()
+    // @IsNotEmpty({ message: 'Invalid request, code is required' })
+    // code: string;
   }
 
   

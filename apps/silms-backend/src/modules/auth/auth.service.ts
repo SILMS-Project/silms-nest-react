@@ -6,6 +6,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
+  
 
   constructor(private userService: UsersService, private jwtService: JwtService) {}
 
@@ -32,7 +33,15 @@ export class AuthService {
     }
   }
 
-  async register (createUserDto: CreateUserDto) {
-    return await this.userService.create(createUserDto);
+  // async register (createUserDto: CreateUserDto) {
+  //   return await this.userService.create(createUserDto);
+  // }
+
+  async changePassword (userId: string, newPassword: string) {
+    return await this.userService.changePassword(userId, newPassword);
+  }
+
+  resetPassword(email: string) {
+    throw new Error('Method not implemented.');
   }
 }

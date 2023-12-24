@@ -11,6 +11,7 @@ import { ProfileProps } from './interfaces/profile.interface';
 
 @Injectable()
 export class UsersService {
+  
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Profile) private readonly profileRepository: Repository<Profile>,
@@ -47,6 +48,14 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
+  }
+
+  async changePassword(userId: string, newPassword: string) {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return await this.userRepository.update(userId, { password: newPassword });
   }
 
   // async findOneProfileByUserId(userId: string): Promise<Profile | undefined> {
