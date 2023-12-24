@@ -6,6 +6,7 @@ import { UpdateSchoolDto } from './dto/update-school.dto';
 
 @ApiTags('schools')
 @Controller('schools')
+
 export class SchoolsController {
   constructor(private readonly schoolsService: SchoolsService) {}
 
