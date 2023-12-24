@@ -1,25 +1,33 @@
 import { Role } from "@/utils/constants";
+import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateUserDto {
-    @IsNotEmpty()
+    
+    @ApiProperty()
+    @IsNotEmpty({ message: 'First name is required' })
     @IsString()
     firstName: string;
 
+    @ApiProperty()
     @IsOptional()
     middleName: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+    @IsNotEmpty({ message: 'Last name is required'})
     @IsString()
     lastName: string;
     
-    @IsNotEmpty()
+    @ApiProperty()
+    @IsNotEmpty({ message: 'Email is required'})
     @IsEmail()
     email: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+    @IsNotEmpty({ message: 'Password is required'})
     password: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+    @IsNotEmpty({ message: 'Confirm password is required'})
     role: Role;
 }

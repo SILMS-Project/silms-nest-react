@@ -58,6 +58,8 @@ export class UsersService {
     return await this.userRepository.update(userId, { password: newPassword });
   }
 
+  
+
   // async findOneProfileByUserId(userId: string): Promise<Profile | undefined> {
   //   const user = await this.userRepository.findOne({where: {id: userId}});
   //   console.log(user);
