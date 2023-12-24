@@ -3,7 +3,6 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '@modules/users/users.module';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from '@modules/auth/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '@modules/auth/jwt.strategy';
 
@@ -14,6 +13,6 @@ import { JwtStrategy } from '@modules/auth/jwt.strategy';
     signOptions: {expiresIn: process.env.JWT_TIME}
   })],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy ],
+  providers: [AuthService, JwtStrategy ],
 })
 export class AuthModule {}
