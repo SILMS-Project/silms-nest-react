@@ -1,44 +1,51 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreateAuthDto, LoginUserDto } from './dto/create-auth.dto';
-import { UsersService } from '@modules/users/users.service';
+import { ChangePasswordDto, LoginUserDto } from './dto/create-auth.dto';
+import { UsersService } from '@/modules/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import { PasswordService } from '../users/services/password.service';
 
 @Injectable()
 export class AuthService {
-  
+  constructor(
+    private userService: UsersService,
+    private jwtService: JwtService,
+    private passwordService: PasswordService,
+  ) {}
 
-  constructor(private userService: UsersService, private jwtService: JwtService) {}
 
-  // create(createAuthDto: CreateAuthDto) {
-  //   return 'This action adds a new auth';
-  // }
-
-  async validateUser (email: string, password: string) : Promise<any> {
+  async validateUser(email: string, password: string): Promise<any> {
     const user = await this.userService.findOne(email);
 
-    if (user && user.password === password){
-      const {password, email, ...rest} = user;
+    const isValidPassword = await this.passwordService.comparePassword(
+      password,
+      user.password,
+    );
+
+    if (user && isValidPassword) {
+      const { password, email, ...rest } = user;
       return rest;
     }
 
     throw new UnauthorizedException();
   }
 
-  async login (loginUserDto: LoginUserDto) {
-    const payload = await this.validateUser(loginUserDto.email, loginUserDto.password);
+  async login(loginUserDto: LoginUserDto) {
+    const payload = await this.validateUser(
+      loginUserDto.email,
+      loginUserDto.password,
+    );
 
     return {
-      access_token: this.jwtService.sign(payload)
-    }
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
-  // async register (createUserDto: CreateUserDto) {
-  //   return await this.userService.create(createUserDto);
-  // }
 
-  async changePassword (userId: string, newPassword: string) {
-    return await this.userService.changePassword(userId, newPassword);
+  async changePassword(changePasswordDto: ChangePasswordDto) {
+    if (changePasswordDto.password !== changePasswordDto.confirmPassword) {
+      throw new Error('Passwords do not match');
+    }
+    return await this.userService.changePassword(changePasswordDto.id, changePasswordDto.password);
   }
 
   resetPassword(email: string) {

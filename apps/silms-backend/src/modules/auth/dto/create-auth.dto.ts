@@ -53,8 +53,8 @@ export class LoginUserDto {
   
     @ApiProperty()
     @IsNotEmpty({ message: 'Confirm password is required' })
-    @Equals('password', { message: 'Passwords do not match' })
-    cpassword: string;
+    // @Equals('password', { message: 'Passwords do not match' })
+    confirmPassword: string;
   
     @ApiProperty()
     @IsNotEmpty({ message: 'Invalid request, id is required' })

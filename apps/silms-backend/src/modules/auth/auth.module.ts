@@ -13,6 +13,6 @@ import { JwtStrategy } from '@modules/auth/jwt.strategy';
     signOptions: {expiresIn: process.env.JWT_TIME}
   })],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy ],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}

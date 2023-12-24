@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
+import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
-import { UserProps } from './interfaces/user.interface';
-import { Profile } from './entities/profile.entity';
-import { ProfileProps } from './interfaces/profile.interface';
+import { UserProps } from '../interfaces/user.interface';
+import { Profile } from '../entities/profile.entity';
+import { ProfileProps } from '../interfaces/profile.interface';
+import { PasswordService } from './password.service';
 
 
 @Injectable()
@@ -15,6 +16,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Profile) private readonly profileRepository: Repository<Profile>,
+    private passwordService: PasswordService
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -25,6 +27,7 @@ export class UsersService {
 
     const userProps: UserProps = {
       ...createUserDto,
+      password: await this.passwordService.hashPassword(createUserDto.password),
       createdAt: new Date(),
       updatedAt: new Date(),
       isVerified: false,
@@ -50,15 +53,18 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  async changePassword(userId: string, newPassword: string) {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+  async changePassword(userId: string, newPassword: string) : Promise<any>{
+    const user = this.userRepository.findOne({ where: { id: userId } });
+
     if (!user) {
       throw new Error('User not found');
     }
-    return await this.userRepository.update(userId, { password: newPassword });
+    return await this.userRepository.update(userId, { password: newPassword }).then(() => {
+      return { message: 'Password changed successfully' }
+    });
   }
 
-  
+
 
   // async findOneProfileByUserId(userId: string): Promise<Profile | undefined> {
   //   const user = await this.userRepository.findOne({where: {id: userId}});
@@ -70,20 +76,24 @@ export class UsersService {
     return await this.userRepository.findOne({ where: { email } });
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     const user = this.userRepository.findOne({ where: { id } });
 
     if (!user) {
       throw new Error('User not found');
     }
-    return this.userRepository.update(id, updateUserDto);
+    return this.userRepository.update(id, updateUserDto).then(() => {
+      return { message: 'User updated successfully' }
+    });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     const user = this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new Error('User not found');
     }
-    return this.userRepository.delete(id);
+    return this.userRepository.delete(id).then(() => {
+      return { message: 'User deleted successfully' }
+      });
   }
 }

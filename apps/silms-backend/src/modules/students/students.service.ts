@@ -4,7 +4,7 @@ import { UpdateStudentDto } from './dto/update-student.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Student } from './entities/student.entity';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../users/services/users.service';
 import { StudentProps } from './interfaces/student.interface';
 
 @Injectable()
