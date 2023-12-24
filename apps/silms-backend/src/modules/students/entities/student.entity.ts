@@ -18,7 +18,7 @@ export class Student {
     @Column()
     level: string;
 
-    @OneToOne(() => Profile, profile => profile.student)
+    @OneToOne(() => Profile, (profile) => profile.student)
     @JoinColumn()
     profile: Profile;
 }
