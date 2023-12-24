@@ -2,15 +2,16 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateAuthDto, LoginUserDto } from './dto/create-auth.dto';
 import { UsersService } from '@modules/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
 
   constructor(private userService: UsersService, private jwtService: JwtService) {}
 
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+  // create(createAuthDto: CreateAuthDto) {
+  //   return 'This action adds a new auth';
+  // }
 
   async validateUser (email: string, password: string) : Promise<any> {
     const user = await this.userService.findOne(email);
@@ -24,7 +25,6 @@ export class AuthService {
   }
 
   async login (loginUserDto: LoginUserDto) {
-    // const payload = {name: user.email, sub: user.id};
     const payload = await this.validateUser(loginUserDto.email, loginUserDto.password);
 
     return {
@@ -32,19 +32,7 @@ export class AuthService {
     }
   }
 
-  // findAll() {
-  //   return `This action returns all auth`;
-  // }
-  //
-  // findOne(id: number) {
-  //   return `This action returns a #${id} auth`;
-  // }
-  //
-  // update(id: number, updateAuthDto: UpdateAuthDto) {
-  //   return `This action updates a #${id} auth`;
-  // }
-  //
-  // remove(id: number) {
-  //   return `This action removes a #${id} auth`;
-  // }
+  async register (createUserDto: CreateUserDto) {
+    return await this.userService.create(createUserDto);
+  }
 }

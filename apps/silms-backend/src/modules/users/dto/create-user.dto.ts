@@ -1,11 +1,25 @@
 import { Role } from "@/utils/constants";
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateUserDto {
-    email: string;
-    password: string;
-    role: Role;
-    isVerified: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    @IsNotEmpty()
+    @IsString()
+    firstName: string;
+
+    @IsOptional()
+    middleName: string;
+
+    @IsNotEmpty()
+    @IsString()
+    lastName: string;
     
+    @IsNotEmpty()
+    @IsEmail()
+    email: string;
+
+    @IsNotEmpty()
+    password: string;
+
+    @IsNotEmpty()
+    role: Role;
 }

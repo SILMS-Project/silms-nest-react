@@ -4,42 +4,69 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { UserRepository } from './users.repository';
-import { Role } from '@/utils/constants';
+import { UserProps } from './interfaces/user.interface';
+import { Profile } from './entities/profile.entity';
+import { ProfileProps } from './interfaces/profile.interface';
 
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(UserRepository) private userRepository: UserRepository) {}
-  
-  create(createUserDto: CreateUserDto) {
-    const user = this.findOne(createUserDto.email);
-    if (user) { throw new Error('User already exists'); }
+  constructor(
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Profile) private readonly profileRepository: Repository<Profile>,
+  ) {}
 
-    createUserDto.isVerified = false;
-    createUserDto.role = Role.Student;
-    createUserDto.createdAt = new Date();
-    createUserDto.updatedAt = new Date();
-    return this.userRepository.save(createUserDto);
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const user = await this.findOne(createUserDto.email);
+    if (user) {
+      throw new Error('User already exists');
+    }
+
+    const userProps: UserProps = {
+      ...createUserDto,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isVerified: false,
+    };
+
+    const profileProps: ProfileProps = {
+      ...createUserDto
+    };
+
+    const newUser = await this.userRepository.save(userProps);
+
+    const newProfile = this.profileRepository.create({
+      ...profileProps,
+      user: newUser
+    });
+
+    this.profileRepository.save(newProfile);
+    
+    return newUser;
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<User[]> {
+    return this.userRepository.find();
   }
 
-  async findOne(email: string) : Promise<User | undefined> {
-    // return `This action returns a #${id} user`;
-    // return this.users.find(user => user.email === email);
-    return this.userRepository.findByEmail(email);
+  async findOne(email: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({ where: { email } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id: string, updateUserDto: UpdateUserDto) {
+    const user = this.userRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return this.userRepository.update(id, updateUserDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    const user = this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    return this.userRepository.delete(id);
   }
 }
-
-
