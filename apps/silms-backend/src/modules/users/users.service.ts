@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UserRepository } from './users.repository';
+import { Role } from '@/utils/constants';
 
 
 @Injectable()
@@ -13,7 +14,13 @@ export class UsersService {
   
   create(createUserDto: CreateUserDto) {
     const user = this.findOne(createUserDto.email);
-    return 'This action adds a new user';
+    if (user) { throw new Error('User already exists'); }
+
+    createUserDto.isVerified = false;
+    createUserDto.role = Role.Student;
+    createUserDto.createdAt = new Date();
+    createUserDto.updatedAt = new Date();
+    return this.userRepository.save(createUserDto);
   }
 
   findAll() {
