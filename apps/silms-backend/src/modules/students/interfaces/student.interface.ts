@@ -7,5 +7,4 @@ export interface StudentProps {
     department: string;
     programme: string;
     level: string;
-    user: User;
 }

@@ -1,5 +1,5 @@
 import { Profile } from "@/modules/users/entities/profile.entity";
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Student {
@@ -18,6 +18,7 @@ export class Student {
     @Column()
     level: string;
 
-    @OneToOne(() => Profile)
-    user: Profile;
+    @OneToOne(() => Profile, profile => profile.student)
+    @JoinColumn()
+    profile: Profile;
 }

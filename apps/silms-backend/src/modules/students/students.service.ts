@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Student } from './entities/student.entity';
 import { UsersService } from '../users/users.service';
-import { Role } from '@/utils/constants';
 import { StudentProps } from './interfaces/student.interface';
 
 @Injectable()
@@ -16,26 +15,30 @@ export class StudentsService {
   ) {}
 
   async create(createStudentDto: CreateStudentDto) {
-    const user = await this.userService.create({
-      ...createStudentDto,
-      role: Role.Student,
-    });
-
-    const newStudent: StudentProps = {
-      ...createStudentDto,
-      user: user,
-    }
-
-    const student = this.findByMatricNo(createStudentDto.matricNo);
+    const student = await this.findByMatricNo(createStudentDto.matricNo);
+  
     if (student) {
       throw new Error('Student already exists');
     }
+
+    const newUser = await this.userService.create({
+      ...createStudentDto
+    });
+
+    const studentProps: StudentProps = {
+      ...createStudentDto
+    }
+
+    const newStudent = this.studentRepository.create({
+      ...studentProps,
+      profile: newUser.profile
+    });
     
     return this.studentRepository.save(newStudent);
   }
 
-  findAll() {
-    return `This action returns all students`;
+  async findAll() : Promise<Student[]> {
+    return await this.studentRepository.find();
   }
 
   async findByMatricNo(matricNo: string) {

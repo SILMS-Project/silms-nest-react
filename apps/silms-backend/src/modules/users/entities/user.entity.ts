@@ -30,6 +30,5 @@ export class User {
   updatedAt: Date;
 
   @OneToOne(() => Profile, (profile) => profile.user, { cascade: true })
-  
   profile: Profile;
 }

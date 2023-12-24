@@ -40,14 +40,20 @@ export class UsersService {
       user: newUser
     });
 
-    this.profileRepository.save(newProfile);
     
+    newUser.profile = await this.profileRepository.save(newProfile);
     return newUser;
   }
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
+
+  // async findOneProfileByUserId(userId: string): Promise<Profile | undefined> {
+  //   const user = await this.userRepository.findOne({where: {id: userId}});
+  //   console.log(user);
+  //   return await this.profileRepository.findOne({where: {user}})
+  // }
 
   async findOne(email: string): Promise<User | undefined> {
     return await this.userRepository.findOne({ where: { email } });
