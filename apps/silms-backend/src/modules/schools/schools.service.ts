@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { Repository } from 'typeorm';
@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class SchoolsService {
   constructor (@InjectRepository(School) private readonly schoolRepository: Repository<School>){}
-  create(createSchoolDto: CreateSchoolDto){
+  async create(createSchoolDto: CreateSchoolDto){
   try {
     const school = new School();
     school.name = createSchoolDto.name;
@@ -21,22 +21,31 @@ export class SchoolsService {
     });
 
     school.programs = programs;
-    const savedSchool = this.schoolRepository.save(school);
+    const savedSchool =await this.schoolRepository.save(school);
     return savedSchool;
   } catch (error) {
     return { message: "Failed to create school", error: error.message || error };
   }
 }
 
-
-
-
   async findAll(): Promise<School[]> {
     return this.schoolRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} school`;
+
+  async findOne(id:string): Promise<School> {
+    const school = await this.schoolRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+
+    if (!school) {
+      throw new NotFoundException(`School with ID ${id} not found`);
+    }
+
+    return school;
   }
 
   update(id: number, updateSchoolDto: UpdateSchoolDto) {

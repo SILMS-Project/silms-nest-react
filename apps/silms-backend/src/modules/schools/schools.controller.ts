@@ -38,7 +38,7 @@ export class SchoolsController {
   @ApiResponse({ status: 200, description: 'School found by ID' })
   @ApiResponse({ status: 404, description: 'School not found' })
   findOne(@Param('id') id: string) {
-    return this.schoolsService.findOne(+id);
+    return this.schoolsService.findOne(id);
   }
 
   @Version('1')
