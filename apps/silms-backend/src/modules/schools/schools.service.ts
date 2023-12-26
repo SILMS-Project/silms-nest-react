@@ -29,8 +29,10 @@ export class SchoolsService {
 }
 
 
-  findAll() {
-    return `This action returns all schools`;
+
+
+  async findAll(): Promise<School[]> {
+    return this.schoolRepository.find();
   }
 
   findOne(id: number) {
