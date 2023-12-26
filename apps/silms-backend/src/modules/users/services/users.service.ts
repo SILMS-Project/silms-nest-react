@@ -20,7 +20,7 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = await this.findOne(createUserDto.email);
+    const user = await this.findOneByEmail(createUserDto.email);
     if (user) {
       throw new Error('User already exists');
     }
@@ -59,21 +59,18 @@ export class UsersService {
     if (!user) {
       throw new Error('User not found');
     }
-    return await this.userRepository.update(userId, { password: newPassword }).then(() => {
+    const hashedPassword = await this.passwordService.hashPassword(newPassword)
+    return await this.userRepository.update(userId, { password: hashedPassword }).then(() => {
       return { message: 'Password changed successfully' }
     });
   }
 
-
-
-  // async findOneProfileByUserId(userId: string): Promise<Profile | undefined> {
-  //   const user = await this.userRepository.findOne({where: {id: userId}});
-  //   console.log(user);
-  //   return await this.profileRepository.findOne({where: {user}})
-  // }
-
-  async findOne(email: string): Promise<User | undefined> {
+  async findOneByEmail(email: string): Promise<User | undefined> {
     return await this.userRepository.findOne({ where: { email } });
+  }
+
+  async findOneById (id: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({where: {id}});
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

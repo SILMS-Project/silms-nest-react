@@ -28,6 +28,6 @@ export class CreateUserDto {
     password: string;
 
     @ApiProperty()
-    @IsNotEmpty({ message: 'Confirm password is required'})
+    @IsNotEmpty({ message: 'Role password is required'})
     role: Role;
 }

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { isNumber, isNumberString } from 'class-validator';
 
 @Injectable()
 export class PasswordService {
   async hashPassword(password: string): Promise<string> {
-    const saltRounds = process.env.SALT_ROUNDS;
+    const saltRounds =10;
     return bcrypt.hash(password, saltRounds);
   }
 

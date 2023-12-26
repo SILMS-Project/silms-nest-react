@@ -16,7 +16,7 @@ export class StudentsService {
 
   async create(createStudentDto: CreateStudentDto) {
     const student = await this.findByMatricNo(createStudentDto.matricNo);
-  
+    
     if (student) {
       throw new Error('Student already exists');
     }
