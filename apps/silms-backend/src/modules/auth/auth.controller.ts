@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Post, Body, Request} from '@nestjs/common';
+import { Controller, UseGuards, Get, Post, Body, Request, Param} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ChangePasswordDto, ConfirmResetPasswordDto, CreateAuthDto, LoginUserDto, ResetPasswordDto } from './dto/create-auth.dto';
 import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
@@ -29,5 +29,10 @@ export class AuthController {
   @Post('confirm-reset-password')
   async confirmResetPassword (@Body() confirmResetPassword: ConfirmResetPasswordDto, @Request() req) {
     return this.authService.confirmResetPassword(confirmResetPassword, req.rawHeaders[11]);
+  }
+
+  @Post('verify-account/:token')
+  async verifyAccount (@Param('token') token: string) {
+    return this.authService.verifyAccount(token);
   }
 }

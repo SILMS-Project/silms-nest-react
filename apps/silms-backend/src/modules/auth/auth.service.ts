@@ -3,6 +3,7 @@ import { ChangePasswordDto, ConfirmResetPasswordDto, LoginUserDto } from './dto/
 import { UsersService } from '@/modules/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from '../users/services/password.service';
+import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -80,5 +81,24 @@ export class AuthService {
 
     const userId = this.jwtService.decode(token.split(" ")[1]).id;
     return await this.userService.changePassword(userId, confirmResetPasswordDto.password);
+  }
+
+  async verifyAccount(token: string) {
+
+    const user = await this.userService.findOneById(
+      this.jwtService.decode(token).id
+    );
+
+    if (!user) {
+      throw new Error("User does not exist!");
+    }
+
+    user.isVerified = true;
+
+    const updatedUser: UpdateAuthDto = {
+      ...user
+    }
+
+    return await this.userService.update(user.id, updatedUser);
   }
 }
