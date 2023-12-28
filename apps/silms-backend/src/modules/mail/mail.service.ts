@@ -15,7 +15,7 @@ export class MailService {
             subject: "Password reset url",
             template: "./confirmation",
             context: {
-                name: `${user.profile.firstName} ${user.profile.lastName}`,
+                name: `${user.profile} ${user.profile}`,
                 url,
             },
         });

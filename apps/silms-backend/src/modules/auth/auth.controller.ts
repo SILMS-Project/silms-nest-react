@@ -19,7 +19,6 @@ export class AuthController {
     return this.authService.changePassword(changePasswordDto);
   }
 
-  
   @Post('reset-password')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return this.authService.resetPassword(resetPasswordDto.email);
