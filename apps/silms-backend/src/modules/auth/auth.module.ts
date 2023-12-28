@@ -5,13 +5,18 @@ import { UsersModule } from '@modules/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '@modules/auth/jwt.strategy';
-
+import { MailModule } from '../mail/mail.module';
 
 @Module({
-  imports: [UsersModule, PassportModule, JwtModule.register({
-    secret: process.env.JWT_SECRET,
-    signOptions: {expiresIn: process.env.JWT_TIME}
-  })],
+  imports: [
+    UsersModule,
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: process.env.JWT_TIME },
+    }),
+    MailModule,
+  ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
 })

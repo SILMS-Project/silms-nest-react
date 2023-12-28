@@ -4,6 +4,7 @@ import { UsersService } from '@/modules/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from '../users/services/password.service';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class AuthService {
@@ -12,6 +13,7 @@ export class AuthService {
     private userService: UsersService,
     private jwtService: JwtService,
     private passwordService: PasswordService,
+    private mailService: MailService
   ) {}
 
 
@@ -65,12 +67,16 @@ export class AuthService {
 
   async resetPassword(email: string) {
     const user = await this.userService.findOneByEmail(email);
+    const token = this.jwtService.sign({sub: user.id})
+    
     
     if (!user) {
       throw new Error("User does not exist");
     }
 
     // Send a confirmation url(contains jwt token) to the user via email
+    await this.mailService.sendResetPassword(user, token);
+
     
     return { message: 'A confirmation email has been sent to you.' }
   }
