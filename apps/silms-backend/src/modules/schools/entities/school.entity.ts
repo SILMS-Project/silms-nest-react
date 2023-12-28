@@ -12,7 +12,7 @@ export class School {
   @Column({ unique: true })
   abbreviation: string;
 
-  @OneToMany(() => Program, program => program.school)
+  @OneToMany(() => Program, program => program.school,{ cascade: true })
   programs: Program[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
