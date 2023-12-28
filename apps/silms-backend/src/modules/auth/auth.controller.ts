@@ -1,7 +1,7 @@
-import { Controller, UseGuards, Get, Post, Body, Request, Param} from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Request, Param} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ChangePasswordDto, ConfirmResetPasswordDto, CreateAuthDto, LoginUserDto, ResetPasswordDto } from './dto/create-auth.dto';
-import { JwtAuthGuard } from '@modules/auth/jwt-auth.guard';
+import { ChangePasswordDto, ConfirmResetPasswordDto, LoginUserDto, ResetPasswordDto } from './dto/create-auth.dto';
+import { JwtAuthGuard } from '@/modules/auth/guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -19,16 +19,15 @@ export class AuthController {
     return this.authService.changePassword(changePasswordDto);
   }
 
-  // @UseGuards(JwtAuthGuard)
+  
   @Post('reset-password')
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return this.authService.resetPassword(resetPasswordDto.email);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Post('confirm-reset-password')
-  async confirmResetPassword (@Body() confirmResetPassword: ConfirmResetPasswordDto, @Request() req) {
-    return this.authService.confirmResetPassword(confirmResetPassword, req.rawHeaders[11]);
+  @Post('confirm-reset-password/:token')
+  async confirmResetPassword (@Param('token') token: string, @Body() confirmResetPassword: ConfirmResetPasswordDto) {
+    return this.authService.confirmResetPassword(confirmResetPassword, token);
   }
 
   @Post('verify-account/:token')
