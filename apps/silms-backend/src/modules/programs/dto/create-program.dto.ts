@@ -22,7 +22,7 @@ export class CreateProgramDto {
   readonly courses: Course[];
   
   @ApiProperty()
-  // @IsNotEmpty({ message: 'Requirements are required' })
+  @IsNotEmpty({ message: 'Requirements are required' })
   @IsString({ message: 'Requirements should be a string' })
   readonly requirements: string;
 }
