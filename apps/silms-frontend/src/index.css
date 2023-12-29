@@ -1,3 +1,4 @@
+/* CSS Variables */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,6 +8,39 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+
+/* Typography */
+body {
+  font-size: 16pt;
+  font-weight: regular;
+}
+
+h1 {
+  font-size: 36pt;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 24pt;
+  font-weight: medium;
+}
+
+h3 {
+  font-size: 20pt;
+  font-weight: medium;
+}
+
+p {
+  font-size: 16pt;
+  font-weight: regular;
+}
+
+/* Captions */
+span.caption {
+  font-size: 12pt;
+  font-weight: regular;
+}
+
 
 /* @media (prefers-color-scheme: dark) {
   :root {
