@@ -1,5 +1,7 @@
+import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsArray } from 'class-validator';
+import { IsNotEmpty, IsString, IsArray, ValidateNested } from 'class-validator';
+import {  Course } from '@modules/courses/entities/course.entity'; 
 
 export class CreateProgramDto {
   @ApiProperty()
@@ -12,14 +14,15 @@ export class CreateProgramDto {
   @IsString({ message: 'Description should be a string' })
   readonly description: string;
 
-  @ApiProperty({ type: [String], example: ['Course A', 'Course B'] })
+  @ApiProperty({ type: [Course], example: [{ courseCode: 'A', courseTitle: 'Course A', unit: 3, semester: 1, p: 4 }] })
   @IsNotEmpty({ message: 'Courses are required' })
   @IsArray({ message: 'Courses should be an array' })
-  @IsString({ each: true, message: 'Each course should be a string' })
-  readonly courses: string[];
-
+  @ValidateNested({ each: true })
+  @Type(() => Course)
+  readonly courses: Course[];
+  
   @ApiProperty()
-  @IsNotEmpty({ message: 'Requirements are required' })
+  // @IsNotEmpty({ message: 'Requirements are required' })
   @IsString({ message: 'Requirements should be a string' })
   readonly requirements: string;
 }
