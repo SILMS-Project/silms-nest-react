@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Controller, UseGuards, Post, Body, Request, Param, Version} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ChangePasswordDto, ConfirmResetPasswordDto, LoginUserDto, ResetPasswordDto } from './dto/create-auth.dto';
+import { JwtAuthGuard } from '@/modules/auth/guards/jwt-auth.guard';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { version } from 'os';
 
 @ApiTags('auth')
@@ -10,54 +10,45 @@ import { version } from 'os';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // @ApiOperation is added to provide information about the endpoint in Swagger documentation
-  // @ApiResponse is added to specify the response status and description
-
   @Version('1')
-  // POST /auth
-  @Post()
-  @ApiOperation({ summary: 'Create a new authentication record' })
-  @ApiResponse({ status: 201, description: 'Authentication record successfully created' })
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+  @ApiOperation({ summary: 'Login' })
+  @ApiResponse({ status: 201, description: 'Login successful.' })
+  @Post('login')
+  async login(@Body() loginUserDto: LoginUserDto) {
+    
+    return this.authService.login(loginUserDto);
   }
 
   @Version('1')
-  // GET /auth
-  @Get()
-  @ApiOperation({ summary: 'Get all authentication records' })
-  @ApiResponse({ status: 200, description: 'List of all authentication records' })
-  findAll() {
-    return this.authService.findAll();
+  @ApiOperation({ summary: 'Change Password' })
+  @ApiResponse({ status: 201, description: 'Password changed succesfully.' })
+  @UseGuards(JwtAuthGuard)
+  @Post('change-password')
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
+    return this.authService.changePassword(changePasswordDto);
   }
 
   @Version('1')
-  // GET /auth/:id
-  @Get(':id')
-  @ApiOperation({ summary: 'Get an authentication record by ID' })
-  @ApiResponse({ status: 200, description: 'Authentication record found by ID' })
-  @ApiResponse({ status: 404, description: 'Authentication record not found' })
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+  @ApiOperation({ summary: 'Reset Password' })
+  @ApiResponse({ status: 201, description: 'A confirmation email has been sent to you.' })
+  @Post('reset-password')
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    return this.authService.resetPassword(resetPasswordDto.email);
   }
 
   @Version('1')
-  // PATCH /auth/:id
-  @Patch(':id')
-  @ApiOperation({ summary: 'Update an authentication record by ID' })
-  @ApiResponse({ status: 200, description: 'Authentication record successfully updated' })
-  @ApiResponse({ status: 404, description: 'Authentication record not found' })
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
+  @ApiOperation({ summary: 'Confirm Reset Password' })
+  @ApiResponse({ status: 201, description: 'Password reset succefully.' })
+  @Post('confirm-reset-password/:token')
+  async confirmResetPassword (@Param('token') token: string, @Body() confirmResetPassword: ConfirmResetPasswordDto) {
+    return this.authService.confirmResetPassword(confirmResetPassword, token);
   }
 
+
   @Version('1')
-  // DELETE /auth/:id
-  @Delete(':id')
-  @ApiOperation({ summary: 'Delete an authentication record by ID' })
-  @ApiResponse({ status: 200, description: 'Authentication record successfully deleted' })
-  @ApiResponse({ status: 404, description: 'Authentication record not found' })
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
-  }
+  @ApiOperation({ summary: 'Verify account' })
+  @ApiResponse({ status: 201, description: 'Account verified.' })
+  @Post('verify-account/:token')
+  async verifyAccount (@Param('token') token: string) {
+    return this.authService.verifyAccount(token);
 }

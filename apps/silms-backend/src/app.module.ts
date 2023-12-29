@@ -24,6 +24,7 @@ import { CoursesModule } from './modules/courses/courses.module';
 import { LecturersModule } from './modules/lecturers/lecturers.module';
 import { StudentCoursesModule } from './modules/student-courses/student-courses.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { AuthModule } from './modules/auth/auth.module';
     LecturersModule,
     StudentCoursesModule,
     AuthModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [
