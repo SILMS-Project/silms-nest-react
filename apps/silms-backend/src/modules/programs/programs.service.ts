@@ -5,9 +5,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {  Program } from '@modules/programs/entities/program.entity'; 
 import {  Course } from '@modules/courses/entities/course.entity'; 
 import { Repository } from 'typeorm';
+import { School } from '../schools/entities/school.entity';
 @Injectable()
 export class ProgramsService {
-  constructor(@InjectRepository(Program) private readonly programRepository:Repository<Program>){}
+  constructor(@InjectRepository(Program) private readonly programRepository:Repository<Program>,
+  @InjectRepository(School) private readonly schoolRepository:Repository<School>){}
   async create(createProgramDto: CreateProgramDto) {
     try{
       const program =new Program
@@ -25,6 +27,11 @@ export class ProgramsService {
         course.image=courseDto.image
         return course;
       });
+      const school = await this.schoolRepository.findOne({where:{id:createProgramDto.schoolId},});
+      if (!program) {
+        throw new Error(`Program with id ${createProgramDto.schoolId} not found`);
+      }
+      program.school = school;
       program.courses=courses
       const savedProgram = await this.programRepository.save(program);
       return savedProgram;

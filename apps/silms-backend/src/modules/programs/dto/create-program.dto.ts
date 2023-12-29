@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsArray, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsString, IsArray, ValidateNested, IsUUID } from 'class-validator';
 import {  Course } from '@modules/courses/entities/course.entity'; 
 
 export class CreateProgramDto {
@@ -25,4 +25,9 @@ export class CreateProgramDto {
   @IsNotEmpty({ message: 'Requirements are required' })
   @IsString({ message: 'Requirements should be a string' })
   readonly requirements: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'School ID is required' })
+  @IsUUID('4', { message: 'Invalid School ID format' })
+  readonly schoolId: string;
 }

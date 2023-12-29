@@ -19,15 +19,10 @@ export class CoursesService {
     course.semester = createCourseDto.semester;
     course.description = createCourseDto.description || null;
     course.image = createCourseDto.image || null;
-    
     const program = await this.programRepository.findOne({where:{id:createCourseDto.programId},});
-
-    // Check if the program exists before associating it with the course
     if (!program) {
       throw new Error(`Program with id ${createCourseDto.programId} not found`);
     }
-
-    // Assign the program to the course
     course.program = program;
     const savedCourse = await this.courseRepository.save(course);
 
