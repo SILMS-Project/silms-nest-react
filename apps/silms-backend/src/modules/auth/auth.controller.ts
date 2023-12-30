@@ -52,3 +52,4 @@ export class AuthController {
   async verifyAccount (@Param('token') token: string) {
     return this.authService.verifyAccount(token);
 }
+}

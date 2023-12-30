@@ -13,7 +13,7 @@ export class Program {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @OneToMany(() => Course, course => course.program)
+  @OneToMany(() => Course, course => course.program,{ cascade: true })
   courses: Course[];
 
   @Column({ type: 'text', nullable: true })
