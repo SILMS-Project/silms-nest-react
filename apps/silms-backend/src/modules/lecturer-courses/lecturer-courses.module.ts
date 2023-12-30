@@ -3,7 +3,7 @@ import { LecturerCoursesService } from './lecturer-courses.service';
 import { LecturerCoursesController } from './lecturer-courses.controller';
 
 @Module({
+  controllers: [LecturerCoursesController],
   providers: [LecturerCoursesService],
-  controllers: [LecturerCoursesController]
 })
 export class LecturerCoursesModule {}

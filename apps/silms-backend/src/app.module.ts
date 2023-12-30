@@ -57,6 +57,7 @@ import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-cours
     CoursesModule,
     LecturersModule,
     StudentCoursesModule,
+    LecturerCoursesModule,
     AuthModule,
     MailModule,
     LecturerCoursesModule,
