@@ -1,6 +1,7 @@
 
+import { LecturerCourses } from "@/modules/lecturer-courses/entities/lecturer-courses.entity";
 import { Profile } from "@/modules/users/entities/profile.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Lecturer {
@@ -17,4 +18,6 @@ export class Lecturer {
     @JoinColumn()
     profile: Profile;
 
+    @OneToMany(() => LecturerCourses, lecturerCourses => lecturerCourses.lecturer, {cascade: true})
+    lecturerCourses: LecturerCourses[];
 }
