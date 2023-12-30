@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ProgramsService } from './programs.service';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { UpdateProgramDto } from './dto/update-program.dto';
-
+import { Program } from './entities/program.entity';
 @ApiTags('programs')
 @Controller('programs')
 export class ProgramsController {
@@ -25,8 +25,8 @@ export class ProgramsController {
   // GET /programs
   @Get()
   @ApiOperation({ summary: 'Get all programs' })
-  @ApiResponse({ status: 200, description: 'List of all programs' })
-  findAll() {
+  @ApiResponse({ status: 200, description: 'List of all programs', type: Program, isArray: true })
+  async findAll(): Promise<Program[]> {
     return this.programsService.findAll();
   }
 
