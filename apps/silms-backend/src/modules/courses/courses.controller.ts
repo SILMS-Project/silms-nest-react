@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { Course } from './entities/course.entity';
 
 @ApiTags('courses')
 @Controller('courses')
@@ -25,8 +26,8 @@ export class CoursesController {
   // GET /courses
   @Get()
   @ApiOperation({ summary: 'Get all courses' })
-  @ApiResponse({ status: 200, description: 'List of all courses' })
-  findAll() {
+  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
+  async findAll(): Promise<Course[]> {
     return this.coursesService.findAll();
   }
 
