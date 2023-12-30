@@ -18,7 +18,7 @@ import { ConfigService } from '@nestjs/config';
         },
       },
       defaults: {
-        from: `"Wisr" <${configService.get('EMAIL_FROM')}>`,
+        from: configService.get('EMAIL_FROM'),
       },
       template: {
         dir: join(__dirname, 'templates'),
