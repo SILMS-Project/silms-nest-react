@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, OneToMany } from 'typeorm';
 import { Program } from '@modules/programs/entities/program.entity';
+import { LecturerCourses } from '@/modules/lecturer-courses/entities/lecturer-courses.entity';
 
 
 @Entity('courses')
@@ -37,4 +38,7 @@ export class Course {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  @OneToMany( ()=> LecturerCourses, lecturerCourses => lecturerCourses.course)
+  lecturerCourses: LecturerCourses[];
 }
