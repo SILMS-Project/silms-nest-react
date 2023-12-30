@@ -3,20 +3,22 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { MailService } from './mail.service';
 import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    MailerModule.forRoot({
+    MailerModule.forRootAsync({
+      useFactory: async (configService: ConfigService) => ({
       transport: {
-        host: process.env.EMAIL_HOST,
+        host: configService.get('EMAIL_HOST'),
         secure: false,
         auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASSWORD,
+          user: configService.get('EMAIL_USER'),
+          pass: configService.get('EMAIL_PASSWORD'),
         },
       },
       defaults: {
-        from: `"Wisr" <${process.env.EMAIL_FROM}>`,
+        from: `"Wisr" <${configService.get('EMAIL_FROM')}>`,
       },
       template: {
         dir: join(__dirname, 'templates'),
@@ -26,6 +28,8 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
         },
       },
     }),
+    inject: [ConfigService],
+  }),
   ],
   providers: [MailService],
   exports: [MailService]
