@@ -17,6 +17,7 @@ export class CoursesService {
     if (!program) {
       throw new Error(`Program with id ${createCourseDto.programId} does not exist`);
     }
+    course.program = program;
     const savedCourse = await this.courseRepository.save(course);
     return savedCourse;
   }
@@ -36,6 +37,27 @@ export class CoursesService {
     return courses
   }
 
+  async findCourseByLevel(level:number){
+    const courses=await this.courseRepository.find({where:{level:level}})
+    return courses
+  }
+  async findCourseByLevelProgram(programId:string,level:number){
+    const courses=await this.courseRepository.find({where:{program: { id: programId },
+      level:level}})
+    return courses
+  }
+
+  // async findCourseByLevelProgramSemester(programId:string,level:number){
+  //   const courses = await this.courseRepository.find({
+  //     where: {
+  //       program: { id: programId },
+  //       level: level,
+  //       semester: semester,
+  //     },
+  //   });
+
+  //   return courses;
+  // }
   update(id: number, updateCourseDto: UpdateCourseDto) {
     return `This action updates a #${id} course`;
   }

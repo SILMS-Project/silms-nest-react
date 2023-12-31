@@ -19,6 +19,7 @@ export class ProgramsService {
       if (!school) {
         throw new Error(`school with id ${createProgramDto.schoolId} not found`);
       }
+      program.school=school
       const savedProgram = await this.programRepository.save(program);
       return savedProgram;
     } catch (error) {
@@ -30,10 +31,7 @@ export class ProgramsService {
     return program;
   }
 
-  async findCoursesByProgram(programId:string){
-    const courses=await this.courseRepository.find({where:{ program: { id: programId }}})
-    return courses
-  }
+
   findOne(id: number) {
     return `This action returns a #${id} program`;
   }
