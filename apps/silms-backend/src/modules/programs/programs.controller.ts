@@ -4,7 +4,6 @@ import { ProgramsService } from './programs.service';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { UpdateProgramDto } from './dto/update-program.dto';
 import { Program } from './entities/program.entity';
-import { Course } from '../courses/entities/course.entity';
 @ApiTags('programs')
 @Controller('programs')
 export class ProgramsController {
@@ -39,14 +38,6 @@ export class ProgramsController {
   @ApiResponse({ status: 404, description: 'Program not found' })
   findOne(@Param('id') id: string) {
     return this.programsService.findOne(+id);
-  }
-  @Version('1')
-  // GET /programs/courses/:id
-  @Get('courses/:id')
-  @ApiOperation({ summary: 'Get all courses under a program' })
-  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
-  findCoursesByProgram(@Param('id') id:string) {
-    return this.programsService.findCoursesByProgram(id);
   }
 
   @Version('1')

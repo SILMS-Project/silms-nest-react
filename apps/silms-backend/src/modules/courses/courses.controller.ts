@@ -40,6 +40,14 @@ export class CoursesController {
   findOne(@Param('id') id: string) {
     return this.coursesService.findOne(+id);
   }
+  @Version('1')
+  // GET /program/:id
+  @Get('program/:id')
+  @ApiOperation({ summary: 'Get all courses under a program' })
+  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
+  findCoursesByProgram(@Param('id') id:string) {
+    return this.coursesService.findCoursesByProgram(id);
+  }
 
   @Version('1')
   // PATCH /courses/:id

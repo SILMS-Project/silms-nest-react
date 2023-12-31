@@ -31,6 +31,11 @@ export class CoursesService {
     return `This action returns a #${id} course`;
   }
 
+  async findCoursesByProgram(programId:string){
+    const courses=await this.courseRepository.find({where:{ program: { id: programId }}})
+    return courses
+  }
+
   update(id: number, updateCourseDto: UpdateCourseDto) {
     return `This action updates a #${id} course`;
   }
