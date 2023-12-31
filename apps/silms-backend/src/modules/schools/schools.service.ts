@@ -53,16 +53,16 @@ export class SchoolsService {
   // }
   async update(id: string, updateSchoolDto: UpdateSchoolDto): Promise<School> {
     const school = await this.findOne(id);
-
+  
     // Update the properties based on the fields provided in the updateSchoolDto
     if (updateSchoolDto.name) {
       school.name = updateSchoolDto.name;
     }
-
+  
     if (updateSchoolDto.abbreviation) {
       school.abbreviation = updateSchoolDto.abbreviation;
     }
-
+  
     if (updateSchoolDto.programs) {
       // Assuming that programs is an array of strings in the updateSchoolDto
       school.programs = updateSchoolDto.programs.map((programName: string) => {
@@ -71,11 +71,12 @@ export class SchoolsService {
         return program;
       });
     }
-
+  
     // Save the updated school entity
     const updatedSchool = await this.schoolRepository.save(school);
     return updatedSchool;
   }
+  
 
   remove(id: number) {
     return `This action removes a #${id} school`;

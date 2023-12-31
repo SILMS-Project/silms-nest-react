@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Version,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SchoolsService } from './schools.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
@@ -6,7 +15,6 @@ import { UpdateSchoolDto } from './dto/update-school.dto';
 
 @ApiTags('schools')
 @Controller('schools')
-
 export class SchoolsController {
   constructor(private readonly schoolsService: SchoolsService) {}
 
@@ -48,7 +56,7 @@ export class SchoolsController {
   @ApiResponse({ status: 200, description: 'School successfully updated' })
   @ApiResponse({ status: 404, description: 'School not found' })
   update(@Param('id') id: string, @Body() updateSchoolDto: UpdateSchoolDto) {
-    return this.schoolsService.update(+id, updateSchoolDto);
+    return this.schoolsService.update(id, updateSchoolDto);
   }
 
   @Version('1')
