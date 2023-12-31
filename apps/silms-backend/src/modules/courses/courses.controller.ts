@@ -42,7 +42,7 @@ export class CoursesController {
   }
   @Version('1')
   // GET courses/program/:id
-  @Get('program/:id')
+  @Get('program/id/:id')
   @ApiOperation({ summary: 'Get all courses under a program' })
   @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
   findCoursesByProgram(@Param('id') id:string) {
@@ -52,11 +52,24 @@ export class CoursesController {
   @Version('1')
   // GET courses/level/:lvl
   @Get('level/:lvl')
-  @ApiOperation({ summary: 'Get all courses under a program' })
-  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
+  @ApiOperation({ summary: 'Get all courses at specific a level' })
+  @ApiResponse({ status: 200, description: 'List of all courses ', type: Course, isArray: true })
   findCoursesByLevel(@Param('lvl') level:number) {
     return this.coursesService.findCourseByLevel(level);
   }
+
+  
+  @Version('1')
+  // GET courses/program-level
+  @Get('program/level')
+  @ApiOperation({ summary: 'Get all courses at a specific level within a program' })
+  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
+  findCoursesByLevelProgram(@Body() requestBody: { programId: string, level: number }) {
+    const { programId, level } = requestBody;
+    return this.coursesService.findCourseByLevelProgram(programId, level);
+  }
+  
+
 
 
   @Version('1')
