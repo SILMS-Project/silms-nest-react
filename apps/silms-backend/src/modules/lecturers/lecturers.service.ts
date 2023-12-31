@@ -33,19 +33,32 @@ export class LecturersService {
     return this.lecturerRepository.save(newLecturer);
   }
 
-  findAll() {
-    return `This action returns all lecturers`;
+  async findAll() {
+    return await this.lecturerRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} lecturer`;
+
+  async findById(id: string) {
+
+    const lecturer = await this.lecturerRepository.findOne({where: {id}});
+    if (!lecturer) {
+      throw new Error("Lecturer not found.");
+    }
+
+    return lecturer
   }
 
-  update(id: number, updateLecturerDto: UpdateLecturerDto) {
-    return `This action updates a #${id} lecturer`;
+  async update(id: string, updateLecturerDto: UpdateLecturerDto) {
+    const lecturer = await this.findById(id);
+    return await this.lecturerRepository.update(lecturer.id, updateLecturerDto).then(() => {
+      return "Lecturer updated successfully."
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} lecturer`;
+  async remove(id: string) {
+    const lecturer = await this.findById(id);
+    return await this.lecturerRepository.delete(lecturer).then(() => {
+      return "Lecturer deleted successfully."
+    })
   }
 }

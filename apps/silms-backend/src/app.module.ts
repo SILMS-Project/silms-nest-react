@@ -60,6 +60,7 @@ import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-cours
     LecturerCoursesModule,
     AuthModule,
     MailModule,
+    LecturerCoursesModule,
   ],
   controllers: [AppController],
   providers: [

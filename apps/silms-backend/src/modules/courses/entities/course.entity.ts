@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
 import { Program } from '@modules/programs/entities/program.entity';
-
 
 @Entity('courses')
 export class Course {
@@ -37,4 +36,5 @@ export class Course {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
 }
