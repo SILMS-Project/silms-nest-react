@@ -10,6 +10,7 @@ import { program } from '@babel/template';
 @Injectable()
 export class ProgramsService {
   constructor(@InjectRepository(Program) private readonly programRepository:Repository<Program>,
+  @InjectRepository(Course) private readonly courseRepository: Repository<Course>,
   @InjectRepository(School) private readonly schoolRepository:Repository<School>){}
   async create(createProgramDto: CreateProgramDto) {
     try{
@@ -29,7 +30,10 @@ export class ProgramsService {
     return program;
   }
 
-
+  async findCoursesByProgram(programId:string){
+    const courses=await this.courseRepository.find({where:{ program: { id: programId }}})
+    return courses
+  }
   findOne(id: number) {
     return `This action returns a #${id} program`;
   }
