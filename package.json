@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/SILMS-Project/silms-nest-react#readme",
   "devDependencies": {
+    "@golevelup/ts-jest": "^0.4.0",
     "turbo": "^1.11.2"
   },
   "workspaces": [
