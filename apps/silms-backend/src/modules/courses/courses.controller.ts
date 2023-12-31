@@ -40,6 +40,46 @@ export class CoursesController {
   findOne(@Param('id') id: string) {
     return this.coursesService.findById(id);
   }
+  @Version('1')
+  // GET courses/program/id/:id
+  @Get('program/id/:id')
+  @ApiOperation({ summary: 'Get all courses under a program' })
+  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
+  findCoursesByProgram(@Param('id') id:string) {
+    return this.coursesService.findCourseByProgram(id);
+  }
+
+  @Version('1')
+  // GET courses/level/:lvl
+  @Get('level/:lvl')
+  @ApiOperation({ summary: 'Get all courses at specific a level' })
+  @ApiResponse({ status: 200, description: 'List of all courses ', type: Course, isArray: true })
+  findCoursesByLevel(@Param('lvl') level:number) {
+    return this.coursesService.findCourseByLevel(level);
+  }
+
+  
+  @Version('1')
+  // GET courses/program/level
+  @Get('program/level')
+  @ApiOperation({ summary: 'Get all courses at a specific level within a program' })
+  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
+  findCoursesByLevelProgram(@Body() requestBody: { programId: string, level: number }) {
+    const { programId, level } = requestBody;
+    return this.coursesService.findCourseByLevelProgram(programId, level);
+  }
+  
+  @Version('1')
+  // GET courses/program/level/semester
+  @Get('program/level/semester')
+  @ApiOperation({ summary: 'Get all courses at a specific level and semester within a program' })
+  @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
+  findCoursesByLevelProgramSemester(@Body() requestBody: { programId: string, level: number ,semester:number}) {
+    const { programId, level ,semester} = requestBody;
+    return this.coursesService.findCourseByLevelProgramSemester(programId, level,semester);
+  }
+  
+
 
   @Version('1')
   // PATCH /courses/:id
@@ -48,7 +88,7 @@ export class CoursesController {
   @ApiResponse({ status: 200, description: 'Course successfully updated' })
   @ApiResponse({ status: 404, description: 'Course not found' })
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.coursesService.update(+id, updateCourseDto);
+    return this.coursesService.update(id, updateCourseDto);
   }
 
   @Version('1')
