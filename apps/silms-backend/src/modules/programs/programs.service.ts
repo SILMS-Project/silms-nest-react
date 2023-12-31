@@ -6,6 +6,7 @@ import {  Program } from '@modules/programs/entities/program.entity';
 import {  Course } from '@modules/courses/entities/course.entity'; 
 import { Repository } from 'typeorm';
 import { School } from '../schools/entities/school.entity';
+import { program } from '@babel/template';
 @Injectable()
 export class ProgramsService {
   constructor(@InjectRepository(Program) private readonly programRepository:Repository<Program>,
@@ -39,9 +40,11 @@ export class ProgramsService {
       return { message: 'Failed to create program', error: error.message || error };
     }
   }
-  findAll() {
-    return `This action returns all programs`;
+  async findAll():  Promise<Program[]>{
+    const program = await this.programRepository.find();
+    return program;
   }
+
 
   findOne(id: number) {
     return `This action returns a #${id} program`;

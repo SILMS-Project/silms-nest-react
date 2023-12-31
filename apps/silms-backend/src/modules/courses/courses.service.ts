@@ -30,8 +30,9 @@ export class CoursesService {
   }
 
 
-  findAll() {
-    return `This action returns all courses`;
+  async findAll():  Promise<Course[]>{
+    const courses = await this.courseRepository.find();
+    return courses;
   }
 
   findOne(id: number) {
