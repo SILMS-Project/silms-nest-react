@@ -46,7 +46,7 @@ export class CoursesController {
   @ApiOperation({ summary: 'Get all courses under a program' })
   @ApiResponse({ status: 200, description: 'List of all courses', type: Course, isArray: true })
   findCoursesByProgram(@Param('id') id:string) {
-    return this.coursesService.findCoursesByProgram(id);
+    return this.coursesService.findCourseByProgram(id);
   }
 
   @Version('1')
@@ -88,7 +88,7 @@ export class CoursesController {
   @ApiResponse({ status: 200, description: 'Course successfully updated' })
   @ApiResponse({ status: 404, description: 'Course not found' })
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.coursesService.update(+id, updateCourseDto);
+    return this.coursesService.update(id, updateCourseDto);
   }
 
   @Version('1')

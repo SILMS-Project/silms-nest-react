@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -32,7 +32,7 @@ export class CoursesService {
     return `This action returns a #${id} course`;
   }
 
-  async findCoursesByProgram(programId:string){
+  async findCourseByProgram(programId:string){
     const courses=await this.courseRepository.find({where:{ program: { id: programId }}})
     return courses
   }
@@ -58,8 +58,29 @@ export class CoursesService {
 
     return courses;
   }
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course`;
+  async update(id: string, updateCourseDto: UpdateCourseDto): Promise<Course> {
+    const course = await this.courseRepository.findOne({where:{id:id}});
+
+    if (!course) {
+      throw new NotFoundException(`Course with ID ${id} not found`);
+    }
+    if (updateCourseDto.programId) {
+      // Assuming you have a repository for Program, fetch the Program
+      const program = await this.programRepository.findOne({where:{id:updateCourseDto.programId}});
+  
+      if (!program) {
+        throw new Error(`Program with id ${updateCourseDto.programId} not found`);
+      }
+  
+      // Update the relationship
+      course.program = program;
+    }
+  
+    Object.assign(course, updateCourseDto);
+
+    const updatedCourse = await this.courseRepository.save(course);
+
+    return updatedCourse;
   }
 
   remove(id: number) {
