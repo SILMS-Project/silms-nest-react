@@ -90,7 +90,15 @@ export class StudentCoursesController {
     description: 'Student course successfully deleted',
   })
   @ApiResponse({ status: 404, description: 'Student course not found' })
-  remove(@Param('id') id: string) {
-    return this.studentCoursesService.remove(+id);
+  async remove(@Param('id') id: string, @Res() res: any) {
+    try {
+      const deletedStudentCourse = await this.studentCoursesService.remove(id);
+      if (!deletedStudentCourse) {
+        throw new HttpException(`Student course with ID ${id} not found`, HttpStatus.NOT_FOUND);
+      }
+      return res.status(HttpStatus.OK).json(deletedStudentCourse);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

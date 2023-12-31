@@ -17,10 +17,10 @@ export class StudentCourse {
   @Column({ nullable: true })
   grade: string;
 
-  @Column({ nullable: true })
+  @Column({ default: 'active' })
   status: string;
 
-  @Column({ nullable: true })
+  @Column({ default: 0 })
   progress: number;
 
   @Column({ nullable: true })
