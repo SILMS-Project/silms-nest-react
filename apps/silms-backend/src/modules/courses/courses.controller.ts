@@ -14,7 +14,7 @@ export class CoursesController {
 
   @Version('1')
   // POST /courses
-  @Post()
+  @Post("create")
   @ApiOperation({ summary: 'Create a new course' })
   @ApiResponse({ status: 201, description: 'Course successfully created' })
   create(@Body() createCourseDto: CreateCourseDto) {
@@ -37,7 +37,7 @@ export class CoursesController {
   @ApiResponse({ status: 200, description: 'Course found by ID' })
   @ApiResponse({ status: 404, description: 'Course not found' })
   findOne(@Param('id') id: string) {
-    return this.coursesService.findOne(+id);
+    return this.coursesService.findById(id);
   }
 
   @Version('1')

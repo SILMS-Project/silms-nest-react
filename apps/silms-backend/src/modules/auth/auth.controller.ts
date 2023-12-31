@@ -1,9 +1,8 @@
-import { Controller, UseGuards, Post, Body, Request, Param, Version} from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Param, Version} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ChangePasswordDto, ConfirmResetPasswordDto, LoginUserDto, ResetPasswordDto } from './dto/create-auth.dto';
 import { JwtAuthGuard } from '@/modules/auth/guards/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { version } from 'os';
 
 @ApiTags('auth')
 @Controller('auth')

@@ -1,34 +1,45 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
 import { LecturerCoursesService } from './lecturer-courses.service';
 import { CreateLecturerCourseDto } from './dto/create-lecturer-course.dto';
 import { UpdateLecturerCourseDto } from './dto/update-lecturer-course.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('lecturer-course')
 @Controller('lecturer-courses')
 export class LecturerCoursesController {
   constructor(private readonly lecturerCoursesService: LecturerCoursesService) {}
 
-  @Post()
+  @Version('1')
+  @Post('create')
   create(@Body() createLecturerCourseDto: CreateLecturerCourseDto) {
     return this.lecturerCoursesService.create(createLecturerCourseDto);
   }
 
+  @Version('1')
   @Get()
   findAll() {
     return this.lecturerCoursesService.findAll();
   }
 
+  @Version('1')
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.lecturerCoursesService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.lecturerCoursesService.findById(id);
+  }
+
+  @Version('1')
+  @Get('lecturer/:lecturerId')
+  async findCoursesByLecturer(@Param('lecturerId') lecturerId: string) {
+    return await this.lecturerCoursesService.findCoursesByLecturer(lecturerId);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLecturerCourseDto: UpdateLecturerCourseDto) {
-    return this.lecturerCoursesService.update(+id, updateLecturerCourseDto);
+    return this.lecturerCoursesService.update(id, updateLecturerCourseDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.lecturerCoursesService.remove(+id);
+    return this.lecturerCoursesService.remove(id);
   }
 }
