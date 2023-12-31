@@ -44,6 +44,13 @@ export class LecturerCoursesController {
   }
 
   @Version('1')
+  @ApiOperation({ summary: 'Unassigned lecture from Course' })
+  @Post('unassigned')
+  async unassignLecturerToCourse(@Body() createLecturerCourseDto: CreateLecturerCourseDto) {
+    return this.lecturerCoursesService.unassignLectureToCourse(createLecturerCourseDto);
+  }
+
+  @Version('1')
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLecturerCourseDto: UpdateLecturerCourseDto) {
     return this.lecturerCoursesService.update(id, updateLecturerCourseDto);
