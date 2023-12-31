@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Program } from '@modules/programs/entities/program.entity';
+import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
 
 
 @Entity('courses')
@@ -27,6 +28,9 @@ export class Course {
 
   @ManyToOne(() => Program, program => program.courses)
   program: Program;
+
+  @OneToMany(() => StudentCourse, studentCourse => studentCourse.course)
+  studentCourses: StudentCourse[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
