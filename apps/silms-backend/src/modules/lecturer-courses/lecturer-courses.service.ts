@@ -7,7 +7,6 @@ import { LecturerCourses } from './entities/lecturer-courses.entity';
 import { Repository } from 'typeorm';
 import { LecturersService } from '../lecturers/lecturers.service';
 import { CoursesService } from '../courses/courses.service';
-import { Course } from '../courses/entities/course.entity';
 
 @Injectable()
 export class LecturerCoursesService {
@@ -50,8 +49,17 @@ export class LecturerCoursesService {
 
   async findCoursesByLecturer(lecturerId: string) {
     const lecturerCourses = await this.lecturerCoursesRepository.find({where: {lecturer: lecturerId}});
-    const courses = await Promise.all(lecturerCourses.map(lecturerCourse => this.coursesService.findById(lecturerCourse.course)));
-    return courses;
+    return await Promise.all(lecturerCourses.map(
+        lecturerCourse => this.coursesService.findById(lecturerCourse.course)
+      )
+      );
+  }
+
+  async findLecturersByCourse(courseId: string) {
+    const lecturerCourses = await this.lecturerCoursesRepository.find({where: {course: courseId}});
+    const lecturer = await Promise.all(lecturerCourses.map(lecturerCourse => this.lecturersService.findById(lecturerCourse.lecturer)));
+    
+    return lecturer;
   }
   
   async findByLecturerId(lecturerId: string) {

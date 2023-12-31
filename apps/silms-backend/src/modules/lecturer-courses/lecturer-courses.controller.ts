@@ -28,9 +28,15 @@ export class LecturerCoursesController {
   }
 
   @Version('1')
-  @Get('lecturer/:lecturerId')
+  @Get('course/:lecturerId')
   async findCoursesByLecturer(@Param('lecturerId') lecturerId: string) {
     return await this.lecturerCoursesService.findCoursesByLecturer(lecturerId);
+  }
+
+  @Version('1')
+  @Get('lecturer/:courseId')
+  async findLecturersByCourse(@Param('courseId') courseId: string) {
+    return this.lecturerCoursesService.findLecturersByCourse(courseId);
   }
 
   @Patch(':id')
