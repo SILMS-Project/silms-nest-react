@@ -47,17 +47,17 @@ export class CoursesService {
     return courses
   }
 
-  // async findCourseByLevelProgramSemester(programId:string,level:number){
-  //   const courses = await this.courseRepository.find({
-  //     where: {
-  //       program: { id: programId },
-  //       level: level,
-  //       semester: semester,
-  //     },
-  //   });
+  async findCourseByLevelProgramSemester(programId:string,level:number,semester:number){
+    const courses = await this.courseRepository.find({
+      where: {
+        program: { id: programId },
+        level: level,
+        semester: semester,
+      },
+    });
 
-  //   return courses;
-  // }
+    return courses;
+  }
   update(id: number, updateCourseDto: UpdateCourseDto) {
     return `This action updates a #${id} course`;
   }
