@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Program } from '@modules/programs/entities/program.entity';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
+import { CourseModule } from '@/modules/course-modules/entities/course-module.entity';
 
 
 @Entity('courses')
@@ -31,6 +32,9 @@ export class Course {
 
   @ManyToOne(() => Program, program => program.courses)
   program: Program;
+
+  @OneToMany(() => CourseModule, courseModule => courseModule.course)
+  courseModules: CourseModule[];
 
   @OneToMany(() => StudentCourse, studentCourse => studentCourse.course)
   studentCourses: StudentCourse[];
