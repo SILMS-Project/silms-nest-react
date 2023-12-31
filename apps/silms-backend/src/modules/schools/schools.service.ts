@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
@@ -5,6 +6,8 @@ import { Repository } from 'typeorm';
 import { School } from '@modules/schools/entities/school.entity'; 
 import {  Program } from '@modules/programs/entities/program.entity'; 
 import { InjectRepository } from '@nestjs/typeorm';
+import { ILike } from 'typeorm';
+
 @Injectable()
 export class SchoolsService {
   constructor (@InjectRepository(School) private readonly schoolRepository: Repository<School>){}
@@ -47,6 +50,24 @@ export class SchoolsService {
 
     return school;
   }
+
+  //find school by abbrevation
+  async findSchoolByAbbreviation(abbreviation: string): Promise<School[] | undefined> {
+    const lowercaseAbbreviation = abbreviation.toLowerCase();
+    try {
+      const schools = await this.schoolRepository.find({
+        where: {
+          abbreviation: ILike(`%${lowercaseAbbreviation}%`), // Use Like for case-insensitive search
+        },
+        relations: ['programs']
+      });
+      return schools;
+    } catch (error) {
+      console.error('Error finding school by abbreviation:', error);
+      throw new NotFoundException(`School with Abbreviation ${abbreviation} not found`);
+    }
+  }
+  
 
   // update(id: number, updateSchoolDto: UpdateSchoolDto) {
   //   return `This action updates a #${id} school`;

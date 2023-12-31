@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -93,4 +94,20 @@ async update(@Param('id') id: string, @Res() res: any, @Body() updateStudentDto:
   remove(@Param('id') id: string) {
     return this.schoolsService.remove(+id);
   }
+
+  @Version('1')
+  //Get Schools by abbreviation
+  @Get('abbreviation/:abbreviation')
+  @ApiOperation({ summary: 'Get a school by abbreviation (case-insensitive)' })
+  @ApiResponse({ status: 200, description: 'School found by abbreviation' })
+  @ApiResponse({ status: 404, description: 'School not found' })
+  async findOneByAbbreviation(@Param('abbreviation') abbreviation: string) {
+    try{
+      return await this.schoolsService.findSchoolByAbbreviation(abbreviation);
+    }catch(error){
+        throw new HttpException(`School with abbreviation ${abbreviation} not found`, HttpStatus.NOT_FOUND);    
+  }
+
+  }
+
 }
