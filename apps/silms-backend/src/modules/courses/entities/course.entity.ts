@@ -17,6 +17,9 @@ export class Course {
   @Column({ type: 'text', nullable: true })
   description: string;
 
+  @Column({ type: 'text' })
+  courseType: string;
+
   @Column({ type: 'int' })
   unit: number;
 
