@@ -12,20 +12,12 @@ export class CoursesService {
   @InjectRepository(Program) private readonly programRepository: Repository<Program>,){}
 
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
-    const course = new Course();
-    course.courseCode = createCourseDto.courseCode;
-    course.courseTitle = createCourseDto.courseTitle;
-    course.unit = createCourseDto.unit;
-    course.semester = createCourseDto.semester;
-    course.description = createCourseDto.description || null;
-    course.image = createCourseDto.image || null;
+    const course = await this.courseRepository.save(createCourseDto)
     const program = await this.programRepository.findOne({where:{id:createCourseDto.programId},});
     if (!program) {
-      throw new Error(`Program with id ${createCourseDto.programId} not found`);
+      throw new Error(`Program with id ${createCourseDto.programId} does not exist`);
     }
-    course.program = program;
     const savedCourse = await this.courseRepository.save(course);
-
     return savedCourse;
   }
 
