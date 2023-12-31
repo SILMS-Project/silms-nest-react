@@ -72,7 +72,7 @@ export class SchoolsController {
 @ApiResponse({ status: 404, description: 'Student not found' })
 async update(@Param('id') id: string, @Res() res: any, @Body() updateStudentDto: UpdateStudentDto) {
   try {
-    const updatedStudent = await this.studentsService.update(+id, updateStudentDto);
+    const updatedStudent = await this.studentsService.update(id, updateStudentDto);
     if (updatedStudent) {
       return res.status(HttpStatus.OK).json({ student: updatedStudent });
     } else {
