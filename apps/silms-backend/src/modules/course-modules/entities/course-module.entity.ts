@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class CoruseModule {
+export class CourseModule {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
