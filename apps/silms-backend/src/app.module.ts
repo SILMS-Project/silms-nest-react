@@ -30,6 +30,7 @@ import { CourseContentsModule } from './modules/course-contents/course-contents.
 import { AssessmentsModule } from './modules/assessments/assessments.module';
 import { GradesModule } from './modules/grades/grades.module';
 import { SubmissionsModule } from './modules/submissions/submissions.module';
+import { CourseModulesModule } from './modules/course-modules/course-modules.module';
 
 @Module({
   imports: [
@@ -67,7 +68,8 @@ import { SubmissionsModule } from './modules/submissions/submissions.module';
     CourseContentsModule,
     AssessmentsModule,
     GradesModule,
-    SubmissionsModule
+    SubmissionsModule,
+    CourseModulesModule
   ],
   controllers: [AppController],
   providers: [
