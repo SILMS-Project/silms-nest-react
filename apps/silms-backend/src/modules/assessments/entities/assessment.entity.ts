@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { CourseModule } from '@/modules/course-modules/entities/course-module.entity';
 import { Submission } from '@/modules/submissions/entities/submission.entity';
 import { Grade } from '@/modules/grades/entities/grade.entity';
@@ -11,7 +17,7 @@ export class Assessment {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()
@@ -20,12 +26,12 @@ export class Assessment {
   @Column()
   totalGrade: number;
 
-  @ManyToOne(() => CourseModule, courseModule => courseModule.assessments)
+  @ManyToOne(() => CourseModule, (courseModule) => courseModule.assessments)
   courseModule: CourseModule;
 
-  @OneToMany(() => Submission, submission => submission.assessment)
+  @OneToMany(() => Submission, (submission) => submission.assessment)
   submissions: Submission[];
 
-  @OneToMany(() => Grade, grade => grade.assessment)
+  @OneToMany(() => Grade, (grade) => grade.assessment)
   grades: Grade[];
 }
