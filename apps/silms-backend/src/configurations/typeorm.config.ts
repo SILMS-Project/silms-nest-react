@@ -1,6 +1,6 @@
 import { Auth } from "@/modules/auth/entities/auth.entity";
 import { Course } from "@/modules/courses/entities/course.entity";
-import { LecturerCourse } from "@/modules/lecturer-courses/entities/lecturer-course.entity";
+import { LecturerCourses } from "@/modules/lecturer-courses/entities/lecturer-courses.entity";
 import { Lecturer } from "@/modules/lecturers/entities/lecturer.entity";
 import { Program } from "@/modules/programs/entities/program.entity";
 import { School } from "@/modules/schools/entities/school.entity";
@@ -20,15 +20,15 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     password: process.env.POSTGRES_PASSWORD, 
     url: process.env.POSTGRES_URL,
     entities: [
-      Auth,
-      Course,
-      LecturerCourse,
-      Lecturer,
-      Program,
-      School,
-      StudentCourse,
-      Student,
-      User,
+      // Auth,
+      // Course,
+      // LecturerCourses,
+      // Lecturer,
+      // Program,
+      // School,
+      // StudentCourse,
+      // Student,
+      // User,
     ],
     migrations: [__dirname + '/../database/migrations/*{.ts,.js}'], // Migration files directory
     extra: {
@@ -37,7 +37,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     synchronize: true, // Auto-create database tables based on entities (not recommended for production)
     autoLoadEntities: true, // Automatically load entity files
     logging: false, // Disable logging SQL queries
-    ssl: {
-      rejectUnauthorized: false, // Reject unauthorized SSL connections
-    },
+    // ssl: {
+    //   rejectUnauthorized: false, // Reject unauthorized SSL connections
+    // },
   }

@@ -4,7 +4,6 @@ import { StudentCourse } from '@/modules/student-courses/entities/student-course
 import { CourseModule } from '@/modules/course-modules/entities/course-module.entity';
 import { CourseType } from '@/utils/constants';
 
-
 @Entity('courses')
 export class Course {
   @PrimaryGeneratedColumn('uuid')
@@ -25,11 +24,15 @@ export class Course {
   @Column({ type: 'int' })
   unit: number;
 
+  @Column({type:'int'})
+  level:number;
+
   @Column({ type: 'int' })
   semester: number;
 
   @Column({ type: 'text', nullable: true })
   image: string;
+
 
   @ManyToOne(() => Program, program => program.courses)
   program: Program;
@@ -49,4 +52,5 @@ export class Course {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
 }

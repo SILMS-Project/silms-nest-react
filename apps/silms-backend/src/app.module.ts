@@ -69,7 +69,7 @@ import { CourseModulesModule } from './modules/course-modules/course-modules.mod
     AssessmentsModule,
     GradesModule,
     SubmissionsModule,
-    CourseModulesModule
+    CourseModulesModule,
   ],
   controllers: [AppController],
   providers: [

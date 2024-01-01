@@ -1,13 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Version,
+  Res,
+  HttpStatus,
+  HttpException,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SchoolsService } from './schools.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
+import { UpdateStudentDto } from '../students/dto/update-student.dto';
 
 @ApiTags('schools')
 @Controller('schools')
-
 export class SchoolsController {
+  studentsService: any;
   constructor(private readonly schoolsService: SchoolsService) {}
 
   // @ApiOperation is added to provide information about the endpoint in Swagger documentation
@@ -41,15 +55,35 @@ export class SchoolsController {
     return this.schoolsService.findOne(id);
   }
 
+  // @Version('1')
+  // // PATCH /schools/:id
+  // @Patch(':id')
+  // @ApiOperation({ summary: 'Update a school by ID' })
+  // @ApiResponse({ status: 200, description: 'School successfully updated' })
+  // @ApiResponse({ status: 404, description: 'School not found' })
+  // update(@Param('id') id: string, @Body() updateSchoolDto: UpdateSchoolDto) {
+  //   return this.schoolsService.update(id, updateSchoolDto);
+  // }
+
   @Version('1')
-  // PATCH /schools/:id
-  @Patch(':id')
-  @ApiOperation({ summary: 'Update a school by ID' })
-  @ApiResponse({ status: 200, description: 'School successfully updated' })
-  @ApiResponse({ status: 404, description: 'School not found' })
-  update(@Param('id') id: string, @Body() updateSchoolDto: UpdateSchoolDto) {
-    return this.schoolsService.update(+id, updateSchoolDto);
+// PATCH /students/:id
+@Patch(':id')
+@ApiOperation({ summary: 'Update a student by ID' })
+@ApiResponse({ status: 200, description: 'Student successfully updated' })
+@ApiResponse({ status: 404, description: 'Student not found' })
+async update(@Param('id') id: string, @Res() res: any, @Body() updateStudentDto: UpdateStudentDto) {
+  try {
+    const updatedStudent = await this.studentsService.update(id, updateStudentDto);
+    if (updatedStudent) {
+      return res.status(HttpStatus.OK).json({ student: updatedStudent });
+    } else {
+      throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
+    }
+  } catch (error) {
+    throw new HttpException('Failed to update student', HttpStatus.INTERNAL_SERVER_ERROR);
   }
+}
+
 
   @Version('1')
   // DELETE /schools/:id
@@ -60,4 +94,20 @@ export class SchoolsController {
   remove(@Param('id') id: string) {
     return this.schoolsService.remove(+id);
   }
+
+  @Version('1')
+  //Get Schools by abbreviation
+  @Get('abbreviation/:abbreviation')
+  @ApiOperation({ summary: 'Get a school by abbreviation (case-insensitive)' })
+  @ApiResponse({ status: 200, description: 'School found by abbreviation' })
+  @ApiResponse({ status: 404, description: 'School not found' })
+  async findOneByAbbreviation(@Param('abbreviation') abbreviation: string) {
+    try{
+      return await this.schoolsService.findSchoolByAbbreviation(abbreviation);
+    }catch(error){
+        throw new HttpException(`School with abbreviation ${abbreviation} not found`, HttpStatus.NOT_FOUND);    
+  }
+
+  }
+
 }

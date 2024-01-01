@@ -1,4 +1,4 @@
-
+import { Course } from "@/modules/courses/entities/course.entity";
 import { Profile } from "@/modules/users/entities/profile.entity";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -17,4 +17,5 @@ export class Lecturer {
     @JoinColumn()
     profile: Profile;
 
+    courses: Course[]
 }
