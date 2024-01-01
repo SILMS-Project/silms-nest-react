@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'ty
 import { Program } from '@modules/programs/entities/program.entity';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
 import { CourseModule } from '@/modules/course-modules/entities/course-module.entity';
+import { CourseType } from '@/utils/constants';
 
 
 @Entity('courses')
@@ -18,8 +19,8 @@ export class Course {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({ type: 'text' })
-  courseType: string;
+  @Column({default: CourseType.COMPULSORY})
+  courseType: CourseType;
 
   @Column({ type: 'int' })
   unit: number;
