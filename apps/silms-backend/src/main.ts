@@ -50,11 +50,7 @@ async function bootstrap() {
     ignoreGlobalPrefix: false,
   });
 
-  try {
-    SwaggerModule.setup('api', app, document);
-  } catch (error) {
-    this.logger.error(error);
-  }
+  
 
   // app.enableCors({ origin: [allowed] });
   app.enableCors();
@@ -66,6 +62,12 @@ async function bootstrap() {
   app.enableVersioning({
     type: VersioningType.URI,
   });
+
+  try {
+    SwaggerModule.setup('api', app, document);
+  } catch (error) {
+    this.logger.error(error);
+  }
 
   await app.listen(
     process.env.APP_SERVER_LISTEN_PORT,
