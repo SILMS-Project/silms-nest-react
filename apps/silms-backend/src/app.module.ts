@@ -16,6 +16,21 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { RequestLoggerMiddleware } from './utils/request-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './configurations/typeorm.config';
+import { UsersModule } from './modules/users/users.module';
+import { SchoolsModule } from './modules/schools/schools.module';
+import { ProgramsModule } from './modules/programs/programs.module';
+import { StudentsModule } from './modules/students/students.module';
+import { CoursesModule } from './modules/courses/courses.module';
+import { LecturersModule } from './modules/lecturers/lecturers.module';
+import { StudentCoursesModule } from './modules/student-courses/student-courses.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { MailModule } from './modules/mail/mail.module';
+import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-courses.module';
+import { CourseContentsModule } from './modules/course-contents/course-contents.module';
+import { AssessmentsModule } from './modules/assessments/assessments.module';
+import { GradesModule } from './modules/grades/grades.module';
+import { SubmissionsModule } from './modules/submissions/submissions.module';
+import { CourseModulesModule } from './modules/course-modules/course-modules.module';
 
 @Module({
   imports: [
@@ -40,6 +55,21 @@ import { typeOrmConfig } from './configurations/typeorm.config';
         }),
       ],
     }),
+    UsersModule,
+    SchoolsModule,
+    ProgramsModule,
+    StudentsModule,
+    CoursesModule,
+    LecturersModule,
+    StudentCoursesModule,
+    LecturerCoursesModule,
+    AuthModule,
+    MailModule,
+    CourseContentsModule,
+    AssessmentsModule,
+    GradesModule,
+    SubmissionsModule,
+    CourseModulesModule,
   ],
   controllers: [AppController],
   providers: [
