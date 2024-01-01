@@ -8,8 +8,12 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class CoursesService {
-  constructor(@InjectRepository(Course) private readonly courseRepository: Repository<Course>,
-  @InjectRepository(Program) private readonly programRepository: Repository<Program>,){}
+  constructor(
+    @InjectRepository(Course)
+    private readonly courseRepository: Repository<Course>,
+    @InjectRepository(Program)
+    private readonly programRepository: Repository<Program>,
+  ) {}
 
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
     const course = await this.courseRepository.save(createCourseDto)

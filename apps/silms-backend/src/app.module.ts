@@ -26,6 +26,11 @@ import { StudentCoursesModule } from './modules/student-courses/student-courses.
 import { AuthModule } from './modules/auth/auth.module';
 import { MailModule } from './modules/mail/mail.module';
 import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-courses.module';
+import { CourseContentsModule } from './modules/course-contents/course-contents.module';
+import { AssessmentsModule } from './modules/assessments/assessments.module';
+import { GradesModule } from './modules/grades/grades.module';
+import { SubmissionsModule } from './modules/submissions/submissions.module';
+import { CourseModulesModule } from './modules/course-modules/course-modules.module';
 
 @Module({
   imports: [
@@ -60,7 +65,11 @@ import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-cours
     LecturerCoursesModule,
     AuthModule,
     MailModule,
-    LecturerCoursesModule,
+    CourseContentsModule,
+    AssessmentsModule,
+    GradesModule,
+    SubmissionsModule,
+    CourseModulesModule,
   ],
   controllers: [AppController],
   providers: [

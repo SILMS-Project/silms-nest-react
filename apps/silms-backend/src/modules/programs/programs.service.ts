@@ -36,6 +36,13 @@ export class ProgramsService {
     return `This action returns a #${id} program`;
   }
 
+  async getAllProgramsBySchool(schoolId: string) {
+    return this.programRepository.find({
+      where: { school: { id: schoolId } },
+      relations: ['courses'], 
+    });
+  }
+
   update(id: number, updateProgramDto: UpdateProgramDto) {
     return `This action updates a #${id} program`;
   }
