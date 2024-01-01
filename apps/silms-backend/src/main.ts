@@ -50,8 +50,6 @@ async function bootstrap() {
     ignoreGlobalPrefix: false,
   });
 
-  
-
   // app.enableCors({ origin: [allowed] });
   app.enableCors();
 
@@ -64,7 +62,11 @@ async function bootstrap() {
   });
 
   try {
-    SwaggerModule.setup('api', app, document);
+    SwaggerModule.setup('api', app, document, {
+      swaggerOptions: {
+        baseUrl: '/backend/v1',
+      },
+    });
   } catch (error) {
     this.logger.error(error);
   }
