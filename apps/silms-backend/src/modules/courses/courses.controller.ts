@@ -92,6 +92,20 @@ export class CoursesController {
       throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
     }
   }
+
+  @Version('2')
+  @Get('code/:code')
+  @ApiOperation({ summary: 'Get a course by course code' })
+  @ApiResponse({ status: 200, description: 'Course found by course code', type: Course })
+  @ApiResponse({ status: 404, description: 'Course not found' })
+  async findByCodes(@Param('code') code: string): Promise<{ course: Course, status: number }> {
+    try {
+      const course = await this.coursesService.findByCode(code);
+      return { course, status: HttpStatus.OK };
+    } catch (error) {
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
+    }
+  }
   
 
 
