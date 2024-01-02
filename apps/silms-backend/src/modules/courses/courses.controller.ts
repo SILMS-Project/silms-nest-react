@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Version, HttpStatus, HttpException } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
@@ -77,6 +77,20 @@ export class CoursesController {
   findCoursesByLevelProgramSemester(@Body() requestBody: { programId: string, level: number ,semester:number}) {
     const { programId, level ,semester} = requestBody;
     return this.coursesService.findCourseByLevelProgramSemester(programId, level,semester);
+  }
+
+  @Version('1')
+  @Get('code/:code')
+  @ApiOperation({ summary: 'Get a course by course code' })
+  @ApiResponse({ status: 200, description: 'Course found by course code', type: Course })
+  @ApiResponse({ status: 404, description: 'Course not found' })
+  async findByCode(@Param('code') code: string): Promise<{ course: Course, status: number }> {
+    try {
+      const course = await this.coursesService.findByCode(code);
+      return { course, status: HttpStatus.OK };
+    } catch (error) {
+      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
+    }
   }
   
 
