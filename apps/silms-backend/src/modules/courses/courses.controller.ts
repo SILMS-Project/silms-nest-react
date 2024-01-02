@@ -93,7 +93,6 @@ export class CoursesController {
     }
   }
   
-  
 
 
   @Version('1')
