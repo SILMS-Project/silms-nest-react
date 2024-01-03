@@ -4,7 +4,7 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './entities/course.entity';
 import { Program } from '../programs/entities/program.entity';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 
 @Injectable()
 export class CoursesService {
@@ -68,6 +68,20 @@ export class CoursesService {
 
     return courses;
   }
+
+  async findByCode(code: string): Promise<Course> {
+    const course = await this.courseRepository.findOne({
+      where: { code },
+    } as FindOneOptions<Course>);
+
+    if (!course) {
+      throw new NotFoundException(`Course with code ${code} not found`);
+    }
+
+    return course;
+  }
+  
+
   async update(id: string, updateCourseDto: UpdateCourseDto): Promise<Course> {
     const course = await this.courseRepository.findOne({where:{id:id}});
 
