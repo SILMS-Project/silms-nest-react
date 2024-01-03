@@ -18,6 +18,18 @@ export class LecturerCoursesService {
   ) {}
 
   async create(createLecturerCourseDto: CreateLecturerCourseDto) {
+
+    const lecturerCourse = this.lecturerCoursesRepository.findOne({
+      where: {
+        course: createLecturerCourseDto.courseId,
+        lecturer: createLecturerCourseDto.lecturerId,
+      },
+    });
+
+    if (lecturerCourse) {
+      throw new Error("Already exists!")
+    }
+
     const lecturerCoursesProps: LecturerCoursesProps = {
       lecturer: await this.lecturersService.findById(
         createLecturerCourseDto.lecturerId,
@@ -56,6 +68,7 @@ export class LecturerCoursesService {
     const lecturerCourses = await this.lecturerCoursesRepository.find({
       where: { lecturer: lecturerId },
     });
+
     return await Promise.all(
       lecturerCourses.map((lecturerCourse) =>
         this.coursesService.findById(lecturerCourse.course),
@@ -95,7 +108,6 @@ export class LecturerCoursesService {
     });
 
     this.remove(lecturerCourse.id);
-
   }
 
   update(id: string, updateLecturerCourseDto: UpdateLecturerCourseDto) {
@@ -103,9 +115,9 @@ export class LecturerCoursesService {
   }
 
   async remove(id: string) {
-    const lecturerCourse = await  this.findById(id);
+    const lecturerCourse = await this.findById(id);
     return this.lecturerCoursesRepository.remove(lecturerCourse).then(() => {
-      return "Entry removed successfully."
+      return 'Entry removed successfully.';
     });
   }
 }

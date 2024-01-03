@@ -14,7 +14,7 @@ export class LecturersService {
   ) {}
 
   async create(createLecturerDto: CreateLecturerDto) {
-    const lecturer = await this.lecturerRepository.findOne({where: {employeeId: createLecturerDto.employeeId}});
+    const lecturer = await this.findByEmployeeId(createLecturerDto.employeeId);
     if (lecturer) {
       throw new Error("Lecturer already exists!");
     }
@@ -37,6 +37,9 @@ export class LecturersService {
     return await this.lecturerRepository.find();
   }
 
+  async findByEmployeeId(employeeId: string) {
+    return await this.lecturerRepository.findOne({where: {employeeId}});
+  }
 
   async findById(id: string) {
 

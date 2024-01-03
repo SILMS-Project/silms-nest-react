@@ -46,23 +46,20 @@ export class StudentsService {
   }
 
   async findOne(id: string) {
-    return await this.studentRepository.findOne({ where: { id } }); 
-  }
-
-  update(id: string, updateStudentDto: UpdateStudentDto) {
-    const student = this.findOne(id);
-
+    const student = await this.studentRepository.findOne({ where: { id } });
     if (!student) {
       throw new Error('Student not found');
     }
-    return this.studentRepository.update(id, updateStudentDto);
+    return student;
   }
 
-  remove(id: string) {
-    const student = this.findOne(id);
-    if (!student) {
-      throw new Error('Student not found');
-    }
-    return this.studentRepository.delete(id);
+  async update(id: string, updateStudentDto: UpdateStudentDto) {
+    const student = await this.findOne(id);
+    return this.studentRepository.update(student.id, updateStudentDto);
+  }
+
+  async remove(id: string) {
+    const student = await this.findOne(id);
+    return this.studentRepository.delete(student);
   }
 }
