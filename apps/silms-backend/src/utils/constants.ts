@@ -21,3 +21,13 @@ export enum ApplicationStatus {
   REJECTED = 'Rejected',
   UNDER_REVIEW = 'Under Review',
 }
+
+export enum DayOfWeek {
+  MONDAY = 'Monday',
+  TUESDAY = 'Tuesday',
+  WEDNESDAY = 'Wednesday',
+  THURSDAY = 'Thursday',
+  FRIDAY = 'Friday',
+  SATURDAY = 'Saturday',
+  SUNDAY = 'Sunday',
+}

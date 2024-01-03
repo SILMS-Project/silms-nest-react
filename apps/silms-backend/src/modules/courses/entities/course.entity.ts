@@ -9,6 +9,7 @@ import { Program } from '@modules/programs/entities/program.entity';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
 import { CourseModule } from '@/modules/course-modules/entities/course-module.entity';
 import { CourseType } from '@/utils/constants';
+import { Schedule } from '@/modules/schedules/entities/schedule.entity';
 
 @Entity('courses')
 export class Course {
@@ -41,6 +42,9 @@ export class Course {
 
   @ManyToOne(() => Program, (program) => program.courses)
   program: Program;
+
+  @OneToMany(() => Schedule, (schedule) => schedule.course)
+  schedules: Schedule[];
 
   @OneToMany(() => CourseModule, (courseModule) => courseModule.course)
   courseModules: CourseModule[];
