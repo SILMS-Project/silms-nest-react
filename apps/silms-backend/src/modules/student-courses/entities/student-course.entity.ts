@@ -1,6 +1,7 @@
 import { Course } from '@/modules/courses/entities/course.entity';
+import { Result } from '@/modules/results/entities/result.entity';
 import { Student } from '@/modules/students/entities/student.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
 
 
 @Entity()
@@ -31,4 +32,7 @@ export class StudentCourse {
 
   @ManyToOne(() => Course, course => course.studentCourses)
   course: Course;
+
+  @OneToOne(() => Result, result => result.studentCourse)
+  result: Result;
 }

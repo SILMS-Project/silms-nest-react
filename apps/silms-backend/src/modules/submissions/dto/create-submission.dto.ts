@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateSubmissionDto {
   @ApiProperty()
@@ -11,4 +11,14 @@ export class CreateSubmissionDto {
   @IsNotEmpty({ message: 'Content is required' })
   @IsString()
   readonly content: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'status is required' })
+  @IsString()
+  readonly status: string;
+
+  @ApiProperty({ type: 'string', format: 'date-time' }) // Assuming submissionDate is a date-time string
+  @IsNotEmpty({ message: 'Submission date is required' })
+  @IsDateString()
+  readonly submissionDate: string;
 }
