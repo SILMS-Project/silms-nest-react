@@ -59,6 +59,7 @@ import { ApplicationsModule } from './modules/applications/applications.module';
     }),
     ApplicantsModule,
     ApplicationsModule,
+    ScheduleModule,
     UsersModule,
     SchoolsModule,
     ProgramsModule,
