@@ -49,7 +49,7 @@ export class ProgramsController {
   @ApiResponse({ status: 200, description: 'Program found by ID' })
   @ApiResponse({ status: 404, description: 'Program not found' })
   findOne(@Param('id') id: string) {
-    return this.programsService.findOne(+id);
+    return this.programsService.findOne(id);
   }
 
   @Version('1')

@@ -11,5 +11,6 @@ import { Course } from '../courses/entities/course.entity';
   ],
   controllers: [ProgramsController],
   providers: [ProgramsService],
+  exports: [ProgramsService],
 })
 export class ProgramsModule {}

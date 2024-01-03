@@ -5,7 +5,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Program } from '@modules/programs/entities/program.entity';
+import { Program } from '@/modules/programs/entities/program.entity';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
 import { CourseModule } from '@/modules/course-modules/entities/course-module.entity';
 import { CourseType } from '@/utils/constants';

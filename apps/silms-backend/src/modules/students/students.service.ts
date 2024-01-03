@@ -10,34 +10,42 @@ import { StudentProps } from './interfaces/student.interface';
 @Injectable()
 export class StudentsService {
   constructor(
-    @InjectRepository(Student) private readonly studentRepository: Repository<Student>,
+    @InjectRepository(Student)
+    private readonly studentRepository: Repository<Student>,
     private userService: UsersService,
   ) {}
 
   async create(createStudentDto: CreateStudentDto) {
-    const student = await this.findByMatricNo(createStudentDto.matricNo);
-    
-    if (student) {
-      throw new Error('Student already exists');
+    try {
+      const student = await this.findByMatricNo(createStudentDto.matricNo);
+
+      if (student) {
+        throw new Error('Student already exists');
+      }
+
+      const newUser = await this.userService.create({
+        ...createStudentDto,
+      });
+
+      const studentProps: StudentProps = {
+        ...createStudentDto,
+      };
+
+      const newStudent = this.studentRepository.create({
+        ...studentProps,
+        profile: newUser.profile,
+      });
+
+      return this.studentRepository.save(newStudent);
+    } catch (error) {
+      return {
+        message: 'Failed to create student',
+        error: error.message || error,
+      };
     }
-
-    const newUser = await this.userService.create({
-      ...createStudentDto
-    });
-
-    const studentProps: StudentProps = {
-      ...createStudentDto
-    }
-
-    const newStudent = this.studentRepository.create({
-      ...studentProps,
-      profile: newUser.profile
-    });
-    
-    return this.studentRepository.save(newStudent);
   }
 
-  async findAll() : Promise<Student[]> {
+  async findAll(): Promise<Student[]> {
     return await this.studentRepository.find();
   }
 
