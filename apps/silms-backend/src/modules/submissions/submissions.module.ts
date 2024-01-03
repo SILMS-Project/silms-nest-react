@@ -12,5 +12,6 @@ import { Student } from '../students/entities/student.entity';
 
   controllers: [SubmissionsController],
   providers: [SubmissionsService],
+  exports: [SubmissionsService],
 })
 export class SubmissionsModule {}

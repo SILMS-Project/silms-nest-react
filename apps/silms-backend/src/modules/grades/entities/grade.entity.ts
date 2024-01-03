@@ -9,10 +9,10 @@ export class Grade {
   id: string;
 
   @Column({ nullable: true })
-  grade: number;
+  score: number;
 
-  @ManyToOne(() => Assessment, assessment => assessment.grades)
-  assessment: Assessment;
+  // @ManyToOne(() => Assessment, assessment => assessment.grades)
+  // assessment: Assessment;
 
   @ManyToOne(() => Submission, submission => submission.grade)
   submission: Submission;

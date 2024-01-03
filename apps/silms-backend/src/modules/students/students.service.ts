@@ -16,7 +16,7 @@ export class StudentsService {
   ) {}
 
   async create(createStudentDto: CreateStudentDto) {
-    try {
+    
       const student = await this.findByMatricNo(createStudentDto.matricNo);
 
       if (student) {
@@ -37,12 +37,7 @@ export class StudentsService {
       });
 
       return this.studentRepository.save(newStudent);
-    } catch (error) {
-      return {
-        message: 'Failed to create student',
-        error: error.message || error,
-      };
-    }
+    
   }
 
   async findAll(): Promise<Student[]> {

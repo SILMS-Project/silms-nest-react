@@ -19,7 +19,7 @@ export class GradesController {
   constructor(private readonly gradesService: GradesService) {}
 
   @Version('1')
-  @Post()
+  @Post('create')
   @ApiOperation({ summary: 'Create a new grade' })
   @ApiResponse({ status: 201, description: 'Grade successfully created' })
   create(@Body() createGradeDto: CreateGradeDto) {
@@ -39,7 +39,7 @@ export class GradesController {
   @ApiOperation({ summary: 'Get a grade by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved grade by ID' })
   findOne(@Param('id') id: string) {
-    return this.gradesService.findOne(+id);
+    return this.gradesService.findOne(id);
   }
 
   @Version('1')
@@ -47,7 +47,7 @@ export class GradesController {
   @ApiOperation({ summary: 'Update a grade by ID' })
   @ApiResponse({ status: 200, description: 'Updated grade successfully' })
   update(@Param('id') id: string, @Body() updateGradeDto: UpdateGradeDto) {
-    return this.gradesService.update(+id, updateGradeDto);
+    return this.gradesService.update(id, updateGradeDto);
   }
 
   @Version('1')
@@ -55,6 +55,6 @@ export class GradesController {
   @ApiOperation({ summary: 'Delete a grade by ID' })
   @ApiResponse({ status: 200, description: 'Deleted grade successfully' })
   remove(@Param('id') id: string) {
-    return this.gradesService.remove(+id);
+    return this.gradesService.remove(id);
   }
 }

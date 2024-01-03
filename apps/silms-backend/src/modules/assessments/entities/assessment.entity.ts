@@ -32,6 +32,6 @@ export class Assessment {
   @OneToMany(() => Submission, (submission) => submission.assessment)
   submissions: Submission[];
 
-  @OneToMany(() => Grade, (grade) => grade.assessment)
-  grades: Grade[];
+  // @OneToMany(() => Grade, (grade) => grade.assessment)
+  // grades: Grade[];
 }

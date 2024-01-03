@@ -39,7 +39,7 @@ export class SubmissionsController {
   @ApiOperation({ summary: 'Get a submission by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved submission by ID' })
   findOne(@Param('id') id: string) {
-    return this.submissionsService.findOne(+id);
+    return this.submissionsService.findOne(id);
   }
 
   @Version('1')

@@ -31,3 +31,9 @@ export enum DayOfWeek {
   SATURDAY = 'Saturday',
   SUNDAY = 'Sunday',
 }
+
+export enum SubmissionStatus {
+  PENDING = 'pending',
+  SUBMITTED = 'submitted',
+  LATE = 'late',
+}

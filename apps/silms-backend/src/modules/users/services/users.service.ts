@@ -19,41 +19,32 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User | any> {
-    try {
-      const user = await this.findOneByEmail(createUserDto.email);
-      if (user) {
-        throw new Error('User already exists');
-      }
-
-      const userProps: UserProps = {
-        ...createUserDto,
-        password: await this.passwordService.hashPassword(
-          createUserDto.password,
-        ),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        isVerified: false,
-      };
-
-      const profileProps: ProfileProps = {
-        ...createUserDto,
-      };
-
-      const newUser = await this.userRepository.save(userProps);
-
-      const newProfile = this.profileRepository.create({
-        ...profileProps,
-        user: newUser,
-      });
-
-      newUser.profile = await this.profileRepository.save(newProfile);
-      return newUser;
-    } catch (error) {
-      return {
-        message: 'Failed to create student',
-        error: error.message || error,
-      };
+    const user = await this.findOneByEmail(createUserDto.email);
+    if (user) {
+      throw new Error('User already exists');
     }
+
+    const userProps: UserProps = {
+      ...createUserDto,
+      password: await this.passwordService.hashPassword(createUserDto.password),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isVerified: false,
+    };
+
+    const profileProps: ProfileProps = {
+      ...createUserDto,
+    };
+
+    const newUser = await this.userRepository.save(userProps);
+
+    const newProfile = this.profileRepository.create({
+      ...profileProps,
+      user: newUser,
+    });
+
+    newUser.profile = await this.profileRepository.save(newProfile);
+    return newUser;
   }
 
   async findAll(): Promise<User[]> {
