@@ -31,6 +31,8 @@ import { AssessmentsModule } from './modules/assessments/assessments.module';
 import { GradesModule } from './modules/grades/grades.module';
 import { SubmissionsModule } from './modules/submissions/submissions.module';
 import { CourseModulesModule } from './modules/course-modules/course-modules.module';
+import { ApplicantsModule } from './modules/applicants/applicants.module';
+import { ApplicationsModule } from './modules/applications/applications.module';
 
 @Module({
   imports: [
@@ -55,6 +57,8 @@ import { CourseModulesModule } from './modules/course-modules/course-modules.mod
         }),
       ],
     }),
+    ApplicantsModule,
+    ApplicationsModule,
     UsersModule,
     SchoolsModule,
     ProgramsModule,
