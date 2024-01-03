@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Assessment } from '@/modules/assessments/entities/assessment.entity';
 import { Submission } from '@/modules/submissions/entities/submission.entity';
+import { Student } from '@/modules/students/entities/student.entity';
 
 @Entity()
 export class Grade {
@@ -15,4 +16,7 @@ export class Grade {
 
   @ManyToOne(() => Submission, submission => submission.grade)
   submission: Submission;
+
+  @ManyToOne(() => Student, student => student.submissions)
+  student: Student;
 }
