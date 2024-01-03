@@ -14,6 +14,9 @@ export class Submission {
   @Column()
   content: string;
 
+  @Column({default: "pending"})
+  status: string;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   submissionDate: Date;
 

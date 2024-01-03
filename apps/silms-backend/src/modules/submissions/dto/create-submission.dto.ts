@@ -12,6 +12,11 @@ export class CreateSubmissionDto {
   @IsString()
   readonly content: string;
 
+  @ApiProperty()
+  @IsNotEmpty({ message: 'status is required' })
+  @IsString()
+  readonly status: string;
+
   @ApiProperty({ type: 'string', format: 'date-time' }) // Assuming submissionDate is a date-time string
   @IsNotEmpty({ message: 'Submission date is required' })
   @IsDateString()
