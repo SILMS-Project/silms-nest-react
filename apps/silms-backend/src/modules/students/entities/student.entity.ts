@@ -1,3 +1,4 @@
+import { Grade } from '@/modules/grades/entities/grade.entity';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
 import { Submission } from '@/modules/submissions/entities/submission.entity';
 import { Profile } from '@/modules/users/entities/profile.entity';
@@ -36,4 +37,7 @@ export class Student {
 
   @OneToMany(() => Submission, submission => submission.student)
   submissions: Submission[]; 
+
+  @OneToMany(() => Grade, grade => grade.student)
+  grades: Grade[]; 
 }
