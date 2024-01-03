@@ -1,4 +1,5 @@
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
+import { Submission } from '@/modules/submissions/entities/submission.entity';
 import { Profile } from '@/modules/users/entities/profile.entity';
 import {
   Column,
@@ -32,4 +33,7 @@ export class Student {
 
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.student)
   studentCourses: StudentCourse[];
+
+  @OneToMany(() => Submission, submission => submission.submittedBy) // One student can have many submissions
+  submissions: Submission[]; 
 }
