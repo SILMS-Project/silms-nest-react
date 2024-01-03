@@ -31,6 +31,10 @@ import { AssessmentsModule } from './modules/assessments/assessments.module';
 import { GradesModule } from './modules/grades/grades.module';
 import { SubmissionsModule } from './modules/submissions/submissions.module';
 import { CourseModulesModule } from './modules/course-modules/course-modules.module';
+import { ApplicantsModule } from './modules/applicants/applicants.module';
+import { ApplicationsModule } from './modules/applications/applications.module';
+import { ResultsModule } from './modules/results/results.module';
+import { SessionsModule } from './modules/sessions/sessions.module';
 
 @Module({
   imports: [
@@ -55,6 +59,9 @@ import { CourseModulesModule } from './modules/course-modules/course-modules.mod
         }),
       ],
     }),
+    ApplicantsModule,
+    ApplicationsModule,
+    ScheduleModule,
     UsersModule,
     SchoolsModule,
     ProgramsModule,
@@ -70,6 +77,8 @@ import { CourseModulesModule } from './modules/course-modules/course-modules.mod
     GradesModule,
     SubmissionsModule,
     CourseModulesModule,
+    ResultsModule,
+    SessionsModule
   ],
   controllers: [AppController],
   providers: [

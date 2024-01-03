@@ -5,9 +5,10 @@ import { Assessment } from '../assessments/entities/assessment.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Grade } from '../grades/entities/grade.entity';
 import { Submission } from './entities/submission.entity';
+import { Student } from '../students/entities/student.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Assessment, Submission, Grade])],
+  imports: [TypeOrmModule.forFeature([Assessment, Submission, Grade, Student])],
 
   controllers: [SubmissionsController],
   providers: [SubmissionsService],
