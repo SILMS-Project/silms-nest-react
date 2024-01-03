@@ -33,6 +33,8 @@ import { SubmissionsModule } from './modules/submissions/submissions.module';
 import { CourseModulesModule } from './modules/course-modules/course-modules.module';
 import { ApplicantsModule } from './modules/applicants/applicants.module';
 import { ApplicationsModule } from './modules/applications/applications.module';
+import { ResultsModule } from './modules/results/results.module';
+import { SessionsModule } from './modules/sessions/sessions.module';
 
 @Module({
   imports: [
@@ -75,6 +77,8 @@ import { ApplicationsModule } from './modules/applications/applications.module';
     GradesModule,
     SubmissionsModule,
     CourseModulesModule,
+    ResultsModule,
+    SessionsModule
   ],
   controllers: [AppController],
   providers: [
