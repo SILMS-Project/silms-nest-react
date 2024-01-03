@@ -35,6 +35,7 @@ import { ApplicantsModule } from './modules/applicants/applicants.module';
 import { ApplicationsModule } from './modules/applications/applications.module';
 import { ResultsModule } from './modules/results/results.module';
 import { SessionsModule } from './modules/sessions/sessions.module';
+import { SchedulesModule } from './modules/schedules/schedules.module';
 
 @Module({
   imports: [
@@ -78,7 +79,8 @@ import { SessionsModule } from './modules/sessions/sessions.module';
     SubmissionsModule,
     CourseModulesModule,
     ResultsModule,
-    SessionsModule
+    SessionsModule,
+    SchedulesModule
   ],
   controllers: [AppController],
   providers: [

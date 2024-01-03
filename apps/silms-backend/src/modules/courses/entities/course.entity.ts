@@ -11,6 +11,7 @@ import { CourseModule } from '@/modules/course-modules/entities/course-module.en
 import { CourseType } from '@/utils/constants';
 import { Schedule } from '@/modules/schedules/entities/schedule.entity';
 import { Session } from '@/modules/sessions/entities/session.entity';
+import { LecturerCourses } from '@/modules/lecturer-courses/entities/lecturer-courses.entity';
 
 @Entity('courses')
 export class Course {
@@ -56,6 +57,8 @@ export class Course {
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.course)
   studentCourses: StudentCourse[];
 
+  @OneToMany(() => LecturerCourses, (lecturerCourses) => lecturerCourses.course)
+  lecturerCourses: LecturerCourses[]
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
