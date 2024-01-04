@@ -37,3 +37,11 @@ export enum SubmissionStatus {
   SUBMITTED = 'submitted',
   LATE = 'late',
 }
+
+export enum Grades {
+  A = 5,
+  B = 5,
+  C = 3,
+  D = 1,
+  F = 0
+}

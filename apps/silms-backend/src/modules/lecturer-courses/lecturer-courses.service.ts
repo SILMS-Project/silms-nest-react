@@ -25,7 +25,6 @@ export class LecturerCoursesService {
         course: { id: createLecturerCourseDto.courseId },
         lecturer: { id: createLecturerCourseDto.lecturerId },
       },
-      
     });
 
     if (lecturerCourse) {
@@ -66,7 +65,7 @@ export class LecturerCoursesService {
     return lecturerCourse;
   }
 
-  async findCoursesByLecturer(lecturerId: string): Promise<Course[]>{
+  async findCoursesByLecturer(lecturerId: string): Promise<Course[]> {
     const lecturerCourses = await this.lecturerCoursesRepository.find({
       where: { lecturer: { id: lecturerId } },
     });
@@ -82,13 +81,11 @@ export class LecturerCoursesService {
     const lecturerCourses = await this.lecturerCoursesRepository.find({
       where: { course: { id: courseId } },
     });
-    const lecturer = await Promise.all(
+    return await Promise.all(
       lecturerCourses.map((lecturerCourse) =>
         this.lecturersService.findById(lecturerCourse.lecturer.id),
       ),
     );
-
-    return lecturer;
   }
 
   async findByLecturerId(lecturerId: string) {
