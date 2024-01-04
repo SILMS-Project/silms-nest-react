@@ -39,4 +39,17 @@ export class SessionsService {
   remove(id: number) {
     return `This action removes a #${id} session`;
   }
+
+  //get current session
+  async getCurrentSession(): Promise<Session> {
+    const currentSession = await this.sessionRepository.findOne({
+      where: { isCurrentSession: true },
+    });
+
+    if (!currentSession) {
+      throw new NotFoundException('Current session not found');
+    }
+
+    return currentSession;
+  }
 }
