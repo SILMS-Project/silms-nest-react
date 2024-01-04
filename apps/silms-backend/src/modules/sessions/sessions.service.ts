@@ -32,14 +32,6 @@ export class SessionsService {
     return session;
   }
 
-  update(id: number, updateSessionDto: UpdateSessionDto) {
-    return `This action updates a #${id} session`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} session`;
-  }
-
   //get current session
   async getCurrentSession(): Promise<Session> {
     const currentSession = await this.sessionRepository.findOne({
@@ -51,5 +43,13 @@ export class SessionsService {
     }
 
     return currentSession;
+  }
+
+  update(id: number, updateSessionDto: UpdateSessionDto) {
+    return `This action updates a #${id} session`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} session`;
   }
 }
