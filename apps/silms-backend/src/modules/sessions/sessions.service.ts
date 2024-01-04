@@ -18,6 +18,7 @@ export class SessionsService {
     return `This action returns a #${id} session`;
   }
 
+  //get session by id
   async findById(id: string): Promise<Session> {
     const session = await this.sessionRepository.findOne({ where: { id } });
 
