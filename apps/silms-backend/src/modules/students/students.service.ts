@@ -16,40 +16,44 @@ export class StudentsService {
   ) {}
 
   async create(createStudentDto: CreateStudentDto) {
-    
-      const student = await this.findByMatricNo(createStudentDto.matricNo);
+    const student = await this.findByMatricNo(createStudentDto.matricNo);
 
-      if (student) {
-        throw new Error('Student already exists');
-      }
+    if (student) {
+      throw new Error('Student already exists');
+    }
 
-      const newUser = await this.userService.create({
-        ...createStudentDto,
-      });
+    const newUser = await this.userService.create({
+      ...createStudentDto,
+    });
 
-      const studentProps: StudentProps = {
-        ...createStudentDto,
-      };
+    const studentProps: StudentProps = {
+      ...createStudentDto,
+    };
 
-      const newStudent = this.studentRepository.create({
-        ...studentProps,
-        profile: newUser.profile,
-      });
+    const newStudent = this.studentRepository.create({
+      ...studentProps,
+      profile: newUser.profile,
+    });
 
-      return this.studentRepository.save(newStudent);
-    
+    return this.studentRepository.save(newStudent);
   }
 
   async findAll(): Promise<Student[]> {
-    return await this.studentRepository.find();
+    return await this.studentRepository.find({relations: ['profile']});
   }
 
   async findByMatricNo(matricNo: string) {
-    return await this.studentRepository.findOne({ where: { matricNo } });
+    return await this.studentRepository.findOne({
+      where: { matricNo },
+      relations: ['profile'],
+    });
   }
 
   async findOne(id: string) {
-    const student = await this.studentRepository.findOne({ where: { id } });
+    const student = await this.studentRepository.findOne({
+      where: { id },
+      relations: ['profile'],
+    });
     if (!student) {
       throw new Error('Student not found');
     }

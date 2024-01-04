@@ -18,14 +18,14 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto);
   }
 
-//   @Version('1')
-//   @UseGuards(JwtAuthGuard)
-//   @Get()
-//   @ApiOperation({ summary: 'Get all students' })
-//   @ApiResponse({ status: 200, description: 'List of all students' })
-//   findAll() {
-//     return this.studentsService.findAll();
-//   }
+  @Version('1')
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  @ApiOperation({ summary: 'Get all students' })
+  @ApiResponse({ status: 200, description: 'List of all students' })
+  findAll() {
+    return this.studentsService.findAll();
+  }
 
   @Version('1')
   @UseGuards(JwtAuthGuard)

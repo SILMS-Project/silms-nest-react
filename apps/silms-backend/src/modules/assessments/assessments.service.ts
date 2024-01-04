@@ -1,26 +1,61 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Assessment } from './entities/assessment.entity';
+import { Repository } from 'typeorm';
+import { AssessmentProps } from './interfaces/assessment.interface';
+import { CourseModulesService } from '../course-modules/course-modules.service';
 
 @Injectable()
 export class AssessmentsService {
-  create(createAssessmentDto: CreateAssessmentDto) {
-    return 'This action adds a new assessment';
+  constructor(
+    @InjectRepository(Assessment)
+    private readonly assessmentRepository: Repository<Assessment>,
+    private courseModuleService: CourseModulesService,
+  ) {}
+
+  async create(createAssessmentDto: CreateAssessmentDto): Promise<Assessment> {
+    const assessmentProps: AssessmentProps = {
+      ...createAssessmentDto,
+      courseModule: await this.courseModuleService.findOne(
+        createAssessmentDto.courseModuleId,
+      ),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const assessment = this.assessmentRepository.create(assessmentProps);
+
+    return await this.assessmentRepository.save(assessment);
   }
 
-  findAll() {
-    return `This action returns all assessments`;
+  async findAll(): Promise<Assessment[]> {
+    return await this.assessmentRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} assessment`;
+  async findOne(id: string): Promise<Assessment> {
+    const assessment = await this.assessmentRepository.findOne({
+      where: { id },
+    });
+    if (!assessment) {
+      throw new Error('Assessment not found');
+    }
+    return assessment;
   }
 
-  update(id: number, updateAssessmentDto: UpdateAssessmentDto) {
-    return `This action updates a #${id} assessment`;
+  async update(id: string, updateAssessmentDto: UpdateAssessmentDto) {
+    const assessment = await this.findOne(id);
+    return await this.assessmentRepository.update(
+      assessment,
+      updateAssessmentDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} assessment`;
+  async remove(id: string): Promise<any> {
+    const assessment = await this.findOne(id);
+    return await this.assessmentRepository.remove(assessment).then(() => {
+      return { deleted: true };
+    });
   }
 }

@@ -39,7 +39,7 @@ export class AssessmentsController {
   @ApiOperation({ summary: 'Get an assessment by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved assessment by ID' })
   findOne(@Param('id') id: string) {
-    return this.assessmentsService.findOne(+id);
+    return this.assessmentsService.findOne(id);
   }
 
   @Version('1')
@@ -50,7 +50,7 @@ export class AssessmentsController {
     @Param('id') id: string,
     @Body() updateAssessmentDto: UpdateAssessmentDto,
   ) {
-    return this.assessmentsService.update(+id, updateAssessmentDto);
+    return this.assessmentsService.update(id, updateAssessmentDto);
   }
 
   @Version('1')
@@ -58,6 +58,6 @@ export class AssessmentsController {
   @ApiOperation({ summary: 'Delete an assessment by ID' })
   @ApiResponse({ status: 200, description: 'Deleted assessment successfully' })
   remove(@Param('id') id: string) {
-    return this.assessmentsService.remove(+id);
+    return this.assessmentsService.remove(id);
   }
 }
