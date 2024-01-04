@@ -45,6 +45,7 @@ export class SessionsService {
     return currentSession;
   }
 
+  //update session
   async update(id: string, updateSessionDto: UpdateSessionDto): Promise<Session> {
     const session = await this.sessionRepository.findOne({ where: { id } });
 
@@ -53,6 +54,26 @@ export class SessionsService {
     }
 
     Object.assign(session, updateSessionDto);
+
+    const updatedSession = await this.sessionRepository.save(session);
+
+    return updatedSession;
+  }
+
+  //update session status: if the status is set to true for a session, all other sessions should be set to false, meaning they are not the current
+  async updateStatus(id: string, status: boolean): Promise<Session> {
+    if (status) {
+      // If the status is set to true, update all other sessions to false
+      await this.sessionRepository.update({ isCurrentSession: true }, { isCurrentSession: false });
+    }
+
+    const session = await this.sessionRepository.findOne({ where: { id } });
+
+    if (!session) {
+      throw new NotFoundException(`Session with ID ${id} not found`);
+    }
+
+    session.isCurrentSession = status;
 
     const updatedSession = await this.sessionRepository.save(session);
 
