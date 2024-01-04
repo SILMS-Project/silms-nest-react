@@ -37,6 +37,7 @@ export class AssessmentsService {
   async findOne(id: string): Promise<Assessment> {
     const assessment = await this.assessmentRepository.findOne({
       where: { id },
+      relations: ['courseModule', 'courseModule.course'],
     });
     if (!assessment) {
       throw new Error('Assessment not found');

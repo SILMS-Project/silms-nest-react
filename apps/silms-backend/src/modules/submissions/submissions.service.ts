@@ -16,23 +16,40 @@ export class SubmissionsService {
     return 'This action adds a new submission';
   }
 
-  findAll() {
-    return `This action returns all submissions`;
+  async findAll() {
+    return await this.submissionRepository.find();
   }
 
   async findOne(id: string) {
-    const submission = await this.submissionRepository.findOne({where: {id}})
+    const submission = await this.submissionRepository.findOne({
+      where: { id },
+    });
     if (!submission) {
       throw new Error('Submission not found');
     }
     return submission;
   }
 
-  update(id: number, updateSubmissionDto: UpdateSubmissionDto) {
-    return `This action updates a #${id} submission`;
+  async findByAssessmentId(assessmentId: string): Promise<Submission[]> {
+    const submissions = await this.submissionRepository.find({
+      where: { assessment: { id: assessmentId } },
+      relations: ['student', 'student.profile']
+    });
+    if (!submissions) {
+      throw new Error('Submissions not found');
+    }
+    return submissions;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} submission`;
+  async update(id: string, updateSubmissionDto: UpdateSubmissionDto) {
+    const submission = await this.findOne(id);
+    return await this.submissionRepository.update(submission, updateSubmissionDto);
+  }
+
+  async remove(id: string) {
+    const submission = await this.findOne(id);
+    return await this.submissionRepository.remove(submission).then(() => {
+      return { deleted: true };
+    });
   }
 }

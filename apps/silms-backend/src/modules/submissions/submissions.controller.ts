@@ -50,7 +50,15 @@ export class SubmissionsController {
     @Param('id') id: string,
     @Body() updateSubmissionDto: UpdateSubmissionDto,
   ) {
-    return this.submissionsService.update(+id, updateSubmissionDto);
+    return this.submissionsService.update(id, updateSubmissionDto);
+  }
+
+  @Version('1')
+  @Get('assessment/:id')
+  @ApiOperation({ summary: 'Get all submissions by assessment ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submissions by assessment ID' })
+  findByAssessmentId(@Param('id') id: string) {
+    return this.submissionsService.findByAssessmentId(id);
   }
 
   @Version('1')
