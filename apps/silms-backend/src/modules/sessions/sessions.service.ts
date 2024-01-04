@@ -45,8 +45,18 @@ export class SessionsService {
     return currentSession;
   }
 
-  update(id: number, updateSessionDto: UpdateSessionDto) {
-    return `This action updates a #${id} session`;
+  async update(id: string, updateSessionDto: UpdateSessionDto): Promise<Session> {
+    const session = await this.sessionRepository.findOne({ where: { id } });
+
+    if (!session) {
+      throw new NotFoundException(`Session with ID ${id} not found`);
+    }
+
+    Object.assign(session, updateSessionDto);
+
+    const updatedSession = await this.sessionRepository.save(session);
+
+    return updatedSession;
   }
 
   remove(id: number) {
