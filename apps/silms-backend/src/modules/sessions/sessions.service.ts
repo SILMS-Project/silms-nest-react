@@ -6,8 +6,11 @@ import { Session } from './entities/session.entity';
 @Injectable()
 export class SessionsService {
   sessionRepository: any;
-  create(createSessionDto: CreateSessionDto) {
-    return 'This action adds a new session';
+  //create session function
+  async create(createSessionDto: CreateSessionDto): Promise<Session> {
+    const session = this.sessionRepository.create(createSessionDto);
+    const savedSession = await this.sessionRepository.save(session);
+    return savedSession;
   }
 
   findAll() {
