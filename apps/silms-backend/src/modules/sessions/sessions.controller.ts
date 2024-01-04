@@ -62,8 +62,20 @@ export class SessionsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSessionDto: UpdateSessionDto) {
-    return this.sessionsService.update(+id, updateSessionDto);
+  async update(@Param('id') id: string, @Body() updateSessionDto: UpdateSessionDto) {
+    try {
+      const updatedSession = await this.sessionsService.update(id, updateSessionDto);
+      return {
+        status: HttpStatus.OK,
+        message: `Session with ID ${id} updated successfully`,
+        data: updatedSession,
+      };
+    } catch (error) {
+      throw new HttpException(
+        `Failed to update session: ${error.message || error}`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
   }
 
   @Delete(':id')
