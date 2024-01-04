@@ -31,6 +31,7 @@ export class SessionsController {
   // findOne(@Param('id') id: string) {
   //   return this.sessionsService.findOne(+id);
   // }
+
   //get session endpoint
   @Get(':id')
   async findOne(@Param('id') id: string) {
@@ -39,6 +40,24 @@ export class SessionsController {
       return { session, status: HttpStatus.OK };
     } catch (error) {
       throw new NotFoundException(error.message);
+    }
+  }
+
+  // get current session endpoint
+  @Get('current')
+  async getCurrentSession() {
+    try {
+      const currentSession = await this.sessionsService.getCurrentSession();
+      return {
+        status: HttpStatus.OK,
+        message: 'Current session found',
+        data: currentSession,
+      };
+    } catch (error) {
+      throw new HttpException(
+        `Failed to get current session: ${error.message || error}`,
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
 
