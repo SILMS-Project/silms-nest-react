@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, NotFoundException } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
@@ -17,9 +17,18 @@ export class SessionsController {
     return this.sessionsService.findAll();
   }
 
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.sessionsService.findOne(+id);
+  // }
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sessionsService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    try {
+      const session = await this.sessionsService.findById(id);
+      return { session, status: HttpStatus.OK };
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 
   @Patch(':id')
