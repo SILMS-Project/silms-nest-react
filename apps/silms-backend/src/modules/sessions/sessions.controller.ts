@@ -32,7 +32,7 @@ export class SessionsController {
   //   return this.sessionsService.findOne(+id);
   // }
 
-  //get session endpoint
+  //get session by id endpoint
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
