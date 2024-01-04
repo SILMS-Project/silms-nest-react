@@ -19,7 +19,7 @@ export class SubmissionsController {
   constructor(private readonly submissionsService: SubmissionsService) {}
 
   @Version('1')
-  @Post()
+  @Post('create')
   @ApiOperation({ summary: 'Create a new submission' })
   @ApiResponse({ status: 201, description: 'Submission successfully created' })
   create(@Body() createSubmissionDto: CreateSubmissionDto) {
@@ -66,6 +66,6 @@ export class SubmissionsController {
   @ApiOperation({ summary: 'Delete a submission by ID' })
   @ApiResponse({ status: 200, description: 'Deleted submission successfully' })
   remove(@Param('id') id: string) {
-    return this.submissionsService.remove(+id);
+    return this.submissionsService.remove(id);
   }
 }

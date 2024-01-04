@@ -42,7 +42,7 @@ export class CourseContentsController {
   @ApiOperation({ summary: 'Get a course content by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved course content by ID' })
   findOne(@Param('id') id: string) {
-    return this.courseContentsService.findOne(+id);
+    return this.courseContentsService.findOne(id);
   }
 
   @Version('1')
@@ -56,7 +56,7 @@ export class CourseContentsController {
     @Param('id') id: string,
     @Body() updateCourseContentDto: UpdateCourseContentDto,
   ) {
-    return this.courseContentsService.update(+id, updateCourseContentDto);
+    return this.courseContentsService.update(id, updateCourseContentDto);
   }
 
   @Version('1')
@@ -67,6 +67,6 @@ export class CourseContentsController {
     description: 'Deleted course content successfully',
   })
   remove(@Param('id') id: string) {
-    return this.courseContentsService.remove(+id);
+    return this.courseContentsService.remove(id);
   }
 }

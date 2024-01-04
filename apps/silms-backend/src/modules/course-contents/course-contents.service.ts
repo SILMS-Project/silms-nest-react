@@ -1,26 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCourseContentDto } from './dto/create-course-content.dto';
 import { UpdateCourseContentDto } from './dto/update-course-content.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CourseContent } from './entities/course-content.entity';
+import { Repository } from 'typeorm';
+import { CourseContentProps } from './interfaces/course-content.interface';
+import { CourseModulesService } from '../course-modules/course-modules.service';
 
 @Injectable()
 export class CourseContentsService {
-  create(createCourseContentDto: CreateCourseContentDto) {
-    return 'This action adds a new courseContent';
+  constructor(
+    @InjectRepository(CourseContent)
+    private readonly courseContentRepository: Repository<CourseContent>,
+    private courseModulesService: CourseModulesService,
+    ) {}
+
+  async create(createCourseContentDto: CreateCourseContentDto) {
+
+    const courseContentProps : CourseContentProps = {
+      ...createCourseContentDto,
+      courseModule: await this.courseModulesService.findOne(createCourseContentDto.courseModuleId)
+    }
+
+    const newCourseContent = this.courseContentRepository.create({
+      ...courseContentProps
+    });
+
+    return await this.courseContentRepository.save(newCourseContent);
   }
 
-  findAll() {
-    return `This action returns all courseContents`;
+  async findAll() {
+    return await this.courseContentRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} courseContent`;
+  async findOne(id: string) {
+    const courseContent = await this.courseContentRepository.findOne({where: {id}});
+    if (!courseContent) {
+      throw new Error("Course content not found");
+    }
+    return courseContent;
   }
 
-  update(id: number, updateCourseContentDto: UpdateCourseContentDto) {
-    return `This action updates a #${id} courseContent`;
+  async update(id: string, updateCourseContentDto: UpdateCourseContentDto) {
+    const courseContent = await this.findOne(id);
+    return await this.courseContentRepository.update(courseContent, updateCourseContentDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} courseContent`;
+  async remove(id: string) {
+    const courseContent = await this.findOne(id);
+    return await this.courseContentRepository.remove(courseContent);
   }
 }

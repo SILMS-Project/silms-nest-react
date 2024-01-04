@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateCourseContentDto {
   @ApiProperty()
@@ -16,4 +16,9 @@ export class CreateCourseContentDto {
   @IsNotEmpty({ message: 'Content is required' })
   @IsString()
   readonly content: string;
+
+  @ApiProperty()
+  @IsNotEmpty({message: "courseModuleId is required"})
+  @IsUUID()
+  readonly courseModuleId: string;
 }

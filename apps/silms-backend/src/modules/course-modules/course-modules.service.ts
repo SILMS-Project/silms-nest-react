@@ -4,20 +4,33 @@ import { UpdateCourseModuleDto } from './dto/update-course-module.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CourseModule } from './entities/course-module.entity';
 import { Repository } from 'typeorm';
+import { CoursesModuleProps } from './interfaces/courses-modules.interface';
+import { CoursesService } from '../courses/courses.service';
 
 @Injectable()
 export class CourseModulesService {
   constructor(
     @InjectRepository(CourseModule)
     private readonly courseModuleRepository: Repository<CourseModule>,
+    private coursesService: CoursesService,
   ) {}
 
-  create(createCourseModuleDto: CreateCourseModuleDto) {
-    return 'This action adds a new courseModule';
+  async create(createCourseModuleDto: CreateCourseModuleDto) {
+
+    const coursesModuleProps: CoursesModuleProps = {
+      ...createCourseModuleDto,
+      course: await this.coursesService.findById(createCourseModuleDto.courseId)
+    }
+
+    const newCourseModule = this.courseModuleRepository.create({
+      ...coursesModuleProps
+    })
+
+    return await this.courseModuleRepository.save(newCourseModule);
   }
 
-  findAll() {
-    return `This action returns all courseModules`;
+  async findAll() {
+    return await this.courseModuleRepository.find();
   }
 
   async findOne(id: string) {
@@ -28,11 +41,15 @@ export class CourseModulesService {
     return courseModule;
   }
 
-  update(id: number, updateCourseModuleDto: UpdateCourseModuleDto) {
-    return `This action updates a #${id} courseModule`;
+  async update(id: string, updateCourseModuleDto: UpdateCourseModuleDto) {
+    const courseModule = await this.findOne(id);
+    return await this.courseModuleRepository.update(courseModule, updateCourseModuleDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} courseModule`;
+  async remove(id: string) {
+    const courseModule = await this.findOne(id);
+    return await this.courseModuleRepository.remove(courseModule).then(() => {
+      return {deleted: true}
+    })
   }
 }

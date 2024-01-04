@@ -56,7 +56,7 @@ export class CourseModulesController {
     @Param('id') id: string,
     @Body() updateCourseModuleDto: UpdateCourseModuleDto,
   ) {
-    return this.courseModulesService.update(+id, updateCourseModuleDto);
+    return this.courseModulesService.update(id, updateCourseModuleDto);
   }
 
   @Version('1')
@@ -67,6 +67,6 @@ export class CourseModulesController {
     description: 'Deleted course module successfully',
   })
   remove(@Param('id') id: string) {
-    return this.courseModulesService.remove(+id);
+    return this.courseModulesService.remove(id);
   }
 }
