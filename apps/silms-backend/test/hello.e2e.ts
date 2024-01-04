@@ -3,10 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
 import { Role } from '@/utils/constants';
 import { User } from '@/modules/users/entities/user.entity';
-import { TestDBInitiator, createTestDataSource } from '../../../test/config.e2e';
+import { TestDBInitiator, createTestDataSource } from './config.e2e';
 import { DataSource } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppModule } from '../../app.module';
+import { AppModule } from '.././src/app.module';
 import { INestApplication } from '@nestjs/common';
 
 

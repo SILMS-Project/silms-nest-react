@@ -1,12 +1,12 @@
-import { Auth } from "@/modules/auth/entities/auth.entity";
-import { Course } from "@/modules/courses/entities/course.entity";
-import { LecturerCourses } from "@/modules/lecturer-courses/entities/lecturer-courses.entity";
-import { Lecturer } from "@/modules/lecturers/entities/lecturer.entity";
-import { Program } from "@/modules/programs/entities/program.entity";
-import { School } from "@/modules/schools/entities/school.entity";
-import { StudentCourse } from "@/modules/student-courses/entities/student-course.entity";
-import { Student } from "@/modules/students/entities/student.entity";
-import { User } from "@/modules/users/entities/user.entity";
+// import { Auth } from "@/modules/auth/entities/auth.entity";
+// import { Course } from "@/modules/courses/entities/course.entity";
+// import { LecturerCourses } from "@/modules/lecturer-courses/entities/lecturer-courses.entity";
+// import { Lecturer } from "@/modules/lecturers/entities/lecturer.entity";
+// import { Program } from "@/modules/programs/entities/program.entity";
+// import { School } from "@/modules/schools/entities/school.entity";
+// import { StudentCourse } from "@/modules/student-courses/entities/student-course.entity";
+// import { Student } from "@/modules/students/entities/student.entity";
+// import { User } from "@/modules/users/entities/user.entity";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 require('dotenv').config();

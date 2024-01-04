@@ -3,7 +3,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './entities/course.entity';
-import { Program } from '../programs/entities/program.entity';
+import { Program } from '@modules/programs/entities/program.entity';
 import { FindOneOptions, Repository } from 'typeorm';
 
 @Injectable()

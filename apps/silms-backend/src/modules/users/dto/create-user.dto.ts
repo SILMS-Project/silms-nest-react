@@ -31,3 +31,5 @@ export class CreateUserDto {
     @IsNotEmpty({ message: 'Role password is required'})
     role: Role;
 }
+
+

@@ -4,6 +4,7 @@
   "description": "A comprehensive Student Information Learning Management System (SILMS) providing centralized management of student data, courses, assignments, and educational resources for streamlined academic administration and improved learning experiences.",
   "main": "index.js",
   "scripts": {
+    "test:user": "jest --projects apps/silms-backend/src/modules/users",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -21,12 +22,15 @@
   "homepage": "https://github.com/SILMS-Project/silms-nest-react#readme",
   "devDependencies": {
     "@golevelup/ts-jest": "^0.4.0",
-    "turbo": "^1.11.2"
+    "node-mocks-http": "^1.14.0",
+    "turbo": "^1.11.2",
+    "typeorm-extension": "^3.2.0"
   },
   "workspaces": [
     "apps/*"
   ],
   "dependencies": {
+    "@nestjs/config": "^3.1.1",
     "i18next": "^23.7.11",
     "i18next-browser-languagedetector": "^7.2.0",
     "i18next-http-backend": "^2.4.2",

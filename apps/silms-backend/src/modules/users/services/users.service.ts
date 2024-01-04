@@ -23,6 +23,7 @@ export class UsersService {
     if (user) {
       throw new Error('User already exists');
     }
+    
 
     const userProps: UserProps = {
       ...createUserDto,
