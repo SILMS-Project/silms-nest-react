@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, NotFoundException, HttpException } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
@@ -7,9 +7,19 @@ import { UpdateSessionDto } from './dto/update-session.dto';
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
+  // @Post()
+  // create(@Body() createSessionDto: CreateSessionDto) {
+  //   return this.sessionsService.create(createSessionDto);
+  // }
+  //post session endpoint
   @Post()
-  create(@Body() createSessionDto: CreateSessionDto) {
-    return this.sessionsService.create(createSessionDto);
+  async create(@Body() createSessionDto: CreateSessionDto) {
+    try {
+      const session = await this.sessionsService.create(createSessionDto);
+      return { session, status: HttpStatus.CREATED };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get()
@@ -21,6 +31,7 @@ export class SessionsController {
   // findOne(@Param('id') id: string) {
   //   return this.sessionsService.findOne(+id);
   // }
+  //get session endpoint
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
