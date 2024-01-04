@@ -78,6 +78,24 @@ export class SessionsController {
     }
   }
 
+  //endpoint for updating status session
+  @Patch(':id/update-status')
+  async updateStatus(@Param('id') id: string, @Body('status') status: boolean) {
+    try {
+      const updatedSession = await this.sessionsService.updateStatus(id, status);
+      return {
+        status: HttpStatus.OK,
+        message: `Session status updated successfully`,
+        data: updatedSession,
+      };
+    } catch (error) {
+      throw new HttpException(
+        `Failed to update session status: ${error.message || error}`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.sessionsService.remove(+id);
