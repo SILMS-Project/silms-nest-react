@@ -1,5 +1,6 @@
+import { CourseType } from '@/utils/constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsNumber, IsOptional, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsOptional, IsUUID, IsEnum } from 'class-validator';
 
 export class CreateCourseDto {
   @ApiProperty()
@@ -15,6 +16,11 @@ export class CreateCourseDto {
   @ApiProperty()
   @IsString({ message: 'Description should be a string' })
   readonly description: string;
+
+  @ApiProperty({ enum: CourseType, enumName: 'CourseType' })
+  @IsNotEmpty({ message: 'Course type is required' })
+  @IsEnum(CourseType, { message: 'Invalid course type' })
+  readonly courseType: CourseType;
 
   @ApiProperty()
   @IsNotEmpty({ message: 'Unit is required' })

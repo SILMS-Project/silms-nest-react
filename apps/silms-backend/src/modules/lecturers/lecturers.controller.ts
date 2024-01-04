@@ -37,7 +37,7 @@ export class LecturersController {
   @ApiResponse({ status: 200, description: 'Lecturer found by ID' })
   @ApiResponse({ status: 404, description: 'Lecturer not found' })
   findOne(@Param('id') id: string) {
-    return this.lecturersService.findOne(+id);
+    return this.lecturersService.findById(id);
   }
 
   @Version('1')
@@ -47,7 +47,7 @@ export class LecturersController {
   @ApiResponse({ status: 200, description: 'Lecturer successfully updated' })
   @ApiResponse({ status: 404, description: 'Lecturer not found' })
   update(@Param('id') id: string, @Body() updateLecturerDto: UpdateLecturerDto) {
-    return this.lecturersService.update(+id, updateLecturerDto);
+    return this.lecturersService.update(id, updateLecturerDto);
   }
 
   @Version('1')
@@ -57,6 +57,6 @@ export class LecturersController {
   @ApiResponse({ status: 200, description: 'Lecturer successfully deleted' })
   @ApiResponse({ status: 404, description: 'Lecturer not found' })
   remove(@Param('id') id: string) {
-    return this.lecturersService.remove(+id);
+    return this.lecturersService.remove(id);
   }
 }

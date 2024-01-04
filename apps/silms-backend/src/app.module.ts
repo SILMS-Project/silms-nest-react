@@ -26,6 +26,15 @@ import { StudentCoursesModule } from './modules/student-courses/student-courses.
 import { AuthModule } from './modules/auth/auth.module';
 import { MailModule } from './modules/mail/mail.module';
 import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-courses.module';
+import { CourseContentsModule } from './modules/course-contents/course-contents.module';
+import { AssessmentsModule } from './modules/assessments/assessments.module';
+import { GradesModule } from './modules/grades/grades.module';
+import { SubmissionsModule } from './modules/submissions/submissions.module';
+import { CourseModulesModule } from './modules/course-modules/course-modules.module';
+import { ApplicantsModule } from './modules/applicants/applicants.module';
+import { ApplicationsModule } from './modules/applications/applications.module';
+import { ResultsModule } from './modules/results/results.module';
+import { SessionsModule } from './modules/sessions/sessions.module';
 
 @Module({
   imports: [
@@ -50,6 +59,9 @@ import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-cours
         }),
       ],
     }),
+    ApplicantsModule,
+    ApplicationsModule,
+    ScheduleModule,
     UsersModule,
     SchoolsModule,
     ProgramsModule,
@@ -60,6 +72,13 @@ import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-cours
     LecturerCoursesModule,
     AuthModule,
     MailModule,
+    CourseContentsModule,
+    AssessmentsModule,
+    GradesModule,
+    SubmissionsModule,
+    CourseModulesModule,
+    ResultsModule,
+    SessionsModule
   ],
   controllers: [AppController],
   providers: [
