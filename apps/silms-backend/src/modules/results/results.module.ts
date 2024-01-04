@@ -3,10 +3,10 @@ import { ResultsService } from './results.service';
 import { ResultsController } from './results.controller';
 import { Result } from './entities/result.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StudentCourse } from '../student-courses/entities/student-course.entity';
+import { StudentCoursesModule } from '../student-courses/student-courses.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Result, StudentCourse])],
+  imports: [TypeOrmModule.forFeature([Result]), StudentCoursesModule],
   controllers: [ResultsController],
   providers: [ResultsService],
 })

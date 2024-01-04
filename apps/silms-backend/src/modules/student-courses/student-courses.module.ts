@@ -13,5 +13,6 @@ import { Result } from '../results/entities/result.entity';
   ],
   controllers: [StudentCoursesController],
   providers: [StudentCoursesService],
+  exports: [StudentCoursesService],
 })
 export class StudentCoursesModule {}
