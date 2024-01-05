@@ -3,7 +3,7 @@ import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Assessment } from './entities/assessment.entity';
-import { FindOneOptions, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AssessmentsService {
@@ -24,8 +24,13 @@ export class AssessmentsService {
     return this.assessmentRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} assessment`;
+  async findOne(id: string) {
+    const assessment = await this.assessmentRepository.findOne({where: {id}});
+    if (!assessment) {
+      throw new Error("Assessment not found.")
+    }
+
+    return assessment;
   }
 
   update(id: number, updateAssessmentDto: UpdateAssessmentDto) {
