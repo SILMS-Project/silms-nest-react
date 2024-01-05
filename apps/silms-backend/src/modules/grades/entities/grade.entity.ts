@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 import { Submission } from '@/modules/submissions/entities/submission.entity';
 import { Student } from '@/modules/students/entities/student.entity';
 
@@ -13,7 +13,8 @@ export class Grade {
   // @ManyToOne(() => Assessment, assessment => assessment.grades)
   // assessment: Assessment;
 
-  @OneToOne(() => Submission, submission => submission.grade)
+  @OneToOne(() => Submission, (submission) => submission.grade)
+  @JoinColumn()
   submission: Submission;
 
   @ManyToOne(() => Student, student => student.grades)

@@ -1,3 +1,4 @@
+import { Grades } from '@/utils/constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
@@ -30,5 +31,5 @@ export class CreateResultDto {
   @ApiProperty()
   @IsOptional()
   @IsString()
-  readonly grade?: string;
+  readonly grade?: Grades;
 }

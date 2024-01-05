@@ -60,9 +60,8 @@ export class GradesService {
     return grade;
   }
 
-  async update(id: string, updateGradeDto: UpdateGradeDto) {
-    const grade = await this.findOne(id);
-    return await this.gradeRepository.update(grade, updateGradeDto);
+   update(id: string, updateGradeDto: UpdateGradeDto) {
+    
   }
 
   async remove(id: string) {

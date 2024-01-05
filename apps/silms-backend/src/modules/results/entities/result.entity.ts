@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToOne } from 'typeorm';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
+import { Grades } from '@/utils/constants';
 
 @Entity()
 export class Result {
@@ -22,7 +23,7 @@ export class Result {
   total: number;
 
   @Column({ nullable: true})
-  grade: string;
+  grade: Grades;
 
   @OneToOne(() => StudentCourse, studentCourse => studentCourse.result)
   @JoinColumn()

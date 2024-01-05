@@ -15,8 +15,8 @@ export class StudentCourse {
   @Column({ type: 'timestamp', nullable: true })
   completionDate: Date;
 
-  @Column({ nullable: true })
-  grade: string;
+  // @Column({ nullable: true })
+  // grade: string;
 
   @Column({ default: 'active' })
   status: string;

@@ -36,7 +36,7 @@ export class ResultsService {
   async findByStudentCourse(studentCourseId: string) {
     const result = await this.resultsRepository.findOne({
       where: { studentCourse: { id: studentCourseId } },
-      relations: ['studentCourse'],
+      relations: ['studentCourse', 'studentCourse.course'],
     });
 
     if (!result) {
@@ -57,35 +57,43 @@ export class ResultsService {
     );
   }
 
-  async calculateScore(id: string) {
+  async calculateTotalScore(id: string) {
     const result = await this.findOne(id);
-    result.total = result.ca1 + result.ca2 + result.ca3;
+    const { ca1, ca2, ca3 } = result;
+    const total = ca1 + ca2 + ca3;
 
-    if (result.total >= 70) {
-      result.grade = Grades.A.toString();
-    } else if (result.total >= 60 && result.total < 70) {
-      result.grade = Grades.B.toString();
-    } else if (result.total >= 50 && result.total < 60) {
-      result.grade = Grades.C.toString();
-    } else if (result.total >= 45 && result.total < 50) {
-      result.grade = Grades.D.toString();
-    } else if (result.total >= 0 && result.total < 45) {
-      result.grade = Grades.F.toString();
-    }
+    const grade = total >= 70 ? Grades.A :
+                  total >= 60 ? Grades.B :
+                  total >= 50 ? Grades.C :
+                  total >= 45 ? Grades.D :
+                  Grades.F;
+
+    result.total = total;
+    result.grade = grade;
 
     return await this.resultsRepository.update(id, result);
   }
 
   async calculateGPAByStudentId(studentId: string) {
     const results = await this.findByStudentId(studentId);
-    const gpa = 0;
-    const totalGrade = 0;
+    var totalPoints: number = 0;
+
+    const gradePoints = {
+      [Grades.A]: 4,
+      [Grades.B]: 3,
+      [Grades.C]: 2,
+      [Grades.D]: 1,
+      [Grades.F]: 0,
+    };
 
     results.map((result) => {
-      if (result.grade === Grades.A.) {
-        totalGrade
-      }
+      totalPoints += (gradePoints[result.grade] * result.studentCourse.course.unit);
+      console.log(result.studentCourse.course.unit)
     })
+
+    const gpaResult = totalPoints / results.length;
+
+    return {GPA: gpaResult.toFixed(2)}
   }
 
   async update(id: string, updateResultDto: UpdateResultDto) {

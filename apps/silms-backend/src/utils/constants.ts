@@ -39,9 +39,9 @@ export enum SubmissionStatus {
 }
 
 export enum Grades {
-  A = 5,
-  B = 5,
-  C = 3,
-  D = 1,
-  F = 0
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  F = 'F',
 }
