@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
@@ -5,6 +6,8 @@ import { Repository } from 'typeorm';
 import { School } from '@modules/schools/entities/school.entity'; 
 import {  Program } from '@modules/programs/entities/program.entity'; 
 import { InjectRepository } from '@nestjs/typeorm';
+import { ILike } from 'typeorm';
+
 @Injectable()
 export class SchoolsService {
   constructor (@InjectRepository(School) private readonly schoolRepository: Repository<School>){}
@@ -48,9 +51,53 @@ export class SchoolsService {
     return school;
   }
 
-  update(id: number, updateSchoolDto: UpdateSchoolDto) {
-    return `This action updates a #${id} school`;
+  //find school by abbrevation
+  async findSchoolByAbbreviation(abbreviation: string): Promise<School[] | undefined> {
+    const lowercaseAbbreviation = abbreviation.toLowerCase();
+    try {
+      const schools = await this.schoolRepository.find({
+        where: {
+          abbreviation: ILike(`%${lowercaseAbbreviation}%`), // Use Like for case-insensitive search
+        },
+        relations: ['programs']
+      });
+      return schools;
+    } catch (error) {
+      console.error('Error finding school by abbreviation:', error);
+      throw new NotFoundException(`School with Abbreviation ${abbreviation} not found`);
+    }
   }
+  
+
+  // update(id: number, updateSchoolDto: UpdateSchoolDto) {
+  //   return `This action updates a #${id} school`;
+  // }
+  async update(id: string, updateSchoolDto: UpdateSchoolDto): Promise<School> {
+    const school = await this.findOne(id);
+  
+    // Update the properties based on the fields provided in the updateSchoolDto
+    if (updateSchoolDto.name) {
+      school.name = updateSchoolDto.name;
+    }
+  
+    if (updateSchoolDto.abbreviation) {
+      school.abbreviation = updateSchoolDto.abbreviation;
+    }
+  
+    if (updateSchoolDto.programs) {
+      // Assuming that programs is an array of strings in the updateSchoolDto
+      school.programs = updateSchoolDto.programs.map((programName: string) => {
+        const program = new Program();
+        program.programName = programName;
+        return program;
+      });
+    }
+  
+    // Save the updated school entity
+    const updatedSchool = await this.schoolRepository.save(school);
+    return updatedSchool;
+  }
+  
 
   remove(id: number) {
     return `This action removes a #${id} school`;

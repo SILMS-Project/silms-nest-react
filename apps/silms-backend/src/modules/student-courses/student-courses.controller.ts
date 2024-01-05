@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Version } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Version,
+  HttpException,
+  HttpStatus,
+  Res,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { StudentCoursesService } from './student-courses.service';
 import { CreateStudentCourseDto } from './dto/create-student-course.dto';
@@ -16,9 +28,22 @@ export class StudentCoursesController {
   // POST /student-courses
   @Post()
   @ApiOperation({ summary: 'Create a new student course' })
-  @ApiResponse({ status: 201, description: 'Student course successfully created' })
-  create(@Body() createStudentCourseDto: CreateStudentCourseDto) {
-    return this.studentCoursesService.create(createStudentCourseDto);
+  @ApiResponse({
+    status: 201,
+    description: 'Student course successfully created',
+  })
+  async create(
+    @Body() createStudentCourseDto: CreateStudentCourseDto,
+    @Res() res: any,
+  ) {
+    try {
+      const createdStudentCourse = await this.studentCoursesService.create(
+        createStudentCourseDto,
+      );
+      return res.status(HttpStatus.CREATED).json(createdStudentCourse);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Version('1')
@@ -44,9 +69,15 @@ export class StudentCoursesController {
   // PATCH /student-courses/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update a student course by ID' })
-  @ApiResponse({ status: 200, description: 'Student course successfully updated' })
+  @ApiResponse({
+    status: 200,
+    description: 'Student course successfully updated',
+  })
   @ApiResponse({ status: 404, description: 'Student course not found' })
-  update(@Param('id') id: string, @Body() updateStudentCourseDto: UpdateStudentCourseDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateStudentCourseDto: UpdateStudentCourseDto,
+  ) {
     return this.studentCoursesService.update(+id, updateStudentCourseDto);
   }
 
@@ -54,9 +85,20 @@ export class StudentCoursesController {
   // DELETE /student-courses/:id
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a student course by ID' })
-  @ApiResponse({ status: 200, description: 'Student course successfully deleted' })
+  @ApiResponse({
+    status: 200,
+    description: 'Student course successfully deleted',
+  })
   @ApiResponse({ status: 404, description: 'Student course not found' })
-  remove(@Param('id') id: string) {
-    return this.studentCoursesService.remove(+id);
+  async remove(@Param('id') id: string, @Res() res: any) {
+    try {
+      const deletedStudentCourse = await this.studentCoursesService.remove(id);
+      if (!deletedStudentCourse) {
+        throw new HttpException(`Student course with ID ${id} not found`, HttpStatus.NOT_FOUND);
+      }
+      return res.status(HttpStatus.OK).json(deletedStudentCourse);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

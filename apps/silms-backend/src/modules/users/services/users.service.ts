@@ -9,14 +9,13 @@ import { Profile } from '../entities/profile.entity';
 import { ProfileProps } from '../interfaces/profile.interface';
 import { PasswordService } from './password.service';
 
-
 @Injectable()
 export class UsersService {
-  
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-    @InjectRepository(Profile) private readonly profileRepository: Repository<Profile>,
-    private passwordService: PasswordService
+    @InjectRepository(Profile)
+    private readonly profileRepository: Repository<Profile>,
+    private passwordService: PasswordService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -34,17 +33,16 @@ export class UsersService {
     };
 
     const profileProps: ProfileProps = {
-      ...createUserDto
+      ...createUserDto,
     };
 
     const newUser = await this.userRepository.save(userProps);
 
     const newProfile = this.profileRepository.create({
       ...profileProps,
-      user: newUser
+      user: newUser,
     });
 
-    
     newUser.profile = await this.profileRepository.save(newProfile);
     return newUser;
   }
@@ -53,24 +51,26 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  async changePassword(userId: string, newPassword: string) : Promise<any>{
+  async changePassword(userId: string, newPassword: string): Promise<any> {
     const user = this.userRepository.findOne({ where: { id: userId } });
 
     if (!user) {
       throw new Error('User not found');
     }
-    const hashedPassword = await this.passwordService.hashPassword(newPassword)
-    return await this.userRepository.update(userId, { password: hashedPassword }).then(() => {
-      return { message: 'Password changed successfully' }
-    });
+    const hashedPassword = await this.passwordService.hashPassword(newPassword);
+    return await this.userRepository
+      .update(userId, { password: hashedPassword })
+      .then(() => {
+        return { message: 'Password changed successfully' };
+      });
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
     return await this.userRepository.findOne({ where: { email } });
   }
 
-  async findOneById (id: string): Promise<User | undefined> {
-    return await this.userRepository.findOne({where: {id}});
+  async findOneById(id: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -80,7 +80,7 @@ export class UsersService {
       throw new Error('User not found');
     }
     return this.userRepository.update(id, updateUserDto).then(() => {
-      return { message: 'User updated successfully' }
+      return { message: 'User updated successfully' };
     });
   }
 
@@ -90,7 +90,7 @@ export class UsersService {
       throw new Error('User not found');
     }
     return this.userRepository.delete(id).then(() => {
-      return { message: 'User deleted successfully' }
-      });
+      return { message: 'User deleted successfully' };
+    });
   }
 }

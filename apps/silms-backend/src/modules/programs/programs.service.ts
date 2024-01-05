@@ -6,45 +6,41 @@ import {  Program } from '@modules/programs/entities/program.entity';
 import {  Course } from '@modules/courses/entities/course.entity'; 
 import { Repository } from 'typeorm';
 import { School } from '../schools/entities/school.entity';
+import { program } from '@babel/template';
 @Injectable()
 export class ProgramsService {
   constructor(@InjectRepository(Program) private readonly programRepository:Repository<Program>,
+  @InjectRepository(Course) private readonly courseRepository: Repository<Course>,
   @InjectRepository(School) private readonly schoolRepository:Repository<School>){}
   async create(createProgramDto: CreateProgramDto) {
     try{
-      const program =new Program
-      program.programName=createProgramDto.programName
-      program.description=createProgramDto.description
-      program.requirements = createProgramDto.requirements;
-
-      const courses = createProgramDto.courses.map((courseDto) => {
-        const course = new Course();
-        course.courseCode = courseDto.courseCode;
-        course.courseTitle = courseDto.courseTitle;
-        course.unit = courseDto.unit;
-        course.semester = courseDto.semester;
-        course.description=courseDto.description
-        course.image=courseDto.image
-        return course;
-      });
+      const program =await this.programRepository.save(createProgramDto)
       const school = await this.schoolRepository.findOne({where:{id:createProgramDto.schoolId},});
-      if (!program) {
-        throw new Error(`Program with id ${createProgramDto.schoolId} not found`);
+      if (!school) {
+        throw new Error(`school with id ${createProgramDto.schoolId} not found`);
       }
-      program.school = school;
-      program.courses=courses
+      program.school=school
       const savedProgram = await this.programRepository.save(program);
       return savedProgram;
     } catch (error) {
       return { message: 'Failed to create program', error: error.message || error };
     }
   }
-  findAll() {
-    return `This action returns all programs`;
+  async findAll():  Promise<Program[]>{
+    const program = await this.programRepository.find();
+    return program;
   }
+
 
   findOne(id: number) {
     return `This action returns a #${id} program`;
+  }
+
+  async getAllProgramsBySchool(schoolId: string) {
+    return this.programRepository.find({
+      where: { school: { id: schoolId } },
+      relations: ['courses'], 
+    });
   }
 
   update(id: number, updateProgramDto: UpdateProgramDto) {
