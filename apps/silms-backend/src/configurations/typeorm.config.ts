@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
@@ -27,7 +28,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   synchronize: true, // Auto-create database tables based on entities (not recommended for production)
   autoLoadEntities: true, // Automatically load entity files
   logging: false, // Disable logging SQL queries
-  ssl: {
-    rejectUnauthorized: false, // Reject unauthorized SSL connections
-  },
+  // ssl: {
+  //   rejectUnauthorized: false, // Reject unauthorized SSL connections
+  // },
 };
