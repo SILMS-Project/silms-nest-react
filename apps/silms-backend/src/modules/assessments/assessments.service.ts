@@ -1,15 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Assessment } from './entities/assessment.entity';
+import { FindOneOptions, Repository } from 'typeorm';
 
 @Injectable()
 export class AssessmentsService {
-  create(createAssessmentDto: CreateAssessmentDto) {
-    return 'This action adds a new assessment';
+  constructor(
+    @InjectRepository(Assessment)
+    private readonly assessmentRepository: Repository<Assessment>,
+    // Add other repositories or services as needed
+  ) {}
+
+  async create(createAssessmentDto: CreateAssessmentDto): Promise<Assessment> {
+    const assessment = this.assessmentRepository.create(createAssessmentDto);
+    // Additional logic 
+    const savedAssessment = await this.assessmentRepository.save(assessment);
+    return savedAssessment;
   }
 
-  findAll() {
-    return `This action returns all assessments`;
+  async findAll(): Promise<Assessment[]> {
+    return this.assessmentRepository.find();
   }
 
   findOne(id: number) {
