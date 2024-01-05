@@ -28,7 +28,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     synchronize: true, // Auto-create database tables based on entities (not recommended for production)
     autoLoadEntities: true, // Automatically load entity files
     logging: false, // Disable logging SQL queries
-    // ssl: {
-    //   rejectUnauthorized: false, // Reject unauthorized SSL connections
-    // },
+    ssl: {
+      rejectUnauthorized: false, // Reject unauthorized SSL connections
+    },
   }
