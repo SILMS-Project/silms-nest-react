@@ -12,6 +12,7 @@ import { AssessmentsService } from './assessments.service';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Assessment } from './entities/assessment.entity';
 
 @ApiTags('assessments')
 @Controller('assessments')
@@ -30,7 +31,7 @@ export class AssessmentsController {
   @Get()
   @ApiOperation({ summary: 'Get all assessments' })
   @ApiResponse({ status: 200, description: 'Retrieved all assessments' })
-  findAll() {
+  async findAll(): Promise<Assessment[]> {
     return this.assessmentsService.findAll();
   }
 
@@ -39,7 +40,7 @@ export class AssessmentsController {
   @ApiOperation({ summary: 'Get an assessment by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved assessment by ID' })
   findOne(@Param('id') id: string) {
-    return this.assessmentsService.findOne(+id);
+    return this.assessmentsService.findOne(id);
   }
 
   @Version('1')
