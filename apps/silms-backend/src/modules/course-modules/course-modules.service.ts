@@ -35,9 +35,21 @@ export class CourseModulesService {
     return courseModule;
   }
 
-  update(id: number, updateCourseModuleDto: UpdateCourseModuleDto) {
-    return `This action updates a #${id} courseModule`;
+  async update(id: string, updateCourseModuleDto: UpdateCourseModuleDto): Promise<CourseModule> {
+    const existingCourseModule = await this.courseModuleRepository.findOne({where:{id:id}});
+
+    if (!existingCourseModule) {
+      throw new Error(`Course module with id ${id} not found`);
+    }
+    // Update the properties of the existing course module with data from the DTO
+    Object.assign(existingCourseModule, updateCourseModuleDto);
+
+    // Save the updated course module
+    const updatedCourseModule = await this.courseModuleRepository.save(existingCourseModule);
+    
+    return updatedCourseModule;
   }
+
 
   remove(id: number) {
     return `This action removes a #${id} courseModule`;
