@@ -57,7 +57,7 @@ export class CourseModulesController {
     @Param('id') id: string,
     @Body() updateCourseModuleDto: UpdateCourseModuleDto,
   ) {
-    return this.courseModulesService.update(+id, updateCourseModuleDto);
+    return this.courseModulesService.update(id, updateCourseModuleDto);
   }
 
   @Version('1')
