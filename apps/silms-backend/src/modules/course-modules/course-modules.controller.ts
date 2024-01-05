@@ -43,7 +43,7 @@ export class CourseModulesController {
   @ApiOperation({ summary: 'Get a course module by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved course module by ID' })
   findOne(@Param('id') id: string) {
-    return this.courseModulesService.findOne(+id);
+    return this.courseModulesService.findOne(id);
   }
 
   @Version('1')
