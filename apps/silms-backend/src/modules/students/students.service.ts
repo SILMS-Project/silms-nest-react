@@ -39,7 +39,7 @@ export class StudentsService {
   }
 
   async findAll(): Promise<Student[]> {
-    return await this.studentRepository.find({relations: ['profile']});
+    return await this.studentRepository.find({ relations: ['profile'] });
   }
 
   async findByMatricNo(matricNo: string) {

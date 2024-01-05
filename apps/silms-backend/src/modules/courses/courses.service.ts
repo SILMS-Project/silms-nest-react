@@ -6,7 +6,6 @@ import { Course } from './entities/course.entity';
 import { ProgramsService } from '../programs/programs.service';
 import { FindOneOptions, Repository } from 'typeorm';
 
-
 @Injectable()
 export class CoursesService {
   constructor(
@@ -96,7 +95,6 @@ export class CoursesService {
 
     return course;
   }
-  
 
   async update(id: string, updateCourseDto: UpdateCourseDto): Promise<Course> {
     const course = await this.courseRepository.findOne({ where: { id: id } });

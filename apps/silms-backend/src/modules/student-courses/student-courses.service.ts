@@ -31,12 +31,12 @@ export class StudentCoursesService {
 
   async findByStudentId(studentId: string): Promise<StudentCourse[]> {
     const studentCourse = await this.studentCourseRepository.find({
-      where: { student: { id: studentId }},
-      relations: ['student', 'course']
+      where: { student: { id: studentId } },
+      relations: ['student', 'course'],
     });
 
     if (!studentCourse) {
-      throw new Error("Student Course not found")
+      throw new Error('Student Course not found');
     }
 
     return studentCourse;

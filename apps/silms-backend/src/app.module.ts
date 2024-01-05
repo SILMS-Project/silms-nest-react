@@ -80,7 +80,7 @@ import { SchedulesModule } from './modules/schedules/schedules.module';
     CourseModulesModule,
     ResultsModule,
     SessionsModule,
-    SchedulesModule
+    SchedulesModule,
   ],
   controllers: [AppController],
   providers: [

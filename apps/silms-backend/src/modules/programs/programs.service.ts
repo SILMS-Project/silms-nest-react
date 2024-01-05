@@ -42,7 +42,7 @@ export class ProgramsService {
   }
 
   async findOne(id: string): Promise<Program> {
-    return await this.programRepository.findOne({where: {id}});
+    return await this.programRepository.findOne({ where: { id } });
   }
 
   async getAllProgramsBySchool(schoolId: string) {

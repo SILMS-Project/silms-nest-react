@@ -26,7 +26,7 @@ describe('UsersService', () => {
         {
           provide: getRepositoryToken(Profile),
           useValue: mockProfileRepository,
-        }
+        },
       ],
     }).compile();
 

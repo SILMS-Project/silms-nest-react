@@ -13,17 +13,18 @@ export class CourseContentsService {
     @InjectRepository(CourseContent)
     private readonly courseContentRepository: Repository<CourseContent>,
     private courseModulesService: CourseModulesService,
-    ) {}
+  ) {}
 
   async create(createCourseContentDto: CreateCourseContentDto) {
-
-    const courseContentProps : CourseContentProps = {
+    const courseContentProps: CourseContentProps = {
       ...createCourseContentDto,
-      courseModule: await this.courseModulesService.findOne(createCourseContentDto.courseModuleId)
-    }
+      courseModule: await this.courseModulesService.findOne(
+        createCourseContentDto.courseModuleId,
+      ),
+    };
 
     const newCourseContent = this.courseContentRepository.create({
-      ...courseContentProps
+      ...courseContentProps,
     });
 
     return await this.courseContentRepository.save(newCourseContent);
@@ -34,16 +35,21 @@ export class CourseContentsService {
   }
 
   async findOne(id: string) {
-    const courseContent = await this.courseContentRepository.findOne({where: {id}});
+    const courseContent = await this.courseContentRepository.findOne({
+      where: { id },
+    });
     if (!courseContent) {
-      throw new Error("Course content not found");
+      throw new Error('Course content not found');
     }
     return courseContent;
   }
 
   async update(id: string, updateCourseContentDto: UpdateCourseContentDto) {
     const courseContent = await this.findOne(id);
-    return await this.courseContentRepository.update(courseContent, updateCourseContentDto);
+    return await this.courseContentRepository.update(
+      courseContent,
+      updateCourseContentDto,
+    );
   }
 
   async remove(id: string) {

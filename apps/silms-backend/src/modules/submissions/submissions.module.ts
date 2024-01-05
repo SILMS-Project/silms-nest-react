@@ -7,7 +7,11 @@ import { AssessmentsModule } from '../assessments/assessments.module';
 import { StudentsModule } from '../students/students.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Submission]), AssessmentsModule, StudentsModule],
+  imports: [
+    TypeOrmModule.forFeature([Submission]),
+    AssessmentsModule,
+    StudentsModule,
+  ],
 
   controllers: [SubmissionsController],
   providers: [SubmissionsService],

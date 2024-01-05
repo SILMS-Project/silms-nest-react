@@ -53,7 +53,7 @@ export class ResultsService {
     return await Promise.all(
       studentCourses.map((studentCourse) =>
         this.findByStudentCourse(studentCourse.id),
-      )
+      ),
     );
   }
 
@@ -62,11 +62,16 @@ export class ResultsService {
     const { ca1, ca2, ca3 } = result;
     const total = ca1 + ca2 + ca3;
 
-    const grade = total >= 70 ? Grades.A :
-                  total >= 60 ? Grades.B :
-                  total >= 50 ? Grades.C :
-                  total >= 45 ? Grades.D :
-                  Grades.F;
+    const grade =
+      total >= 70
+        ? Grades.A
+        : total >= 60
+          ? Grades.B
+          : total >= 50
+            ? Grades.C
+            : total >= 45
+              ? Grades.D
+              : Grades.F;
 
     result.total = total;
     result.grade = grade;
@@ -76,7 +81,7 @@ export class ResultsService {
 
   async calculateGPAByStudentId(studentId: string) {
     const results = await this.findByStudentId(studentId);
-    var totalPoints: number = 0;
+    let totalPoints: number = 0;
 
     const gradePoints = {
       [Grades.A]: 4,
@@ -87,13 +92,14 @@ export class ResultsService {
     };
 
     results.map((result) => {
-      totalPoints += (gradePoints[result.grade] * result.studentCourse.course.unit);
-      console.log(result.studentCourse.course.unit)
-    })
+      totalPoints +=
+        gradePoints[result.grade] * result.studentCourse.course.unit;
+      console.log(result.studentCourse.course.unit);
+    });
 
     const gpaResult = totalPoints / results.length;
 
-    return {GPA: gpaResult.toFixed(2)}
+    return { GPA: gpaResult.toFixed(2) };
   }
 
   async update(id: string, updateResultDto: UpdateResultDto) {

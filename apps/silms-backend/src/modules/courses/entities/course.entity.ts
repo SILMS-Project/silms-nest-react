@@ -51,14 +51,14 @@ export class Course {
   @OneToMany(() => CourseModule, (courseModule) => courseModule.course)
   courseModules: CourseModule[];
 
-  @OneToMany(() => Session, session => session.courses)
+  @OneToMany(() => Session, (session) => session.courses)
   session: Session[];
 
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.course)
   studentCourses: StudentCourse[];
 
   @OneToMany(() => LecturerCourses, (lecturerCourses) => lecturerCourses.course)
-  lecturerCourses: LecturerCourses[]
+  lecturerCourses: LecturerCourses[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

@@ -18,7 +18,7 @@ export class CreateCourseContentDto {
   readonly content: string;
 
   @ApiProperty()
-  @IsNotEmpty({message: "courseModuleId is required"})
+  @IsNotEmpty({ message: 'courseModuleId is required' })
   @IsUUID()
   readonly courseModuleId: string;
 }

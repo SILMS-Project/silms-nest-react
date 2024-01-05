@@ -37,7 +37,12 @@ export class ProgramsController {
   // GET /programs
   @Get()
   @ApiOperation({ summary: 'Get all programs' })
-  @ApiResponse({ status: 200, description: 'List of all programs', type: Program, isArray: true })
+  @ApiResponse({
+    status: 200,
+    description: 'List of all programs',
+    type: Program,
+    isArray: true,
+  })
   async findAll(): Promise<Program[]> {
     return this.programsService.findAll();
   }
@@ -58,9 +63,13 @@ export class ProgramsController {
   @ApiOperation({ summary: 'Get programs by school ID' })
   @ApiResponse({ status: 200, description: 'Programs found by school ID' })
   @ApiResponse({ status: 404, description: 'Programs not found' })
-  async getAllProgramsBySchool(@Param('schoolId') schoolId: string, @Res() res: any) {
+  async getAllProgramsBySchool(
+    @Param('schoolId') schoolId: string,
+    @Res() res: any,
+  ) {
     try {
-      const programs = await this.programsService.getAllProgramsBySchool(schoolId);
+      const programs =
+        await this.programsService.getAllProgramsBySchool(schoolId);
       return res.status(HttpStatus.OK).json({ programs });
     } catch (error) {
       throw new HttpException('Programs not found', HttpStatus.NOT_FOUND);

@@ -10,7 +10,11 @@ import { SubmissionsModule } from '../submissions/submissions.module';
 import { StudentsModule } from '../students/students.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Grade]), SubmissionsModule, StudentsModule],
+  imports: [
+    TypeOrmModule.forFeature([Grade]),
+    SubmissionsModule,
+    StudentsModule,
+  ],
   controllers: [GradesController],
   providers: [GradesService],
 })

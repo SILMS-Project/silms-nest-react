@@ -56,7 +56,10 @@ export class SubmissionsController {
   @Version('1')
   @Get('assessment/:id')
   @ApiOperation({ summary: 'Get all submissions by assessment ID' })
-  @ApiResponse({ status: 200, description: 'Retrieved submissions by assessment ID' })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved submissions by assessment ID',
+  })
   findByAssessmentId(@Param('id') id: string) {
     return this.submissionsService.findByAssessmentId(id);
   }

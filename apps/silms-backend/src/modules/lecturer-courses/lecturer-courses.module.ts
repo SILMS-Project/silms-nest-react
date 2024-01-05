@@ -7,7 +7,11 @@ import { CoursesModule } from '../courses/courses.module';
 import { LecturersModule } from '../lecturers/lecturers.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([LecturerCourses]), CoursesModule, LecturersModule],
+  imports: [
+    TypeOrmModule.forFeature([LecturerCourses]),
+    CoursesModule,
+    LecturersModule,
+  ],
   controllers: [LecturerCoursesController],
   providers: [LecturerCoursesService],
 })
