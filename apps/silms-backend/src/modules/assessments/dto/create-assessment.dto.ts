@@ -21,4 +21,9 @@ export class CreateAssessmentDto {
   @IsNotEmpty({ message: 'Total grade is required' })
   @IsNumber({}, { message: 'Total grade should be a number' })
   readonly totalGrade: number;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Course module is required' })
+  @IsString()
+  readonly courseModuleId: string;
 }

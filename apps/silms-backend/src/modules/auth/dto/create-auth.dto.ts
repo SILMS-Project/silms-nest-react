@@ -1,6 +1,12 @@
 import { Role } from '@/utils/constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { Equals, IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  Equals,
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 export class CreateAuthDto {
   @ApiProperty()
@@ -27,62 +33,56 @@ export class CreateAuthDto {
 }
 
 export class LoginUserDto {
-    @ApiProperty()
-    @IsEmail({}, { message: 'Invalid email format' })
-    @IsNotEmpty({ message: 'Email is required' })
-    email: string;
-  
-    @ApiProperty()
-    @IsNotEmpty({ message: 'Password is required' })
-    @IsString()
-    password: string;
-  }
+  @ApiProperty()
+  @IsEmail({}, { message: 'Invalid email format' })
+  @IsNotEmpty({ message: 'Email is required' })
+  email: string;
 
-  export class ResetPasswordDto {
-    @ApiProperty()
-    @IsEmail({}, { message: 'Invalid email format' })
-    @IsNotEmpty({ message: 'Email is required' })
-    email: string;
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Password is required' })
+  @IsString()
+  password: string;
+}
 
-  }
+export class ResetPasswordDto {
+  @ApiProperty()
+  @IsEmail({}, { message: 'Invalid email format' })
+  @IsNotEmpty({ message: 'Email is required' })
+  email: string;
+}
 
-  export class ConfirmResetPasswordDto {
-    @ApiProperty()
-    @IsNotEmpty({ message: 'Password is required' })
-    @MinLength(5, { message: 'Password should be at least 5 characters long' })
-    password: string;
+export class ConfirmResetPasswordDto {
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Password is required' })
+  @MinLength(5, { message: 'Password should be at least 5 characters long' })
+  password: string;
 
-    @ApiProperty()
-    @IsNotEmpty({ message: 'Confirm password is required' })
-    // @Equals('password', { message: 'Passwords do not match' })
-    confirmPassword: string;
-    
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Confirm password is required' })
+  // @Equals('password', { message: 'Passwords do not match' })
+  confirmPassword: string;
 
-    // @ApiProperty()
-    // @IsNotEmpty({ message: 'Invalid request, code is required' })
-    // code: string;
+  // @ApiProperty()
+  // @IsNotEmpty({ message: 'Invalid request, code is required' })
+  // code: string;
+}
 
-  }
-  
-  export class ChangePasswordDto {
-    @ApiProperty()
-    @IsNotEmpty({ message: 'Password is required' })
-    @MinLength(5, { message: 'Password should be at least 5 characters long' })
-    password: string;
-  
-    @ApiProperty()
-    @IsNotEmpty({ message: 'Confirm password is required' })
-    // @Equals('password', { message: 'Passwords do not match' })
-    confirmPassword: string;
-  
-    @ApiProperty()
-    @IsNotEmpty({ message: 'Invalid request, id is required' })
-    id: string;
+export class ChangePasswordDto {
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Password is required' })
+  @MinLength(5, { message: 'Password should be at least 5 characters long' })
+  password: string;
 
-    @ApiProperty()
-    @IsNotEmpty()
-    oldPassword: string;
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Confirm password is required' })
+  // @Equals('password', { message: 'Passwords do not match' })
+  confirmPassword: string;
 
-  }
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Invalid request, id is required' })
+  id: string;
 
-  
+  @ApiProperty()
+  @IsNotEmpty()
+  oldPassword: string;
+}

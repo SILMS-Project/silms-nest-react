@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { School } from '@modules/schools/entities/school.entity';
 import { Course } from '@modules/courses/entities/course.entity';
 
@@ -13,15 +19,15 @@ export class Program {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @OneToMany(() => Course, course => course.program,{ cascade: true })
+  @OneToMany(() => Course, (course) => course.program, { cascade: true })
   courses: Course[];
 
   @Column({ type: 'text', nullable: true })
   requirements: string;
 
-  @ManyToOne(() => School, school => school.programs)
+  @ManyToOne(() => School, (school) => school.programs)
   school: School;
-  
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 

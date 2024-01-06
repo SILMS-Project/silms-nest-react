@@ -1,12 +1,11 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateLecturerCourseDto {
+  @IsNotEmpty()
+  @IsString()
+  lecturerId: string;
 
-    @IsNotEmpty()
-    @IsString()
-    lecturerId: string;
-
-    @IsNotEmpty()
-    @IsString()
-    courseId: string;
+  @IsNotEmpty()
+  @IsString()
+  courseId: string;
 }

@@ -68,6 +68,6 @@ export class CourseModulesController {
     description: 'Deleted course module successfully',
   })
   remove(@Param('id') id: string) {
-    return this.courseModulesService.remove(+id);
+    return this.courseModulesService.remove(id);
   }
 }

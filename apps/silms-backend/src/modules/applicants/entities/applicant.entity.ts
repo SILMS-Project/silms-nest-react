@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  OneToOne,
+  JoinColumn,
+  Column,
+} from 'typeorm';
 import { Application } from '@/modules/applications/entities/application.entity';
 import { Profile } from '@/modules/users/entities/profile.entity';
 
@@ -13,10 +20,10 @@ export class Applicant {
   @Column({ type: 'date' })
   dateOfBirth: Date;
 
-  @OneToMany(() => Application, application => application.applicant)
+  @OneToMany(() => Application, (application) => application.applicant)
   applications: Application[];
 
-  @OneToOne(() => Profile, profile => profile.applicant)
+  @OneToOne(() => Profile, (profile) => profile.applicant)
   @JoinColumn()
   profile: Profile;
 }

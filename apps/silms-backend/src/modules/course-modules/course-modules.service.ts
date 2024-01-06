@@ -4,13 +4,14 @@ import { UpdateCourseModuleDto } from './dto/update-course-module.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CourseModule } from './entities/course-module.entity';
 import { Repository } from 'typeorm';
-import { error } from 'console';
+import { CoursesService } from '../courses/courses.service';
 
 @Injectable()
 export class CourseModulesService {
   constructor(
     @InjectRepository(CourseModule)
     private readonly courseModuleRepository: Repository<CourseModule>,
+    private coursesService: CoursesService,
     // Add other repositories or services as needed
     ) {}
 
@@ -27,31 +28,27 @@ export class CourseModulesService {
   }
 
   async findOne(id: string) {
-    const courseModule = await this.courseModuleRepository.findOne({where:{id}});
-
-    if(!courseModule) {
-      throw new error("Module not found");
+    const courseModule = await this.courseModuleRepository.findOne({
+      where: { id },
+    });
+    if (!courseModule) {
+      throw new Error('Course module not found');
     }
     return courseModule;
   }
 
-  async update(id: string, updateCourseModuleDto: UpdateCourseModuleDto): Promise<CourseModule> {
-    const existingCourseModule = await this.courseModuleRepository.findOne({where:{id:id}});
-
-    if (!existingCourseModule) {
-      throw new Error(`Course module with id ${id} not found`);
-    }
-    // Update the properties of the existing course module with data from the DTO
-    Object.assign(existingCourseModule, updateCourseModuleDto);
-
-    // Save the updated course module
-    const updatedCourseModule = await this.courseModuleRepository.save(existingCourseModule);
-    
-    return updatedCourseModule;
+  async update(id: string, updateCourseModuleDto: UpdateCourseModuleDto) {
+    const courseModule = await this.findOne(id);
+    return await this.courseModuleRepository.update(
+      courseModule,
+      updateCourseModuleDto,
+    );
   }
 
-
-  remove(id: number) {
-    return `This action removes a #${id} courseModule`;
+  async remove(id: string) {
+    const courseModule = await this.findOne(id);
+    return await this.courseModuleRepository.remove(courseModule).then(() => {
+      return { deleted: true };
+    });
   }
 }
