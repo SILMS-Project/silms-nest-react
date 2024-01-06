@@ -50,7 +50,7 @@ export class GradesController {
   @ApiResponse({ status: 200, description: 'Updated grade successfully' })
   update(@Param('id') id: string, @Body() updateGradeDto: UpdateGradeDto) {
     try {
-      const updatedGrade = this.gradesService.update(+id, updateGradeDto);
+      const updatedGrade = this.gradesService.update(id, updateGradeDto);
       return { updatedGrade };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);

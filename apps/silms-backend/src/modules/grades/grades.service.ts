@@ -60,8 +60,8 @@ export class GradesService {
     return grade;
   }
 
-  async update(id: number, updateGradeDto: UpdateGradeDto): Promise<Grade> {
-    const grade = await this.gradeRepository.findOne(id);
+  async update(id: string, updateGradeDto: UpdateGradeDto): Promise<Grade> {
+    const grade = await this.gradeRepository.findOne({ where: { id } });
 
     if (!grade) {
       throw new NotFoundException(`Grade with ID ${id} not found`);
