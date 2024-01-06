@@ -12,6 +12,7 @@ import { AssessmentsService } from './assessments.service';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Submission } from '../submissions/entities/submission.entity';
 
 @ApiTags('assessments')
 @Controller('assessments')
@@ -40,6 +41,14 @@ export class AssessmentsController {
   @ApiResponse({ status: 200, description: 'Retrieved assessment by ID' })
   findOne(@Param('id') id: string) {
     return this.assessmentsService.findOne(+id);
+  }
+
+  @Version('1')
+  @Get(':id/submissions')
+  @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
+  getSubmissionsForAssessment(@Param('id') id: string) {
+    return this.assessmentsService.getAssessmentSubmissions(id);
   }
 
   @Version('1')
