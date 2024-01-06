@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { GradesService } from './grades.service';
 import { CreateGradeDto } from './dto/create-grade.dto';
@@ -47,8 +49,14 @@ export class GradesController {
   @ApiOperation({ summary: 'Update a grade by ID' })
   @ApiResponse({ status: 200, description: 'Updated grade successfully' })
   update(@Param('id') id: string, @Body() updateGradeDto: UpdateGradeDto) {
-    return this.gradesService.update(+id, updateGradeDto);
+    try {
+      const updatedGrade = this.gradesService.update(+id, updateGradeDto);
+      return { updatedGrade };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
+
 
   @Version('1')
   @Delete(':id')
