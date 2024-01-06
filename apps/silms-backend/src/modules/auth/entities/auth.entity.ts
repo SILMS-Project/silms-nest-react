@@ -10,7 +10,7 @@ export class Auth {
   email: string;
 
   @Column()
-  password: string;  
+  password: string;
 
   @Column({ type: 'enum', enum: Role, default: Role.Student })
   role: Role;

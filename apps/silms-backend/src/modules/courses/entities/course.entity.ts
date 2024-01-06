@@ -5,10 +5,13 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Program } from '@modules/programs/entities/program.entity';
+import { Program } from '@/modules/programs/entities/program.entity';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
 import { CourseModule } from '@/modules/course-modules/entities/course-module.entity';
 import { CourseType } from '@/utils/constants';
+import { Schedule } from '@/modules/schedules/entities/schedule.entity';
+import { Session } from '@/modules/sessions/entities/session.entity';
+import { LecturerCourses } from '@/modules/lecturer-courses/entities/lecturer-courses.entity';
 
 @Entity('courses')
 export class Course {
@@ -42,11 +45,20 @@ export class Course {
   @ManyToOne(() => Program, (program) => program.courses)
   program: Program;
 
+  @OneToMany(() => Schedule, (schedule) => schedule.course)
+  schedules: Schedule[];
+
   @OneToMany(() => CourseModule, (courseModule) => courseModule.course)
   courseModules: CourseModule[];
 
+  @OneToMany(() => Session, (session) => session.courses)
+  session: Session[];
+
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.course)
   studentCourses: StudentCourse[];
+
+  @OneToMany(() => LecturerCourses, (lecturerCourses) => lecturerCourses.course)
+  lecturerCourses: LecturerCourses[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

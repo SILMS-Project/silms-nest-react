@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Version} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Version,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
@@ -18,14 +28,14 @@ export class StudentsController {
     return this.studentsService.create(createStudentDto);
   }
 
-//   @Version('1')
-//   @UseGuards(JwtAuthGuard)
-//   @Get()
-//   @ApiOperation({ summary: 'Get all students' })
-//   @ApiResponse({ status: 200, description: 'List of all students' })
-//   findAll() {
-//     return this.studentsService.findAll();
-//   }
+  @Version('1')
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  @ApiOperation({ summary: 'Get all students' })
+  @ApiResponse({ status: 200, description: 'List of all students' })
+  findAll() {
+    return this.studentsService.findAll();
+  }
 
   @Version('1')
   @UseGuards(JwtAuthGuard)

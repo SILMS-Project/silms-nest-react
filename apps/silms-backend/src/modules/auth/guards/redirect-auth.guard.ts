@@ -5,8 +5,13 @@ import { Observable } from 'rxjs';
 import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
-export class RedirectAuthenticatedGuard extends AuthGuard('jwt') implements CanActivate {
-  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+export class RedirectAuthenticatedGuard
+  extends AuthGuard('jwt')
+  implements CanActivate
+{
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
     if (request.isAuthenticated()) {
       // Redirect authenticated users away from the login route

@@ -1,6 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Assessment } from '@/modules/assessments/entities/assessment.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Submission } from '@/modules/submissions/entities/submission.entity';
+import { Student } from '@/modules/students/entities/student.entity';
 
 @Entity()
 export class Grade {
@@ -8,11 +15,15 @@ export class Grade {
   id: string;
 
   @Column({ nullable: true })
-  grade: number;
+  score: number;
 
-  @ManyToOne(() => Assessment, assessment => assessment.grades)
-  assessment: Assessment;
+  // @ManyToOne(() => Assessment, assessment => assessment.grades)
+  // assessment: Assessment;
 
-  @ManyToOne(() => Submission, submission => submission.grade)
+  @OneToOne(() => Submission, (submission) => submission.grade)
+  @JoinColumn()
   submission: Submission;
+
+  @ManyToOne(() => Student, (student) => student.grades)
+  student: Student;
 }

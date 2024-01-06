@@ -1,7 +1,13 @@
 import { Course } from '@/modules/courses/entities/course.entity';
+import { Result } from '@/modules/results/entities/result.entity';
 import { Student } from '@/modules/students/entities/student.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+} from 'typeorm';
 
 @Entity()
 export class StudentCourse {
@@ -14,8 +20,8 @@ export class StudentCourse {
   @Column({ type: 'timestamp', nullable: true })
   completionDate: Date;
 
-  @Column({ nullable: true })
-  grade: string;
+  // @Column({ nullable: true })
+  // grade: string;
 
   @Column({ default: 'active' })
   status: string;
@@ -26,9 +32,12 @@ export class StudentCourse {
   @Column({ nullable: true })
   attendance: boolean;
 
-  @ManyToOne(() => Student, student => student.studentCourses)
+  @ManyToOne(() => Student, (student) => student.studentCourses)
   student: Student;
 
-  @ManyToOne(() => Course, course => course.studentCourses)
+  @ManyToOne(() => Course, (course) => course.studentCourses)
   course: Course;
+
+  @OneToOne(() => Result, (result) => result.studentCourse)
+  result: Result;
 }

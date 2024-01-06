@@ -7,11 +7,15 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { AssessmentsService } from './assessments.service';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Submission } from '../submissions/entities/submission.entity';
+import { Assessment } from './entities/assessment.entity';
 
 @ApiTags('assessments')
 @Controller('assessments')
@@ -39,7 +43,20 @@ export class AssessmentsController {
   @ApiOperation({ summary: 'Get an assessment by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved assessment by ID' })
   findOne(@Param('id') id: string) {
-    return this.assessmentsService.findOne(+id);
+    return this.assessmentsService.findOne(id);
+  }
+
+  @Version('1')
+  @Get(':id/submissions')
+  @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
+  getSubmissionsForAssessment(@Param('id') id: string) {
+    try {
+      const submissions = this.assessmentsService.getAssessmentSubmissions(id);
+      return { submissions };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 
   @Version('1')
@@ -50,7 +67,7 @@ export class AssessmentsController {
     @Param('id') id: string,
     @Body() updateAssessmentDto: UpdateAssessmentDto,
   ) {
-    return this.assessmentsService.update(+id, updateAssessmentDto);
+    return this.assessmentsService.update(id, updateAssessmentDto);
   }
 
   @Version('1')
@@ -58,6 +75,6 @@ export class AssessmentsController {
   @ApiOperation({ summary: 'Delete an assessment by ID' })
   @ApiResponse({ status: 200, description: 'Deleted assessment successfully' })
   remove(@Param('id') id: string) {
-    return this.assessmentsService.remove(+id);
+    return this.assessmentsService.remove(id);
   }
 }

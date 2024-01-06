@@ -1,6 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+} from 'typeorm';
 import { Assessment } from '@/modules/assessments/entities/assessment.entity';
 import { Grade } from '@/modules/grades/entities/grade.entity';
+import { Student } from '@/modules/students/entities/student.entity';
+import { SubmissionStatus } from '@/utils/constants';
 
 @Entity()
 export class Submission {
@@ -13,9 +21,18 @@ export class Submission {
   @Column()
   content: string;
 
-  @ManyToOne(() => Assessment, assessment => assessment.submissions)
+  @Column({ default: SubmissionStatus.PENDING })
+  status: SubmissionStatus;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  submissionDate: Date;
+
+  @ManyToOne(() => Assessment, (assessment) => assessment.submissions)
   assessment: Assessment;
 
-  @OneToOne(() => Grade, grade => grade.submission)
+  @OneToOne(() => Grade, (grade) => grade.submission)
   grade: Grade;
+
+  @ManyToOne(() => Student, (student) => student.submissions)
+  student: Student;
 }

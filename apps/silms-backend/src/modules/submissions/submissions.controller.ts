@@ -19,7 +19,7 @@ export class SubmissionsController {
   constructor(private readonly submissionsService: SubmissionsService) {}
 
   @Version('1')
-  @Post()
+  @Post('create')
   @ApiOperation({ summary: 'Create a new submission' })
   @ApiResponse({ status: 201, description: 'Submission successfully created' })
   create(@Body() createSubmissionDto: CreateSubmissionDto) {
@@ -39,7 +39,7 @@ export class SubmissionsController {
   @ApiOperation({ summary: 'Get a submission by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved submission by ID' })
   findOne(@Param('id') id: string) {
-    return this.submissionsService.findOne(+id);
+    return this.submissionsService.findOne(id);
   }
 
   @Version('1')
@@ -50,7 +50,18 @@ export class SubmissionsController {
     @Param('id') id: string,
     @Body() updateSubmissionDto: UpdateSubmissionDto,
   ) {
-    return this.submissionsService.update(+id, updateSubmissionDto);
+    return this.submissionsService.update(id, updateSubmissionDto);
+  }
+
+  @Version('1')
+  @Get('assessment/:id')
+  @ApiOperation({ summary: 'Get all submissions by assessment ID' })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved submissions by assessment ID',
+  })
+  findByAssessmentId(@Param('id') id: string) {
+    return this.submissionsService.findByAssessmentId(id);
   }
 
   @Version('1')
@@ -58,6 +69,6 @@ export class SubmissionsController {
   @ApiOperation({ summary: 'Delete a submission by ID' })
   @ApiResponse({ status: 200, description: 'Deleted submission successfully' })
   remove(@Param('id') id: string) {
-    return this.submissionsService.remove(+id);
+    return this.submissionsService.remove(id);
   }
 }
