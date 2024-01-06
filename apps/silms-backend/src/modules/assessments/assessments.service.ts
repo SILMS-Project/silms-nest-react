@@ -1,13 +1,24 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
-import { Submission } from '../submissions/entities/submission.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Assessment } from './entities/assessment.entity';
+import { Submission } from '../submissions/entities/submission.entity';  // Import Submission entity
+import { Repository, getRepository, SelectQueryBuilder } from 'typeorm';
 
 @Injectable()
 export class AssessmentsService {
-  assessmentRepository: any;
-  create(createAssessmentDto: CreateAssessmentDto) {
-    return 'This action adds a new assessment';
+  constructor(
+    @InjectRepository(Assessment)
+    private readonly assessmentRepository: Repository<Assessment>,
+    private readonly submissionRepository: Repository<Submission>,  // Add Submission repository
+  ) {}
+
+  async create(createAssessmentDto: CreateAssessmentDto): Promise<Assessment> {
+    const assessment = this.assessmentRepository.create(createAssessmentDto);
+    // Additional logic 
+    const savedAssessment = await this.assessmentRepository.save(assessment);
+    return savedAssessment;
   }
 
   findAll() {
@@ -19,14 +30,23 @@ export class AssessmentsService {
   }
 
   async getAssessmentSubmissions(assessmentId: string): Promise<Submission[]> {
-    const assessment = await this.assessmentRepository.findOne(assessmentId, { relations: ['submissions'] });
-
+    const assessment = await this.assessmentRepository.findOne({
+      where: { id: assessmentId },
+    });
+  
     if (!assessment) {
       throw new NotFoundException(`Assessment with ID ${assessmentId} not found`);
     }
-
-    return assessment.submissions;
+  
+    // Assuming there's a relationship between Assessment and Submission, adjust accordingly
+    const submissions = await this.submissionRepository.find({
+      where: { assessment: { id: assessmentId } },
+    });
+  
+    return submissions;
   }
+  
+  
 
   update(id: number, updateAssessmentDto: UpdateAssessmentDto) {
     return `This action updates a #${id} assessment`;
