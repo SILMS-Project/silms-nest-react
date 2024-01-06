@@ -7,7 +7,7 @@ import ScheduleIcon from "@/assets/icons/ScheduleIcon";
 import SettingsIcon from "@/assets/icons/SettingsIcon";
 import { updateMenu } from "@/store/slices/menuSlice";
 import { RootState } from "@/store/store";
-import { Dispatch, cloneElement, useEffect } from "react";
+import { cloneElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
