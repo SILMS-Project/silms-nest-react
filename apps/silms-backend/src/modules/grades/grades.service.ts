@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
+import { Grade } from './entities/grade.entity';
 
 @Injectable()
 export class GradesService {
+  gradeRepository: any;
   create(createGradeDto: CreateGradeDto) {
     return 'This action adds a new grade';
   }
@@ -16,8 +18,18 @@ export class GradesService {
     return `This action returns a #${id} grade`;
   }
 
-  update(id: number, updateGradeDto: UpdateGradeDto) {
-    return `This action updates a #${id} grade`;
+  async update(id: number, updateGradeDto: UpdateGradeDto): Promise<Grade> {
+    const grade = await this.gradeRepository.findOne(id);
+
+    if (!grade) {
+      throw new NotFoundException(`Grade with ID ${id} not found`);
+    }
+
+    // Update the properties from the DTO
+    Object.assign(grade, updateGradeDto);
+
+    // Save the updated grade
+    return await this.gradeRepository.save(grade);
   }
 
   remove(id: number) {
