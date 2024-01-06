@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, NotFoundException, HttpException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpStatus,
+  NotFoundException,
+  HttpException,
+} from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
@@ -62,9 +73,15 @@ export class SessionsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateSessionDto: UpdateSessionDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateSessionDto: UpdateSessionDto,
+  ) {
     try {
-      const updatedSession = await this.sessionsService.update(id, updateSessionDto);
+      const updatedSession = await this.sessionsService.update(
+        id,
+        updateSessionDto,
+      );
       return {
         status: HttpStatus.OK,
         message: `Session with ID ${id} updated successfully`,
@@ -82,7 +99,10 @@ export class SessionsController {
   @Patch(':id/update-status')
   async updateStatus(@Param('id') id: string, @Body('status') status: boolean) {
     try {
-      const updatedSession = await this.sessionsService.updateStatus(id, status);
+      const updatedSession = await this.sessionsService.updateStatus(
+        id,
+        status,
+      );
       return {
         status: HttpStatus.OK,
         message: `Session status updated successfully`,

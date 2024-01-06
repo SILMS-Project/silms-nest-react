@@ -10,59 +10,63 @@ import { StudentProps } from './interfaces/student.interface';
 @Injectable()
 export class StudentsService {
   constructor(
-    @InjectRepository(Student) private readonly studentRepository: Repository<Student>,
+    @InjectRepository(Student)
+    private readonly studentRepository: Repository<Student>,
     private userService: UsersService,
   ) {}
 
   async create(createStudentDto: CreateStudentDto) {
     const student = await this.findByMatricNo(createStudentDto.matricNo);
-    
+
     if (student) {
       throw new Error('Student already exists');
     }
 
     const newUser = await this.userService.create({
-      ...createStudentDto
+      ...createStudentDto,
     });
 
     const studentProps: StudentProps = {
-      ...createStudentDto
-    }
+      ...createStudentDto,
+    };
 
     const newStudent = this.studentRepository.create({
       ...studentProps,
-      profile: newUser.profile
+      profile: newUser.profile,
     });
-    
+
     return this.studentRepository.save(newStudent);
   }
 
-  async findAll() : Promise<Student[]> {
-    return await this.studentRepository.find();
+  async findAll(): Promise<Student[]> {
+    return await this.studentRepository.find({ relations: ['profile'] });
   }
 
   async findByMatricNo(matricNo: string) {
-    return await this.studentRepository.findOne({ where: { matricNo } });
+    return await this.studentRepository.findOne({
+      where: { matricNo },
+      relations: ['profile'],
+    });
   }
 
   async findOne(id: string) {
-    return await this.studentRepository.findOne({ where: { id } }); 
-  }
-
-  update(id: string, updateStudentDto: UpdateStudentDto) {
-    const student = this.findOne(id);
-
+    const student = await this.studentRepository.findOne({
+      where: { id },
+      relations: ['profile'],
+    });
     if (!student) {
       throw new Error('Student not found');
     }
-    return this.studentRepository.update(id, updateStudentDto);
+    return student;
   }
 
-  remove(id: string) {
-    const student = this.findOne(id);
-    if (!student) {
-      throw new Error('Student not found');
-    }
-    return this.studentRepository.delete(id);
+  async update(id: string, updateStudentDto: UpdateStudentDto) {
+    const student = await this.findOne(id);
+    return this.studentRepository.update(student.id, updateStudentDto);
+  }
+
+  async remove(id: string) {
+    const student = await this.findOne(id);
+    return this.studentRepository.delete(student);
   }
 }

@@ -35,9 +35,9 @@ export class Student {
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.student)
   studentCourses: StudentCourse[];
 
-  @OneToMany(() => Submission, submission => submission.student)
-  submissions: Submission[]; 
+  @OneToMany(() => Submission, (submission) => submission.student)
+  submissions: Submission[];
 
-  @OneToMany(() => Grade, grade => grade.student)
-  grades: Grade[]; 
+  @OneToMany(() => Grade, (grade) => grade.student)
+  grades: Grade[];
 }

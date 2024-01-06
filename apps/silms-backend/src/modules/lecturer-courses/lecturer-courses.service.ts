@@ -7,6 +7,8 @@ import { LecturerCourses } from './entities/lecturer-courses.entity';
 import { Repository } from 'typeorm';
 import { LecturersService } from '../lecturers/lecturers.service';
 import { CoursesService } from '../courses/courses.service';
+import { Course } from '../courses/entities/course.entity';
+import { Lecturer } from '../lecturers/entities/lecturer.entity';
 
 @Injectable()
 export class LecturerCoursesService {
@@ -18,6 +20,17 @@ export class LecturerCoursesService {
   ) {}
 
   async create(createLecturerCourseDto: CreateLecturerCourseDto) {
+    const lecturerCourse = await this.lecturerCoursesRepository.findOne({
+      where: {
+        course: { id: createLecturerCourseDto.courseId },
+        lecturer: { id: createLecturerCourseDto.lecturerId },
+      },
+    });
+
+    if (lecturerCourse) {
+      throw new Error('Already exists!');
+    }
+
     const lecturerCoursesProps: LecturerCoursesProps = {
       lecturer: await this.lecturersService.findById(
         createLecturerCourseDto.lecturerId,
@@ -28,8 +41,8 @@ export class LecturerCoursesService {
     };
 
     const newLecturerCourse = this.lecturerCoursesRepository.create({
-      lecturer: lecturerCoursesProps.lecturer.id,
-      course: lecturerCoursesProps.course.id,
+      lecturer: lecturerCoursesProps.lecturer,
+      course: lecturerCoursesProps.course,
     });
 
     return this.lecturerCoursesRepository.save(newLecturerCourse);
@@ -42,8 +55,8 @@ export class LecturerCoursesService {
   async findById(id: string) {
     const lecturerCourse = await this.lecturerCoursesRepository.findOne({
       where: { id },
+      relations: ['course', 'lecturer'],
     });
-    console.log(lecturerCourse);
 
     if (!lecturerCourse) {
       throw new Error('Lecturer Course not found.');
@@ -52,28 +65,27 @@ export class LecturerCoursesService {
     return lecturerCourse;
   }
 
-  async findCoursesByLecturer(lecturerId: string) {
+  async findCoursesByLecturer(lecturerId: string): Promise<Course[]> {
     const lecturerCourses = await this.lecturerCoursesRepository.find({
-      where: { lecturer: lecturerId },
+      where: { lecturer: { id: lecturerId } },
     });
+
     return await Promise.all(
       lecturerCourses.map((lecturerCourse) =>
-        this.coursesService.findById(lecturerCourse.course),
+        this.coursesService.findById(lecturerCourse.course.id),
       ),
     );
   }
 
-  async findLecturersByCourse(courseId: string) {
+  async findLecturersByCourse(courseId: string): Promise<Lecturer[]> {
     const lecturerCourses = await this.lecturerCoursesRepository.find({
-      where: { course: courseId },
+      where: { course: { id: courseId } },
     });
-    const lecturer = await Promise.all(
+    return await Promise.all(
       lecturerCourses.map((lecturerCourse) =>
-        this.lecturersService.findById(lecturerCourse.lecturer),
+        this.lecturersService.findById(lecturerCourse.lecturer.id),
       ),
     );
-
-    return lecturer;
   }
 
   async findByLecturerId(lecturerId: string) {
@@ -89,13 +101,12 @@ export class LecturerCoursesService {
   ) {
     const lecturerCourse = await this.lecturerCoursesRepository.findOne({
       where: {
-        lecturer: createLecturerCourseDto.lecturerId,
-        course: createLecturerCourseDto.courseId,
+        lecturer: { id: createLecturerCourseDto.lecturerId },
+        course: { id: createLecturerCourseDto.courseId },
       },
     });
 
     this.remove(lecturerCourse.id);
-
   }
 
   update(id: string, updateLecturerCourseDto: UpdateLecturerCourseDto) {
@@ -103,9 +114,9 @@ export class LecturerCoursesService {
   }
 
   async remove(id: string) {
-    const lecturerCourse = await  this.findById(id);
+    const lecturerCourse = await this.findById(id);
     return this.lecturerCoursesRepository.remove(lecturerCourse).then(() => {
-      return "Entry removed successfully."
+      return 'Entry removed successfully.';
     });
   }
 }

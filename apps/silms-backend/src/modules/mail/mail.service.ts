@@ -79,7 +79,6 @@ export class MailService {
     await this.sendEmailVerificationMail(msg);
   }
 
-
   async sendEmailVerificationMail(options: ISendMailOptions): Promise<void> {
     try {
       return await this.mailerService.sendMail({
@@ -95,7 +94,7 @@ export class MailService {
     }
   }
 
-  async sendResetPassword(user: User, emailToken: string,) : Promise<void> {
+  async sendResetPassword(user: User, emailToken: string): Promise<void> {
     const url = `${this.configService.get(
       'SERVER_URL',
     )}/backend/auth/confirm-reset-password/${emailToken}`;
