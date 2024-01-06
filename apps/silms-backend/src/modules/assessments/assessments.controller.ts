@@ -15,6 +15,7 @@ import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Submission } from '../submissions/entities/submission.entity';
+import { Assessment } from './entities/assessment.entity';
 
 @ApiTags('assessments')
 @Controller('assessments')
