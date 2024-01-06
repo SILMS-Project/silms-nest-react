@@ -37,6 +37,10 @@ export class CourseModulesService {
     return courseModule;
   }
 
+  async findAllWithContents(): Promise<CourseModule[]> {
+    return this.courseModuleRepository.find({ relations: ['courseContents'] });
+  }
+
   async update(id: string, updateCourseModuleDto: UpdateCourseModuleDto) {
     const courseModule = await this.findOne(id);
     return await this.courseModuleRepository.update(
