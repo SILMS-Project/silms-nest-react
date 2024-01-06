@@ -39,7 +39,23 @@ export class AssessmentsService {
     }
     return assessment;
   }
+ async findByCourse(courseId:string):Promise<Assessment[]>{
 
+  const assessments = await this.assessmentRepository.find({
+    where: {
+      courseModule: {
+        course: { id: courseId },
+      },
+    },
+    relations: ['courseModule', 'courseModule.course'],
+  });
+  
+  if (!assessments || assessments.length === 0) {
+    throw new Error('No assessments found for the given course');
+  }
+  
+  return assessments;
+}
   async getAssessmentSubmissions(assessmentId: string): Promise<Submission[]> {
     const assessment = await this.assessmentRepository.findOne({
       where: { id: assessmentId },
