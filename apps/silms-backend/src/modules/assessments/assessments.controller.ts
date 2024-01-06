@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { AssessmentsService } from './assessments.service';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
@@ -48,7 +50,12 @@ export class AssessmentsController {
   @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
   getSubmissionsForAssessment(@Param('id') id: string) {
-    return this.assessmentsService.getAssessmentSubmissions(id);
+    try {
+      const submissions = this.assessmentsService.getAssessmentSubmissions(id);
+      return { submissions };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 
   @Version('1')
