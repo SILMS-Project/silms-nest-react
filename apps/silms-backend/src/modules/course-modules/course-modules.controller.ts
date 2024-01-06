@@ -12,6 +12,7 @@ import { CourseModulesService } from './course-modules.service';
 import { CreateCourseModuleDto } from './dto/create-course-module.dto';
 import { UpdateCourseModuleDto } from './dto/update-course-module.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CourseModule } from './entities/course-module.entity';
 
 @ApiTags('course-modules')
 @Controller('course-modules')
@@ -33,7 +34,7 @@ export class CourseModulesController {
   @Get()
   @ApiOperation({ summary: 'Get all course modules' })
   @ApiResponse({ status: 200, description: 'Retrieved all course modules' })
-  findAll() {
+  async findAll():Promise<CourseModule[]> {
     return this.courseModulesService.findAll();
   }
 
@@ -42,7 +43,7 @@ export class CourseModulesController {
   @ApiOperation({ summary: 'Get a course module by ID' })
   @ApiResponse({ status: 200, description: 'Retrieved course module by ID' })
   findOne(@Param('id') id: string) {
-    return this.courseModulesService.findOne(+id);
+    return this.courseModulesService.findOne(id);
   }
 
   @Version('1')
@@ -56,7 +57,7 @@ export class CourseModulesController {
     @Param('id') id: string,
     @Body() updateCourseModuleDto: UpdateCourseModuleDto,
   ) {
-    return this.courseModulesService.update(+id, updateCourseModuleDto);
+    return this.courseModulesService.update(id, updateCourseModuleDto);
   }
 
   @Version('1')
