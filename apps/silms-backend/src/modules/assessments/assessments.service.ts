@@ -13,6 +13,7 @@ export class AssessmentsService {
   constructor(
     @InjectRepository(Assessment)
     private readonly assessmentRepository: Repository<Assessment>,
+    @InjectRepository(Submission)
     private readonly submissionRepository: Repository<Submission>, // Add Submission repository
 
     private courseModuleService: CourseModulesService,

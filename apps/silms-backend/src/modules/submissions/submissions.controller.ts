@@ -78,6 +78,19 @@ export class SubmissionsController {
     return this.submissionsService.update(id, updateSubmissionDto);
   }
 
+  @Get('assessment/:id/students')
+  @ApiOperation({ summary: 'Get all students profiles and grades from an assessment' })
+  @ApiResponse({ status: 200, description: 'Retrieved all students profiles and grades' })
+  async getAllStudentsProfilesAndGrades(
+    @Param('id') id: string) {
+    try {
+      const result = await this.submissionsService.getAllStudentsProfilesAndGrades(id);
+      return result;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+}
+
   @Version('1')
   @Get('assessment/:id')
   @ApiOperation({ summary: 'Get all submissions by assessment ID' })

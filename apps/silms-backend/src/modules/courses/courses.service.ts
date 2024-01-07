@@ -50,7 +50,7 @@ export class CoursesService {
 
   async findCourseByProgram(programId: string) {
     const courses = await this.courseRepository.find({
-      where: { program: { id: programId } },
+      where: { program: { id: programId } }
     });
     return courses;
   }
