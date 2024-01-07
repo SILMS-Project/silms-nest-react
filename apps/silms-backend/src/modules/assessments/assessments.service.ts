@@ -56,6 +56,22 @@ export class AssessmentsService {
   
   return assessments;
 }
+async getAssessmentGrade(assessmentId: string): Promise<number> {
+  try {
+    const assessment = await this.assessmentRepository.findOne({where:{id:assessmentId}});
+
+    if (!assessment) {
+      throw new NotFoundException('Assessment not found');
+    }
+
+    const totalGrade = assessment.totalGrade;
+
+    return totalGrade;
+  } catch (error) {
+    throw new NotFoundException('Error fetching assessment total grade');
+  }
+}
+
   async getAssessmentSubmissions(assessmentId: string): Promise<Submission[]> {
     const assessment = await this.assessmentRepository.findOne({
       where: { id: assessmentId },

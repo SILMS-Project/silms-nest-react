@@ -57,7 +57,17 @@ export class AssessmentsController {
       throw new  HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
-
+  @Get(':id/totalGrade')
+  @ApiOperation({ summary: 'Get total grade of an assessment by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved total grade of the assessment' })
+  async getAssessmentTotalGrade(@Param('id') id: string): Promise<number> {
+    try {
+      const totalGrade = await this.assessmentsService.getAssessmentGrade(id);
+      return totalGrade;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
 
   @Version('1')
   @Get(':id/submissions')
