@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -53,7 +53,7 @@ export class SubmissionsService {
 
   async findOne(id: string) {
     const submission = await this.submissionRepository.findOne({
-      where: { id },
+      where: { id:id },
     });
     if (!submission) {
       throw new Error('Submission not found');
@@ -73,6 +73,20 @@ export class SubmissionsService {
       throw new Error('Failed to fetch submissions for the student');
     }
   }
+    async getSubmissionStatus(submissionId: string): Promise<string> {
+      try {
+        const submission = await this.findOne(submissionId);
+  
+        if (!submission) {
+          throw new NotFoundException('Submission not found');
+        }
+  
+        return submission.status;
+      } catch (error) {
+        throw new NotFoundException('Submission not found');
+      }
+    }
+  
   async findByAssessmentId(assessmentId: string): Promise<Submission[]> {
     const submissions = await this.submissionRepository.find({
       where: { assessment: { id: assessmentId } },
