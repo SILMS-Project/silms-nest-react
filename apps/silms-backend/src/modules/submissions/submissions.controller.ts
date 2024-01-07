@@ -56,6 +56,17 @@ export class SubmissionsController {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
+  @Get('status/:submissionId')
+  @ApiOperation({ summary: 'Get submission status by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submission status' })
+  async getSubmissionStatus(@Param('submissionId') submissionId: string): Promise<string> {
+    try {
+      const status = await this.submissionsService.getSubmissionStatus(submissionId);
+      return status;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
   @Version('1')
   @Patch(':id')
   @ApiOperation({ summary: 'Update a submission by ID' })

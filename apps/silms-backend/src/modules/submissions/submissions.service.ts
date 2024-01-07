@@ -53,7 +53,7 @@ export class SubmissionsService {
 
   async findOne(id: string) {
     const submission = await this.submissionRepository.findOne({
-      where: { id:id },
+      where: { id },
     });
     if (!submission) {
       throw new Error('Submission not found');
@@ -75,7 +75,7 @@ export class SubmissionsService {
   }
     async getSubmissionStatus(submissionId: string): Promise<string> {
       try {
-        const submission = await this.findOne(submissionId);
+        const submission = await this.submissionRepository.findOne({where:{id:submissionId}});
   
         if (!submission) {
           throw new NotFoundException('Submission not found');
