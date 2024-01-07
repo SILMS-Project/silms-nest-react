@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
@@ -41,7 +43,19 @@ export class SubmissionsController {
   findOne(@Param('id') id: string) {
     return this.submissionsService.findOne(id);
   }
-
+  
+  @Version('1')
+  @Get('student/:studentId')
+  @ApiOperation({ summary: 'Get all submissions for a student by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved all submissions for the student' })
+  findAllSubmissionsForStudent(@Param('studentId') studentId: string) {
+    try {
+      const submissions =this.submissionsService.findAllStudentSubmissions(studentId);
+      return submissions;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
   @Version('1')
   @Patch(':id')
   @ApiOperation({ summary: 'Update a submission by ID' })

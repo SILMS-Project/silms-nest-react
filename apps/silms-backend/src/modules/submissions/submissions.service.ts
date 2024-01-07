@@ -60,7 +60,19 @@ export class SubmissionsService {
     }
     return submission;
   }
+  async findAllStudentSubmissions(studentId: string): Promise<Submission[]> {
 
+    try {
+      const submissions = await this.submissionRepository.find({
+        where: { student: { id: studentId } },
+        relations: ['assessment',],
+      });
+  
+      return submissions;
+    } catch (error) {
+      throw new Error('Failed to fetch submissions for the student');
+    }
+  }
   async findByAssessmentId(assessmentId: string): Promise<Submission[]> {
     const submissions = await this.submissionRepository.find({
       where: { assessment: { id: assessmentId } },
