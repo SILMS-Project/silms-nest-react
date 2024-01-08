@@ -13,6 +13,7 @@ export class AssessmentsService {
   constructor(
     @InjectRepository(Assessment)
     private readonly assessmentRepository: Repository<Assessment>,
+    @InjectRepository(Submission)
     private readonly submissionRepository: Repository<Submission>, // Add Submission repository
 
     private courseModuleService: CourseModulesService,
@@ -39,6 +40,38 @@ export class AssessmentsService {
     }
     return assessment;
   }
+ async findByCourse(courseId:string):Promise<Assessment[]>{
+
+  const assessments = await this.assessmentRepository.find({
+    where: {
+      courseModule: {
+        course: { id: courseId },
+      },
+    },
+    relations: ['courseModule', 'courseModule.course'],
+  });
+  
+  if (!assessments || assessments.length === 0) {
+    throw new Error('No assessments found for the given course');
+  }
+  
+  return assessments;
+}
+async getAssessmentGrade(assessmentId: string): Promise<number> {
+  try {
+    const assessment = await this.assessmentRepository.findOne({where:{id:assessmentId}});
+
+    if (!assessment) {
+      throw new NotFoundException('Assessment not found');
+    }
+
+    const totalGrade = assessment.totalGrade;
+
+    return totalGrade;
+  } catch (error) {
+    throw new NotFoundException('Error fetching assessment total grade');
+  }
+}
 
   async getAssessmentSubmissions(assessmentId: string): Promise<Submission[]> {
     const assessment = await this.assessmentRepository.findOne({

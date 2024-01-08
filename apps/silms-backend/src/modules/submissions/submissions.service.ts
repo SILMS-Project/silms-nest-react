@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,8 @@ import { Repository } from 'typeorm';
 import { SubmissionProps } from './interfaces/submission.interface';
 import { AssessmentsService } from '../assessments/assessments.service';
 import { StudentsService } from '../students/students.service';
+import { Profile } from '../users/entities/profile.entity';
+import { Grade } from '../grades/entities/grade.entity';
 
 @Injectable()
 export class SubmissionsService {
@@ -60,7 +62,56 @@ export class SubmissionsService {
     }
     return submission;
   }
+  async findAllStudentSubmissions(studentId: string): Promise<Submission[]> {
 
+    try {
+      const submissions = await this.submissionRepository.find({
+        where: { student: { id: studentId } },
+        relations: ['assessment',],
+      });
+  
+      return submissions;
+    } catch (error) {
+      throw new Error('Failed to fetch submissions for the student');
+    }
+  }
+    async getSubmissionStatus(submissionId: string): Promise<string> {
+      try {
+        const submission = await this.submissionRepository.findOne({where:{id:submissionId}});
+  
+        if (!submission) {
+          throw new NotFoundException('Submission not found');
+        }
+  
+        return submission.status;
+      } catch (error) {
+        throw new NotFoundException('Submission not found');
+      }
+    }
+    async getAllStudentsProfilesAndGrades(assessmentId: string): Promise<{
+      students: { studentId: string; profile:Profile; grade: Grade }[];
+    }> {
+      try {
+        const submissions = await this.submissionRepository.find({
+          where: { assessment: { id: assessmentId } },
+          relations: ['grade', 'student', 'student.profile'],
+        });
+  
+        if (!submissions || submissions.length === 0) {
+          throw new NotFoundException('No submissions found for the specified assessment');
+        }
+  
+        const students = submissions.map((submission) => ({
+          studentId: submission.student.id,
+          profile: submission.student.profile,
+          grade: submission.grade,
+        }));
+  
+        return { students };
+      } catch (error) {
+        throw new NotFoundException('Error fetching students profiles and grades');
+      }
+    }
   async findByAssessmentId(assessmentId: string): Promise<Submission[]> {
     const submissions = await this.submissionRepository.find({
       where: { assessment: { id: assessmentId } },
