@@ -36,11 +36,11 @@ export class UsersService {
       isVerified: false,
     };
 
+    const newUser = await this.userRepository.save(userProps);
+
     const profileProps: ProfileProps = {
       ...createUserDto,
     };
-
-    const newUser = await this.userRepository.save(userProps);
 
     const newProfile = this.profileRepository.create({
       ...profileProps,
@@ -61,6 +61,11 @@ export class UsersService {
     if (!user) {
       throw new Error('User not found');
     }
+
+    if (!this.passwordService.checkPasswordStrength(newPassword)) {
+      throw new Error('Password is too weak');
+    }
+
     const hashedPassword = await this.passwordService.hashPassword(newPassword);
     return await this.userRepository
       .update(userId, { password: hashedPassword })
@@ -78,22 +83,22 @@ export class UsersService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<any> {
-    const user = this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user) {
       throw new Error('User not found');
     }
-    return this.userRepository.update(id, updateUserDto).then(() => {
+    return this.userRepository.update(user, updateUserDto).then(() => {
       return { message: 'User updated successfully' };
     });
   }
 
   async remove(id: string): Promise<any> {
-    const user = this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new Error('User not found');
     }
-    return this.userRepository.delete(id).then(() => {
+    return this.userRepository.remove(user).then(() => {
       return { message: 'User deleted successfully' };
     });
   }
