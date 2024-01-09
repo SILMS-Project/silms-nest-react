@@ -24,11 +24,15 @@ export class UsersService {
       throw new Error('User already exists');
     }
 
+    if (!this.passwordService.checkPasswordStrength(createUserDto.password)) {
+      throw new Error('Password is too weak');
+    }
+
     const userProps: UserProps = {
       ...createUserDto,
       password: await this.passwordService.hashPassword(createUserDto.password),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      // createdAt: new Date(),
+      // updatedAt: new Date(),
       isVerified: false,
     };
 

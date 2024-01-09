@@ -7,6 +7,6 @@ export interface UserProps {
   password: string;
   isVerified: boolean;
   role: Role;
-  createdAt: Date;
-  updatedAt: Date;
+  // createdAt: Date;
+  // updatedAt: Date;
 }
