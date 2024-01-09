@@ -9,11 +9,13 @@ import {
   HttpStatus,
   NotFoundException,
   HttpException,
+  Version,
 } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('sessions')
 @Controller('sessions')
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
@@ -23,16 +25,13 @@ export class SessionsController {
   //   return this.sessionsService.create(createSessionDto);
   // }
   //post session endpoint
-  @Post()
-  async create(@Body() createSessionDto: CreateSessionDto) {
-    try {
-      const session = await this.sessionsService.create(createSessionDto);
-      return { session, status: HttpStatus.CREATED };
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+  @Version('1')
+  @Post('create')
+  create(@Body() createSessionDto: CreateSessionDto) {
+    return this.sessionsService.create(createSessionDto);
   }
 
+  @Version('1')
   @Get()
   findAll() {
     return this.sessionsService.findAll();
@@ -44,6 +43,7 @@ export class SessionsController {
   // }
 
   //get session by id endpoint
+  @Version('1')
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
@@ -55,6 +55,7 @@ export class SessionsController {
   }
 
   // get current session endpoint
+  @Version('1')
   @Get('current')
   async getCurrentSession() {
     try {
@@ -72,6 +73,7 @@ export class SessionsController {
     }
   }
 
+  @Version('1')
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -96,6 +98,7 @@ export class SessionsController {
   }
 
   //endpoint for updating status session
+  @Version('1')
   @Patch(':id/update-status')
   async updateStatus(@Param('id') id: string, @Body('status') status: boolean) {
     try {
@@ -116,6 +119,7 @@ export class SessionsController {
     }
   }
 
+  @Version('1')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.sessionsService.remove(+id);
