@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEnum, IsString } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsString, IsUUID, IsBoolean } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { DayOfWeek } from '@/utils/constants';
 
@@ -21,4 +21,11 @@ export class CreateScheduleDto {
   @ApiProperty()
   @IsString()
   room: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Course ID is required' })
+  @IsUUID('4', { message: 'Invalid Course ID format' })
+  readonly courseId: string;
+
+
 }
