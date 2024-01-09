@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
@@ -19,7 +20,7 @@ export class CoursesService {
 
     // const program = await this.programRepository.findOne({where:{id:createCourseDto.programId},});
 
-    const program = await this.programsService.findOne(
+    const program = await this.programsService.findById(
       createCourseDto.programId,
     );
 
@@ -42,7 +43,7 @@ export class CoursesService {
     const course = await this.courseRepository.findOne({ where: { id } });
 
     if (!course) {
-      throw new Error('Course not found.');
+      throw new NotFoundException(`Schedule with ID ${id} not found`);
     }
 
     return course;
@@ -104,7 +105,7 @@ export class CoursesService {
     }
     if (updateCourseDto.programId) {
       // Assuming you have a repository for Program, fetch the Program
-      const program = await this.programsService.findOne(
+      const program = await this.programsService.findById(
         updateCourseDto.programId,
       );
 
