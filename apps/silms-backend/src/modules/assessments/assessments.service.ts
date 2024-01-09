@@ -4,19 +4,14 @@ import { UpdateAssessmentDto } from './dto/update-assessment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Assessment } from './entities/assessment.entity';
 import { Submission } from '../submissions/entities/submission.entity'; // Import Submission entity
-import { Repository, getRepository, SelectQueryBuilder } from 'typeorm';
-import { AssessmentProps } from './interfaces/assessment.interface';
-import { CourseModulesService } from '../course-modules/course-modules.service';
+import { Repository } from 'typeorm';
+import { SubmissionsService } from '../submissions/submissions.service';
 
 @Injectable()
 export class AssessmentsService {
   constructor(
     @InjectRepository(Assessment)
     private readonly assessmentRepository: Repository<Assessment>,
-    @InjectRepository(Submission)
-    private readonly submissionRepository: Repository<Submission>, // Add Submission repository
-
-    private courseModuleService: CourseModulesService,
   ) {}
 
   async create(createAssessmentDto: CreateAssessmentDto): Promise<Assessment> {
@@ -72,25 +67,6 @@ async getAssessmentGrade(assessmentId: string): Promise<number> {
     throw new NotFoundException('Error fetching assessment total grade');
   }
 }
-
-  async getAssessmentSubmissions(assessmentId: string): Promise<Submission[]> {
-    const assessment = await this.assessmentRepository.findOne({
-      where: { id: assessmentId },
-    });
-
-    if (!assessment) {
-      throw new NotFoundException(
-        `Assessment with ID ${assessmentId} not found`,
-      );
-    }
-
-    // Assuming there's a relationship between Assessment and Submission, adjust accordingly
-    const submissions = await this.submissionRepository.find({
-      where: { assessment: { id: assessmentId } },
-    });
-
-    return submissions;
-  }
 
   async update(id: string, updateAssessmentDto: UpdateAssessmentDto) {
     const assessment = await this.findOne(id);

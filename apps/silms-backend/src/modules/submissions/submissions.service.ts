@@ -123,6 +123,23 @@ export class SubmissionsService {
     return submissions;
   }
 
+  
+  async getAssessmentSubmissions(assessmentId: string): Promise<Submission[]> {
+    const assessment = await this.assessmentService.findOne( assessmentId );
+
+    if (!assessment) {
+      throw new NotFoundException(
+        `Assessment with ID ${assessmentId} not found`,
+      );
+    }
+
+    // Assuming there's a relationship between Assessment and Submission, adjust accordingly
+    const submissions = await this.findByAssessmentId(assessmentId);
+
+    return submissions;
+  }
+
+
   async update(id: string, updateSubmissionDto: UpdateSubmissionDto) {
     const submission = await this.findOne(id);
     return await this.submissionRepository.update(
