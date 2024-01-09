@@ -47,19 +47,6 @@ export class AssessmentsController {
   }
 
   @Version('1')
-  @Get(':id/submissions')
-  @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
-  @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
-  getSubmissionsForAssessment(@Param('id') id: string) {
-    try {
-      const submissions = this.assessmentsService.getAssessmentSubmissions(id);
-      return { submissions };
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
-    }
-  }
-
-  @Version('1')
   @Patch(':id')
   @ApiOperation({ summary: 'Update an assessment by ID' })
   @ApiResponse({ status: 200, description: 'Updated assessment successfully' })
