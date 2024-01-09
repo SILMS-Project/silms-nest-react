@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -33,7 +34,7 @@ export class SchedulesController {
   @Version('1')
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.schedulesService.findOne(+id);
+    return this.schedulesService.findOne(id);
   }
 
   @Version('1')
@@ -46,8 +47,8 @@ export class SchedulesController {
   }
 
   @Version('1')
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
-    return this.schedulesService.remove(+id);
+    return this.schedulesService.remove(id);
   }
 }

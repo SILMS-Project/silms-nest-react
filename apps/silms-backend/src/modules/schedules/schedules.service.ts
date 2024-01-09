@@ -5,7 +5,6 @@ import { Repository } from 'typeorm';
 import { Schedule } from './entities/schedule.entity';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
-import { validateOrReject } from 'class-validator';
 import { CoursesService } from '../courses/courses.service';
 import { SessionsService } from '../sessions/sessions.service';
 
@@ -50,12 +49,19 @@ export class SchedulesService {
   }
 
 
-  findAll() {
-    return `This action returns all schedules`;
+  findAll(): Promise<Schedule[]> {
+    return this.scheduleRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} schedule`;
+  // function to find a schedule by its id
+  async findOne(id: string): Promise<Schedule> {
+    const schedule = await this.scheduleRepository.findOne({ where: { id } });
+
+    if (!schedule) {
+      throw new NotFoundException(`Schedule with ID ${id} not found`);
+    }
+
+    return schedule;
   }
   
   async update(id: string, updateScheduleDto: UpdateScheduleDto): Promise<Schedule> {
@@ -81,7 +87,13 @@ export class SchedulesService {
     return this.scheduleRepository.save(schedule);
   }
   
-  remove(id: number) {
-    return `This action removes a #${id} schedule`;
+  async remove(id: string): Promise<void> {
+    const schedule = await this.scheduleRepository.findOne({ where: { id } });
+
+    if (!schedule) {
+      throw new NotFoundException(`Schedule with ID ${id} not found`);
+    }
+
+    await this.scheduleRepository.delete(schedule);
   }
 }
