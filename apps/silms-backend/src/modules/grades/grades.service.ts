@@ -45,7 +45,15 @@ export class GradesService {
   }
 
   async findAll(): Promise<Grade[]> {
-    return await this.gradeRepository.find();
+    const grades= await this.gradeRepository.find({
+    relations: ['submission', 'student', 'student.profile'],
+  });
+
+    if (!grades || grades.length === 0) {
+      throw new Error('No grades found');
+    }
+
+    return grades;
   }
 
   async findOne(id: string): Promise<Grade> {
