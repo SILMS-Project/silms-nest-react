@@ -11,6 +11,7 @@ import {
   HttpException,
   HttpStatus,
   Res,
+  Query,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ProgramsService } from './programs.service';
@@ -54,8 +55,38 @@ export class ProgramsController {
   @ApiOperation({ summary: 'Get a program by ID' })
   @ApiResponse({ status: 200, description: 'Program found by ID' })
   @ApiResponse({ status: 404, description: 'Program not found' })
-  findById(@Param('id') id: string) {
-    return this.programsService.findById(id);
+  async findById(
+    @Param('id') id: string,
+    @Res() res: any,) {
+      try{
+        const programs = await this.programsService.findById(id);
+        return res.status(HttpStatus.OK).json({ programs });
+      } 
+      catch(error){
+        throw new HttpException('Programs not found', HttpStatus.NOT_FOUND);
+      }
+  }
+
+  @Version('1')
+  // Sample URL: http://localhost:3000/backend/v1/programs?programName=Electrical%20Engineering
+  // GET programs?programName=Electrical%20Engineering
+  @Get()
+  @ApiOperation({ summary: 'Get a program by Name' })
+  @ApiResponse({ status: 200, description: 'Program found by Name' })
+  @ApiResponse({ status: 404, description: 'Program not found' })
+  // findByName(@Param('programName') programName: string) {
+  //   return this.programsService.findById(programName);
+  // }
+  async findByName(
+    @Query('programName') programName: string,
+    @Res() res: any,) {
+      try{
+        const programs = await this.programsService.findByName(programName);
+        return res.status(HttpStatus.OK).json({ programs });
+      } 
+      catch(error){
+        throw new HttpException('Programs not found', HttpStatus.NOT_FOUND);
+      }
   }
 
   @Version('1')
