@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProgramDto } from './dto/create-program.dto';
 import { UpdateProgramDto } from './dto/update-program.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -41,8 +42,15 @@ export class ProgramsService {
     return program;
   }
 
-  async findOne(id: string): Promise<Program> {
-    return await this.programRepository.findOne({ where: { id } });
+  // function to find a program by its id
+  async findById(id: string): Promise<Program> {
+    const program = await this.programRepository.findOne({ where: { id } });
+    
+    if (!program) {
+      throw new NotFoundException(`Schedule with ID ${id} not found`);
+    }
+
+    return program;
   }
 
   async getAllProgramsBySchool(schoolId: string) {

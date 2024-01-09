@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -26,7 +27,7 @@ export class ProgramsController {
 
   @Version('1')
   // POST /programs
-  @Post()
+  @Post('create')
   @ApiOperation({ summary: 'Create a new program' })
   @ApiResponse({ status: 201, description: 'Program successfully created' })
   create(@Body() createProgramDto: CreateProgramDto) {
@@ -53,8 +54,8 @@ export class ProgramsController {
   @ApiOperation({ summary: 'Get a program by ID' })
   @ApiResponse({ status: 200, description: 'Program found by ID' })
   @ApiResponse({ status: 404, description: 'Program not found' })
-  findOne(@Param('id') id: string) {
-    return this.programsService.findOne(id);
+  findById(@Param('id') id: string) {
+    return this.programsService.findById(id);
   }
 
   @Version('1')
