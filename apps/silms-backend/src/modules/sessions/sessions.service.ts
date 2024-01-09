@@ -2,10 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
 import { Session } from './entities/session.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SessionsService {
-  sessionRepository: any;
+  constructor(
+    @InjectRepository(Session)
+    private readonly sessionRepository: Repository<Session>,
+  ) {}
+
   //create session function
   async create(createSessionDto: CreateSessionDto): Promise<Session> {
     const session = this.sessionRepository.create(createSessionDto);
@@ -46,7 +52,10 @@ export class SessionsService {
   }
 
   //update session
-  async update(id: string, updateSessionDto: UpdateSessionDto): Promise<Session> {
+  async update(
+    id: string,
+    updateSessionDto: UpdateSessionDto,
+  ): Promise<Session> {
     const session = await this.sessionRepository.findOne({ where: { id } });
 
     if (!session) {
@@ -64,7 +73,10 @@ export class SessionsService {
   async updateStatus(id: string, status: boolean): Promise<Session> {
     if (status) {
       // If the status is set to true, update all other sessions to false
-      await this.sessionRepository.update({ isCurrentSession: true }, { isCurrentSession: false });
+      await this.sessionRepository.update(
+        { isCurrentSession: true },
+        { isCurrentSession: false },
+      );
     }
 
     const session = await this.sessionRepository.findOne({ where: { id } });
