@@ -63,10 +63,15 @@ export class CourseContentsService {
   
   async update(id: string, updateCourseContentDto: UpdateCourseContentDto) {
     const courseContent = await this.findOne(id);
-    return await this.courseContentRepository.update(
-      courseContent,
-      updateCourseContentDto,
-    );
+
+    // this ensures that the courseModuleId is not updated
+    const { courseModuleId, ...updatedProps } = updateCourseContentDto;
+
+    // Update the cours content entity with the new properties
+    Object.assign(courseContent, updatedProps);
+
+    // Save the updated cours content
+    return await this.courseContentRepository.save(courseContent);
   }
 
   async remove(id: string) {

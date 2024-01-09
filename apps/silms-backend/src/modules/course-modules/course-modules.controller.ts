@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CourseModulesService } from './course-modules.service';
 import { CreateCourseModuleDto } from './dto/create-course-module.dto';
@@ -44,6 +46,23 @@ export class CourseModulesController {
   @ApiResponse({ status: 200, description: 'Retrieved course module by ID' })
   findOne(@Param('id') id: string) {
     return this.courseModulesService.findOne(id);
+  }
+
+  @Version('1')
+  @Get('with-contents')
+  @ApiOperation({ summary: 'Get all course modules with contents' })
+  @ApiResponse({ status: 200, description: 'Retrieved all course modules with contents' })
+  @ApiResponse({ status: 404, description: 'No course modules with contents found' })
+  async findAllWithContents(): Promise<CourseModule[]> {
+    try {
+      const courseModules = await this.courseModulesService.findAllWithContents();
+      if (!courseModules.length) {
+        throw new HttpException('No course modules with contents found', HttpStatus.NOT_FOUND);
+      }
+      return courseModules;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Version('1')

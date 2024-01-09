@@ -44,7 +44,30 @@ export class SubmissionsController {
   findOne(@Param('id') id: string) {
     return this.submissionsService.findOne(id);
   }
-
+  
+  @Version('1')
+  @Get('student/:studentId')
+  @ApiOperation({ summary: 'Get all submissions for a student by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved all submissions for the student' })
+  findAllSubmissionsForStudent(@Param('studentId') studentId: string) {
+    try {
+      const submissions =this.submissionsService.findAllStudentSubmissions(studentId);
+      return submissions;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+  @Get('status/:submissionId')
+  @ApiOperation({ summary: 'Get submission status by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submission status' })
+  async getSubmissionStatus(@Param('submissionId') submissionId: string): Promise<string> {
+    try {
+      const status = await this.submissionsService.getSubmissionStatus(submissionId);
+      return status;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
   @Version('1')
   @Get(':id/submissions')
   @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
@@ -68,6 +91,19 @@ export class SubmissionsController {
   ) {
     return this.submissionsService.update(id, updateSubmissionDto);
   }
+
+  @Get('assessment/:id/students')
+  @ApiOperation({ summary: 'Get all students profiles and grades from an assessment' })
+  @ApiResponse({ status: 200, description: 'Retrieved all students profiles and grades' })
+  async getAllStudentsProfilesAndGrades(
+    @Param('id') id: string) {
+    try {
+      const result = await this.submissionsService.getAllStudentsProfilesAndGrades(id);
+      return result;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+}
 
   @Version('1')
   @Get('assessment/:id')
