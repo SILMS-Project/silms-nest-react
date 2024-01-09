@@ -5,39 +5,50 @@ import { Repository } from 'typeorm';
 import { Schedule } from './entities/schedule.entity';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
-import { validate } from 'class-validator';
-
+import { validateOrReject } from 'class-validator';
+import { CoursesService } from '../courses/courses.service';
+import { SessionsService } from '../sessions/sessions.service';
 
 @Injectable()
 export class SchedulesService {
   constructor(
     @InjectRepository(Schedule)
     private readonly scheduleRepository: Repository<Schedule>,
+    private sessionsService: SessionsService,
+    private coursesService: CoursesService,
 
   ) {}
   
 
   async create(createScheduleDto: CreateScheduleDto): Promise<Schedule> {
-    const schedule = new Schedule();
-    // Map DTO properties to entity properties
-    
-    schedule.dayOfWeek = createScheduleDto.dayOfWeek;
-    schedule.startTime = createScheduleDto.startTime;
-    schedule.endTime = createScheduleDto.endTime;
-    schedule.room = createScheduleDto.room;
 
-    
+    const {courseId, ...scheduleProps} = createScheduleDto;
 
-  // Validate the DTO
-  await validate(createScheduleDto);
+    const createdSchedule = await this.scheduleRepository.create(scheduleProps)
 
-  const savedSchedule = await this.scheduleRepository.save(schedule);
-  return savedSchedule;
+    // Handle the relationship with Course (assuming it's included in the DTO)
+    const course = await this.coursesService.findById(courseId);
+
+    if (!course) {
+      throw new NotFoundException(`Course with ID ${createScheduleDto.courseId} not found`);
+    }
+
+    createdSchedule.course = course;
+
+    const currentSession = await this.sessionsService.getCurrentSession();
+
+    if (!currentSession) {
+      throw new NotFoundException(`No session is currently active`);
+    }
+
+    createdSchedule.session = currentSession;
+
+
+    // Save the schedule to the database
+    const savedSchedule = await this.scheduleRepository.save(createdSchedule);
+    return savedSchedule;
   }
-  
-  // create(createScheduleDto: CreateScheduleDto) {
-  //   return 'This action adds a new schedule';
-  // }
+
 
   findAll() {
     return `This action returns all schedules`;
@@ -46,11 +57,30 @@ export class SchedulesService {
   findOne(id: number) {
     return `This action returns a #${id} schedule`;
   }
-
-  update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    return `This action updates a #${id} schedule`;
+  
+  async update(id: string, updateScheduleDto: UpdateScheduleDto): Promise<Schedule> {
+    const schedule = await this.scheduleRepository.findOne({ where: { id } });
+  
+    if (!schedule) {
+      throw new NotFoundException(`Schedule with ID ${id} not found`);
+    }
+  
+    // Directly update properties from the DTO
+    Object.assign(schedule, updateScheduleDto);
+  
+    // Only fetch course if courseId is provided in the DTO
+    if (updateScheduleDto.courseId) {
+      const course = await this.coursesService.findById(updateScheduleDto.courseId);
+      if (!course) {
+        throw new NotFoundException(`Course with ID ${updateScheduleDto.courseId} not found`);
+      }
+      schedule.course = course;
+    }
+  
+    // Save the updated schedule
+    return this.scheduleRepository.save(schedule);
   }
-
+  
   remove(id: number) {
     return `This action removes a #${id} schedule`;
   }

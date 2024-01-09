@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Course } from '@/modules/courses/entities/course.entity';
-import { Program } from '@/modules/programs/entities/program.entity';
 import { DayOfWeek } from '@/utils/constants';
 import { Session } from '@/modules/sessions/entities/session.entity';
 
