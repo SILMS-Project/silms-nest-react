@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
@@ -31,15 +32,13 @@ export class AssessmentsService {
   }
 
   async findOne(id: string): Promise<Assessment> {
-    const assessment = await this.assessmentRepository.findOne({
-      where: { id },
-      relations: ['courseModule', 'courseModule.course'],
-    });
-    if (!assessment) {
+    const assessment = await this.assessmentRepository.findOne({where: { id }, relations: ['courseModule', 'courseModule.course'], });
+    if(!assessment){
       throw new Error('Assessment not found');
     }
-    return assessment;
+  return assessment;
   }
+
  async findByCourse(courseId:string):Promise<Assessment[]>{
 
   const assessments = await this.assessmentRepository.find({
