@@ -26,6 +26,104 @@ function App() {
                 </Suspense>
               }
             />
+            <Route
+              path="/login"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Auth/Login"))
+                  )}
+                </Suspense>
+              }
+            />
+            <Route
+              path="/student-dashboard"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Users/Student/StudentDashboard"))
+                  )}
+                </Suspense>
+              }
+            />
+            <Route
+              path="/lecturer-dashboard"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(
+                      () => import("@/pages/Users/Lecturer/LecturerDashboard")
+                    )
+                  )}
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/courses"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Courses/CoursesPage"))
+                  )}
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/courses/:id"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Courses/CourseDetails"))
+                  )}
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/courses/:id/enrollment"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Courses/CourseEnrollment"))
+                  )}
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/courses/:id/assignments/:assignmentid"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Courses/CourseAssignment"))
+                  )}
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/results"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Results/ResultsPage"))
+                  )}
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/results/:id"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Results/ResultsDetails"))
+                  )}
+                </Suspense>
+              }
+            />
 
             <Route
               path="*"
