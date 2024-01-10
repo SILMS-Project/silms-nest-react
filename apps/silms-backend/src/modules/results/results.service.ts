@@ -47,16 +47,31 @@ export class ResultsService {
   }
 
   async findByStudentId(studentId: string): Promise<Result[]> {
-    const studentCourses =
-      await this.studentCoursesService.findByStudentId(studentId);
-
-    return await Promise.all(
-      studentCourses.map((studentCourse) =>
-        this.findByStudentCourse(studentCourse.id),
-      ),
+    const studentCourses = await this.studentCoursesService.findByStudentId(studentId);
+  
+    if (studentCourses.length === 0) {
+      throw new Error('No courses found for the student');
+    }
+  
+    const results = await Promise.all(
+      studentCourses.map(async (studentCourse) => {
+        try {
+          return await this.findByStudentCourse(studentCourse.id);
+        } catch (error) {
+          
+          console.error(`Error finding result for student course ${studentCourse.id}: ${error.message}`);
+          return null; 
+        }
+      }),
     );
+    const validResults = results.filter((result) => result !== null);
+  
+    if (validResults.length === 0) {
+      throw new Error('No valid results found for the student');
+    }
+  
+    return validResults;
   }
-
   async calculateTotalScore(id: string) {
     const result = await this.findOne(id);
     const { ca1, ca2, ca3 } = result;
