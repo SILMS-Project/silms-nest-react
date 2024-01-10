@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Program } from '@modules/programs/entities/program.entity';
 import { Repository } from 'typeorm';
 import { School } from '../schools/entities/school.entity';
+import { SchoolsService } from '../schools/schools.service';
 
 @Injectable()
 export class ProgramsService {
@@ -14,6 +15,7 @@ export class ProgramsService {
     private readonly programRepository: Repository<Program>,
     @InjectRepository(School)
     private readonly schoolRepository: Repository<School>,
+    private schoolsService: SchoolsService,
   ) {}
 
   async create(createProgramDto: CreateProgramDto) {
@@ -71,8 +73,27 @@ export class ProgramsService {
     });
   }
 
-  update(id: number, updateProgramDto: UpdateProgramDto) {
-    return `This action updates a #${id} program`;
+
+  async update(id: string, updateProgramDto: UpdateProgramDto): Promise<Program> {
+    const program = await this.programRepository.findOne({ where: { id } });
+  
+    if (!program) {
+      throw new NotFoundException(`Schedule with ID ${id} not found`);
+    }
+  
+    // Directly update properties from the DTO
+    Object.assign(program, updateProgramDto);
+  
+    // Only fetch school if schoolId is provided in the DTO
+    if (updateProgramDto.schoolId) {
+      const school = await this.schoolsService.findOne(updateProgramDto.schoolId);
+      if (!school) {
+        throw new NotFoundException(`Course with ID ${updateProgramDto.schoolId} not found`);
+      }
+      program.school = school;
+    }
+    // Save the updated schedule
+    return this.programRepository.save(program);
   }
 
   remove(id: number) {

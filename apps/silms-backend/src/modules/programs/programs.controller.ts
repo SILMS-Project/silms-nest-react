@@ -109,13 +109,13 @@ export class ProgramsController {
   }
 
   @Version('1')
-  // PATCH /programs/:id
+  // PATCH /programs/update/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update a program by ID' })
   @ApiResponse({ status: 200, description: 'Program successfully updated' })
   @ApiResponse({ status: 404, description: 'Program not found' })
   update(@Param('id') id: string, @Body() updateProgramDto: UpdateProgramDto) {
-    return this.programsService.update(+id, updateProgramDto);
+    return this.programsService.update(id, updateProgramDto);
   }
 
   @Version('1')
