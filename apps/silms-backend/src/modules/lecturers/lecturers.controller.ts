@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Version } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Version,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { LecturersService } from './lecturers.service';
@@ -19,16 +29,14 @@ export class LecturersController {
     return this.lecturersService.create(createLecturerDto);
   }
 
-
-//   @Version('1')
-//   @UseGuards(JwtAuthGuard)
-//   @Get()
-//   @ApiOperation({ summary: 'Get all lecturers' })
-//   @ApiResponse({ status: 200, description: 'List of all lecturers' })
-//   findAll() {
-//     return this.lecturersService.findAll();
-//   }
-
+  //   @Version('1')
+  //   @UseGuards(JwtAuthGuard)
+  //   @Get()
+  //   @ApiOperation({ summary: 'Get all lecturers' })
+  //   @ApiResponse({ status: 200, description: 'List of all lecturers' })
+  //   findAll() {
+  //     return this.lecturersService.findAll();
+  //   }
 
   @Version('1')
   @UseGuards(JwtAuthGuard)
@@ -46,7 +54,10 @@ export class LecturersController {
   @ApiOperation({ summary: 'Update a lecturer by ID' })
   @ApiResponse({ status: 200, description: 'Lecturer successfully updated' })
   @ApiResponse({ status: 404, description: 'Lecturer not found' })
-  update(@Param('id') id: string, @Body() updateLecturerDto: UpdateLecturerDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateLecturerDto: UpdateLecturerDto,
+  ) {
     return this.lecturersService.update(id, updateLecturerDto);
   }
 

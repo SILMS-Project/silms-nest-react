@@ -10,20 +10,23 @@ import { ILike } from 'typeorm';
 
 @Injectable()
 export class SchoolsService {
-  constructor (@InjectRepository(School) private readonly schoolRepository: Repository<School>){}
+  constructor (@InjectRepository(School) 
+  private readonly schoolRepository: Repository<School>)
+  {}
+
   async create(createSchoolDto: CreateSchoolDto){
   try {
     const school = new School();
     school.name = createSchoolDto.name;
     school.abbreviation = createSchoolDto.abbreviation;
 
-    const programs = createSchoolDto.programs.map((programName: string) => {
-      const program = new Program();
-      program.programName = programName;
-      return program;
-    });
+    // const programs = createSchoolDto.programs.map((programName: string) => {
+    //   const program = new Program();
+    //   program.programName = programName;
+    //   return program;
+    // });
 
-    school.programs = programs;
+    // school.programs = programs;
     const savedSchool =await this.schoolRepository.save(school);
     return savedSchool;
   } catch (error) {
@@ -72,31 +75,16 @@ export class SchoolsService {
   // update(id: number, updateSchoolDto: UpdateSchoolDto) {
   //   return `This action updates a #${id} school`;
   // }
-  async update(id: string, updateSchoolDto: UpdateSchoolDto): Promise<School> {
+  async update(id: string, updateSchoolDto: UpdateSchoolDto) {
     const school = await this.findOne(id);
   
-    // Update the properties based on the fields provided in the updateSchoolDto
-    if (updateSchoolDto.name) {
-      school.name = updateSchoolDto.name;
+    if (!school) {
+      throw new NotFoundException(`School with id: ${id} not found`);
     }
   
-    if (updateSchoolDto.abbreviation) {
-      school.abbreviation = updateSchoolDto.abbreviation;
-    }
-  
-    if (updateSchoolDto.programs) {
-      // Assuming that programs is an array of strings in the updateSchoolDto
-      school.programs = updateSchoolDto.programs.map((programName: string) => {
-        const program = new Program();
-        program.programName = programName;
-        return program;
-      });
-    }
-  
-    // Save the updated school entity
-    const updatedSchool = await this.schoolRepository.save(school);
-    return updatedSchool;
+    return await this.schoolRepository.update(id, updateSchoolDto);
   }
+  
   
 
   remove(id: number) {

@@ -1,26 +1,84 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Assessment } from './entities/assessment.entity';
+import { Submission } from '../submissions/entities/submission.entity'; // Import Submission entity
+import { Repository } from 'typeorm';
+import { SubmissionsService } from '../submissions/submissions.service';
 
 @Injectable()
 export class AssessmentsService {
-  create(createAssessmentDto: CreateAssessmentDto) {
-    return 'This action adds a new assessment';
+  constructor(
+    @InjectRepository(Assessment)
+    private readonly assessmentRepository: Repository<Assessment>,
+  ) {}
+
+  async create(createAssessmentDto: CreateAssessmentDto): Promise<Assessment> {
+    const assessment = this.assessmentRepository.create(createAssessmentDto);
+    // Additional logic
+    const savedAssessment = await this.assessmentRepository.save(assessment);
+    return savedAssessment;
   }
 
-  findAll() {
-    return `This action returns all assessments`;
+  async findAll(): Promise<Assessment[]> {
+    return await this.assessmentRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} assessment`;
+  async findOne(id: string): Promise<Assessment> {
+    const assessment = await this.assessmentRepository.findOne({where: { id }, relations: ['courseModule', 'courseModule.course'], });
+    if(!assessment){
+      throw new Error('Assessment not found');
+    }
+  return assessment;
   }
 
-  update(id: number, updateAssessmentDto: UpdateAssessmentDto) {
-    return `This action updates a #${id} assessment`;
+ async findByCourse(courseId:string):Promise<Assessment[]>{
+
+  const assessments = await this.assessmentRepository.find({
+    where: {
+      courseModule: {
+        course: { id: courseId },
+      },
+    },
+    relations: ['courseModule', 'courseModule.course'],
+  });
+  
+  if (!assessments || assessments.length === 0) {
+    throw new Error('No assessments found for the given course');
+  }
+  
+  return assessments;
+}
+async getAssessmentGrade(assessmentId: string): Promise<number> {
+  try {
+    const assessment = await this.assessmentRepository.findOne({where:{id:assessmentId}});
+
+    if (!assessment) {
+      throw new NotFoundException('Assessment not found');
+    }
+
+    const totalGrade = assessment.totalGrade;
+
+    return totalGrade;
+  } catch (error) {
+    throw new NotFoundException('Error fetching assessment total grade');
+  }
+}
+
+  async update(id: string, updateAssessmentDto: UpdateAssessmentDto) {
+    const assessment = await this.findOne(id);
+    return await this.assessmentRepository.update(
+      assessment,
+      updateAssessmentDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} assessment`;
+  async remove(id: string): Promise<any> {
+    const assessment = await this.findOne(id);
+    return await this.assessmentRepository.remove(assessment).then(() => {
+      return { deleted: true };
+    });
   }
 }

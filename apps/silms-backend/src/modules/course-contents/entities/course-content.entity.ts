@@ -15,6 +15,6 @@ export class CourseContent {
   @Column()
   content: string;
 
-  @ManyToOne(() => CourseModule, courseModule => courseModule.courseContents)
+  @ManyToOne(() => CourseModule, (courseModule) => courseModule.courseContents)
   courseModule: CourseModule;
 }

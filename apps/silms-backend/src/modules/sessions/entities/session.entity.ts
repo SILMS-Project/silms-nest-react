@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 import { Schedule } from '@/modules/schedules/entities/schedule.entity';
 import { Course } from '@/modules/courses/entities/course.entity';
 
@@ -16,10 +22,9 @@ export class Session {
   @Column()
   semester: number;
 
-  @OneToMany(() => Schedule, schedule => schedule.session)
+  @OneToMany(() => Schedule, (schedule) => schedule.session)
   schedules: Schedule[];
 
-  @OneToMany(() => Course, course => course.session)
+  @OneToMany(() => Course, (course) => course.session)
   courses: Course[];
-  
 }

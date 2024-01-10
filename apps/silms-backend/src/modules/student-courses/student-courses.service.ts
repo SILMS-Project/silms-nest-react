@@ -29,6 +29,19 @@ export class StudentCoursesService {
     return `This action returns a #${id} studentCourse`;
   }
 
+  async findByStudentId(studentId: string): Promise<StudentCourse[]> {
+    const studentCourse = await this.studentCourseRepository.find({
+      where: { student: { id: studentId } },
+      relations: ['student', 'course'],
+    });
+
+    if (!studentCourse) {
+      throw new Error('Student Course not found');
+    }
+
+    return studentCourse;
+  }
+
   update(id: number, updateStudentCourseDto: UpdateStudentCourseDto) {
     return `This action updates a #${id} studentCourse`;
   }

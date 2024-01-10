@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Version } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Version,
+} from '@nestjs/common';
 import { UsersService } from './services/users.service';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
@@ -14,7 +24,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Version('1')
-  @Post("create")
+  @Post('create')
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({ status: 201, description: 'User successfully created' })
   create(@Body() createUserDto: CreateUserDto) {
@@ -30,7 +40,6 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
-
 
   @Version('1')
   @UseGuards(JwtAuthGuard)
@@ -51,7 +60,6 @@ export class UsersController {
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
-
 
   @Version('1')
   @Roles(['admin'])

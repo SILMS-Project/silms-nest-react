@@ -18,7 +18,7 @@ export class UsersService {
     private passwordService: PasswordService,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User | any> {
     const user = await this.findOneByEmail(createUserDto.email);
     if (user) {
       throw new Error('User already exists');
@@ -73,7 +73,7 @@ export class UsersService {
     return await this.userRepository.findOne({ where: { id } });
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<any> {
     const user = this.userRepository.findOne({ where: { id } });
 
     if (!user) {
@@ -84,7 +84,7 @@ export class UsersService {
     });
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<any> {
     const user = this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new Error('User not found');

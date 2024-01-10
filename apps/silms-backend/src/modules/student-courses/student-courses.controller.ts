@@ -94,7 +94,10 @@ export class StudentCoursesController {
     try {
       const deletedStudentCourse = await this.studentCoursesService.remove(id);
       if (!deletedStudentCourse) {
-        throw new HttpException(`Student course with ID ${id} not found`, HttpStatus.NOT_FOUND);
+        throw new HttpException(
+          `Student course with ID ${id} not found`,
+          HttpStatus.NOT_FOUND,
+        );
       }
       return res.status(HttpStatus.OK).json(deletedStudentCourse);
     } catch (error) {
