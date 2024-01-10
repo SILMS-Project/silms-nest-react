@@ -23,34 +23,28 @@
 
 /* Typography */
 body {
-  font-size: 16pt;
-  font-weight: regular;
+  @apply text-base font-normal;
 }
 
 h1 {
-  font-size: 36pt;
-  font-weight: bold;
+  @apply text-4xl font-bold;
 }
 
 h2 {
-  font-size: 24pt;
-  font-weight: medium;
+  @apply text-2xl font-medium;
 }
 
 h3 {
-  font-size: 20pt;
-  font-weight: medium;
+  @apply text-xl font-medium;
 }
 
 p {
-  font-size: 16pt;
-  font-weight: regular;
+  @apply text-base font-normal;
 }
 
 /* Captions */
 span.caption {
-  font-size: 12pt;
-  font-weight: regular;
+  @apply text-xs font-normal;
 }
 
 
@@ -92,6 +86,37 @@ span.caption {
 .accent-color-3 {
   color: var(--accent-color-3);
 }
+
+/* global-styles.css */
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+button, a {
+  @apply cursor-pointer transition-all duration-200;
+
+  /* Focus styles */
+  
+}
+
+button:focus, a:focus {
+  @apply outline-none; 
+}
+
+/* Apply specific button styles */
+button {
+  @apply min-h-[48px];
+}
+
+/* Apply specific anchor styles */
+a {
+  padding: unset;
+  margin: unset;
+  text-decoration: none;
+}
+
 
 /* @media (prefers-color-scheme: dark) {
   :root {
