@@ -15,6 +15,7 @@ import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
 import { ApiTags } from '@nestjs/swagger';
+import HttpStatusCodes from '@/configurations/HttpStatusCodes';
 @ApiTags('sessions')
 @Controller('sessions')
 export class SessionsController {
@@ -48,7 +49,7 @@ export class SessionsController {
   async findOne(@Param('id') id: string) {
     try {
       const session = await this.sessionsService.findById(id);
-      return { session, status: HttpStatus.OK };
+      return { session, status: HttpStatusCodes.OK };
     } catch (error) {
       throw new NotFoundException(error.message);
     }

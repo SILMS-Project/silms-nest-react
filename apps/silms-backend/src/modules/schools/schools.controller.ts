@@ -16,7 +16,6 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SchoolsService } from './schools.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
-import { UpdateStudentDto } from '../students/dto/update-student.dto';
 
 @ApiTags('schools')
 @Controller('schools')
@@ -68,19 +67,19 @@ export class SchoolsController {
   @Version('1')
 // PATCH /students/:id
 @Patch(':id')
-@ApiOperation({ summary: 'Update a student by ID' })
-@ApiResponse({ status: 200, description: 'Student successfully updated' })
-@ApiResponse({ status: 404, description: 'Student not found' })
-async update(@Param('id') id: string, @Res() res: any, @Body() updateStudentDto: UpdateStudentDto) {
+@ApiOperation({ summary: 'Update a School by ID' })
+@ApiResponse({ status: 200, description: 'School successfully updated' })
+@ApiResponse({ status: 404, description: 'School not found' })
+async update(@Param('id') id: string, @Res() res: any, @Body() updateSchoolDto: UpdateSchoolDto) {
   try {
-    const updatedStudent = await this.studentsService.update(id, updateStudentDto);
-    if (updatedStudent) {
-      return res.status(HttpStatus.OK).json({ student: updatedStudent });
+    const updatedSchool = await this.schoolsService.update(id, updateSchoolDto);
+    if (updatedSchool) {
+      return res.status(HttpStatus.OK).json({ School: updatedSchool });
     } else {
-      throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('School not found', HttpStatus.NOT_FOUND);
     }
   } catch (error) {
-    throw new HttpException('Failed to update student', HttpStatus.INTERNAL_SERVER_ERROR);
+    throw new HttpException('Failed to update School', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
 
