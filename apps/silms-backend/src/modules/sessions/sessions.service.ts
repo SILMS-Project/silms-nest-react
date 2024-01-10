@@ -19,8 +19,9 @@ export class SessionsService {
     return savedSession;
   }
 
-  findAll() {
-    return `This action returns all sessions`;
+  async findAll(): Promise<Session[]> {
+    const courses = await this.sessionRepository.find();
+    return courses;
   }
 
   findOne(id: number) {
