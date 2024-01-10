@@ -117,10 +117,15 @@ export class ResultsService {
     return { GPA: gpaResult.toFixed(2) };
   }
 
-  async update(id: string, updateResultDto: UpdateResultDto) {
-    const result = await this.findOne(id);
-    return await this.resultsRepository.update(result, updateResultDto);
+  async update(id: string, updateResultDto: UpdateResultDto): Promise<Result> {
+    const result = await this.findOne(id);  
+    const updatedResult = Object.assign(result, updateResultDto);
+    
+    await this.resultsRepository.save(updatedResult);
+  
+    return updatedResult;
   }
+  
 
   remove(id: number) {
     return `This action removes a #${id} result`;
