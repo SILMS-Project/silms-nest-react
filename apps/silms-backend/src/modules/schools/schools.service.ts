@@ -10,7 +10,10 @@ import { ILike } from 'typeorm';
 
 @Injectable()
 export class SchoolsService {
-  constructor (@InjectRepository(School) private readonly schoolRepository: Repository<School>){}
+  constructor (@InjectRepository(School) 
+  private readonly schoolRepository: Repository<School>)
+  {}
+
   async create(createSchoolDto: CreateSchoolDto){
   try {
     const school = new School();
