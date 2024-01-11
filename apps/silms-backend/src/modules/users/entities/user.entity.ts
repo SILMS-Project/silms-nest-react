@@ -1,34 +1,41 @@
-import { Role } from '@/utils/constants';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Profile } from './profile.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Student } from '@/modules/students/entities/student.entity';
+import { Lecturer } from '@/modules/lecturers/entities/lecturer.entity';
+import { Applicant } from '@/modules/applicants/entities/applicant.entity';
+import { Auth } from '@/modules/auth/entities/auth.entity';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
-  email: string;
+  @Column()
+  firstName: string;
+
+  @Column({ nullable: true })
+  middleName: string;
 
   @Column()
-  password: string;
+  lastName: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.Student })
-  role: Role;
+  @OneToOne(() => Auth, (auth) => auth.user)
+  @JoinColumn()
+  auth: Auth;
 
-  @Column({ default: true })
-  isVerified: boolean;
+  @OneToOne(() => Student, (student) => student.user, { cascade: true })
+  student: Student;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  @OneToOne(() => Lecturer, (lecturer) => lecturer.user, { cascade: true })
+  lecturer: Lecturer;
 
-  @Column({
-    type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
+  @OneToOne(() => Applicant, (applicant) => applicant.user, {
+    cascade: true,
   })
-  updatedAt: Date;
-
-  @OneToOne(() => Profile, (profile) => profile.user, { cascade: true })
-  profile: Profile;
+  applicant: Applicant;
 }

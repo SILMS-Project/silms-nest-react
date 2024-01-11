@@ -6,10 +6,12 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '@modules/auth/jwt.strategy';
 import { MailModule } from '../mail/mail.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Auth } from './entities/auth.entity';
 
 @Module({
   imports: [
-    UsersModule,
+    TypeOrmModule.forFeature([Auth]),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,

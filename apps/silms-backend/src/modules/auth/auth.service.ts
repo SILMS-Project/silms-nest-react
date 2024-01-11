@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import {
   ChangePasswordDto,
   ConfirmResetPasswordDto,
+  CreateAuthDto,
   LoginUserDto,
 } from './dto/create-auth.dto';
 import { UsersService } from '@/modules/users/services/users.service';
@@ -9,26 +10,75 @@ import { JwtService } from '@nestjs/jwt';
 import { PasswordService } from '../users/services/password.service';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { MailService } from '../mail/mail.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Auth } from './entities/auth.entity';
+import { Repository } from 'typeorm';
+import { AuthProps } from './interfaces/auth.interface';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
+    @InjectRepository(Auth) private readonly authRepository: Repository<Auth>,
     private jwtService: JwtService,
     private passwordService: PasswordService,
     private mailService: MailService,
   ) {}
 
+  async create (createAuthDto: CreateAuthDto) {
+    const auth = this.findOneByEmail(createAuthDto.email);
+
+    if (auth) {
+      throw new Error("Auth already exists!")
+    }
+
+    if (!this.passwordService.checkPasswordStrength(createAuthDto.password)) {
+      throw new Error("Password is too weak");
+    }
+
+    const authProps: AuthProps = {
+      ...createAuthDto,
+      password: await this.passwordService.hashPassword(createAuthDto.password),
+      isVerified: false
+    }
+
+    const newAuth = this.authRepository.create({
+      ...authProps
+    })
+
+    await this.authRepository.save(newAuth).then((auth) => {
+
+    });
+  }
+
+  async findOneByEmail(email: string) {
+    const auth = await this.authRepository.findOneBy({email});
+
+    if(!auth) {
+      throw new Error("Auth does not exist!")
+    }
+    return auth;
+  }
+
+  async find(id: string) {
+    const auth = await this.authRepository.findOneBy({id})
+
+    if(!auth) {
+      throw new Error("Auth does not exist!")
+    }
+    return auth;
+  }
+
+
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.findOneByEmail(email);
+    const auth = await this.findOneByEmail(email);
 
     const isValidPassword = await this.passwordService.comparePassword(
       password,
-      user.password,
+      auth.password,
     );
 
-    if (user && isValidPassword) {
-      const { password, email, ...rest } = user;
+    if (auth && isValidPassword) {
+      const { password, email, ...rest } = auth;
       return rest;
     }
 
@@ -36,16 +86,22 @@ export class AuthService {
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const user = await this.validateUser(
+    const auth = await this.validateUser(
       loginUserDto.email,
       loginUserDto.password,
     );
 
-    const payload = { sub: user.id };
+    const payload = { sub: auth.id };
 
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+
+  async update(updateAuthDto: UpdateAuthDto) {
+    const auth = await this.findOneByEmail(updateAuthDto.email)
+    return await this.authRepository.update(auth, updateAuthDto);
   }
 
   async changePassword(changePasswordDto: ChangePasswordDto) {
@@ -53,37 +109,38 @@ export class AuthService {
       throw new Error('Passwords do not match');
     }
 
-    const user = await this.userService.findOneById(changePasswordDto.id);
-
-    if (!user) {
-      throw new Error('User does not exist');
-    }
+    const auth = await this.find(changePasswordDto.authId);
 
     if (
       !this.passwordService.comparePassword(
         changePasswordDto.oldPassword,
-        user.password,
+        auth.password,
       )
     ) {
       throw new Error('Incorrect old password');
     }
 
-    return await this.userService.changePassword(
-      changePasswordDto.id,
-      changePasswordDto.password,
-    );
+    if (!this.passwordService.checkPasswordStrength(changePasswordDto.password)) {
+      throw new Error("Password is too weak");
+    }
+
+    const hashedPassword = await this.passwordService.hashPassword(changePasswordDto.password);
+
+    return await this.authRepository.update(auth, {password: hashedPassword}).then(() => {
+      return {message: 'Password changed successfullt'};
+    })
   }
 
   async resetPassword(email: string) {
-    const user = await this.userService.findOneByEmail(email);
-    const token = this.jwtService.sign({ sub: user.id });
+    const auth = await this.findOneByEmail(email);
+    const token = this.jwtService.sign({ sub: auth.id });
 
-    if (!user) {
-      throw new Error('User does not exist');
+    if (!auth) {
+      throw new Error('Auth does not exist');
     }
 
     // Send a confirmation url(contains jwt token) to the user via email
-    await this.mailService.sendResetPassword(user, token);
+    await this.mailService.sendResetPassword(auth, token);
 
     return { message: 'A confirmation email has been sent to you.' };
   }
@@ -99,11 +156,13 @@ export class AuthService {
       throw new Error('Passwords do not match');
     }
 
-    const userId = this.jwtService.decode(token.split(' ')[1]).id;
-    return await this.userService.changePassword(
-      userId,
-      confirmResetPasswordDto.password,
-    );
+    const authId = this.jwtService.decode(token.split(' ')[1]).id;
+    const auth = await this.find(authId);
+    const hashedPassword = await this.passwordService.hashPassword(confirmResetPasswordDto.password);
+
+    return await this.authRepository.update(auth, {password: hashedPassword}).then(() => {
+      return {message: "Pa"}
+    })
   }
 
   async verifyAccount(token: string) {
