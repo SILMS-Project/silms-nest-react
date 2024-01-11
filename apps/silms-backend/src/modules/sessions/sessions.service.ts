@@ -46,7 +46,7 @@ export class SessionsService {
     });
 
     if (!currentSession) {
-      throw new NotFoundException('Current session not found');
+      throw new NotFoundException('No current session');
     }
 
     return currentSession;
@@ -68,6 +68,7 @@ export class SessionsService {
     const updatedSession = await this.sessionRepository.save(session);
 
     return updatedSession;
+    
   }
 
   //update session status: if the status is set to true for a session, all other sessions should be set to false, meaning they are not the current

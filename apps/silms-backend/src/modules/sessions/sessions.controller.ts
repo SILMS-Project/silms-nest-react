@@ -10,6 +10,7 @@ import {
   NotFoundException,
   HttpException,
   Version,
+  BadRequestException,
 } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
@@ -111,6 +112,10 @@ export class SessionsController {
     status: HttpStatus.NOT_FOUND,
     description: 'Session not found',
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid input for update',
+  })
   async update(
     @Param('id') id: string,
     @Body() updateSessionDto: UpdateSessionDto,
@@ -126,12 +131,41 @@ export class SessionsController {
         data: updatedSession,
       };
     } catch (error) {
+      if (error instanceof NotFoundException)
+        throw new HttpException(
+          `Session with ID ${id} not found`,
+          HttpStatus.NOT_FOUND,
+        );
+      if (error instanceof BadRequestException)
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
       throw new HttpException(
         `Failed to update session: ${error.message || error}`,
-        HttpStatus.NOT_FOUND,
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
+
+  // async update(
+  //   @Param('id') id: string,
+  //   @Body() updateSessionDto: UpdateSessionDto,
+  // ) {
+  //   try {
+  //     const updatedSession = await this.sessionsService.update(
+  //       id,
+  //       updateSessionDto,
+  //     );
+  //     return {
+  //       status: HttpStatus.OK,
+  //       message: `Session with ID ${id} updated successfully`,
+  //       data: updatedSession,
+  //     };
+  //   } catch (error) {
+  //     throw new HttpException(
+  //       `Failed to update session: ${error.message || error}`,
+  //       HttpStatus.NOT_FOUND,
+  //     );
+  //   }
+  // }
 
   @Version('1')
   @Patch(':id/update-status')
