@@ -1,4 +1,4 @@
-import { UsersService } from '@/modules/users/services/users.service';
+import { UsersService } from '@/modules/users/users.service';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
@@ -19,7 +19,7 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     console.log(roles);
-    const user = await this.usersService.findOneById(request.user.id);
+    const user = await this.usersService.find(request.user.id);
     return roles[0] === user.role;
   }
 

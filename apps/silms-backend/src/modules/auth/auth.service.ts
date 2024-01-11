@@ -5,9 +5,8 @@ import {
   CreateAuthDto,
   LoginUserDto,
 } from './dto/create-auth.dto';
-import { UsersService } from '@/modules/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { PasswordService } from '../users/services/password.service';
+import { PasswordService } from './password.service';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { MailService } from '../mail/mail.service';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,50 +23,47 @@ export class AuthService {
     private mailService: MailService,
   ) {}
 
-  async create (createAuthDto: CreateAuthDto) {
+  async create(createAuthDto: CreateAuthDto) : Promise<Auth> {
     const auth = this.findOneByEmail(createAuthDto.email);
 
     if (auth) {
-      throw new Error("Auth already exists!")
+      throw new Error('Auth already exists!');
     }
 
     if (!this.passwordService.checkPasswordStrength(createAuthDto.password)) {
-      throw new Error("Password is too weak");
+      throw new Error('Password is too weak');
     }
 
     const authProps: AuthProps = {
       ...createAuthDto,
       password: await this.passwordService.hashPassword(createAuthDto.password),
-      isVerified: false
-    }
+      isVerified: false,
+    };
 
     const newAuth = this.authRepository.create({
-      ...authProps
-    })
-
-    await this.authRepository.save(newAuth).then((auth) => {
-
+      ...authProps,
     });
+
+    return await this.authRepository.save(newAuth);
   }
 
   async findOneByEmail(email: string) {
-    const auth = await this.authRepository.findOneBy({email});
+    const auth = await this.authRepository.findOneBy({ email });
 
-    if(!auth) {
-      throw new Error("Auth does not exist!")
+    if (!auth) {
+      throw new Error('Auth does not exist!');
     }
     return auth;
   }
 
   async find(id: string) {
-    const auth = await this.authRepository.findOneBy({id})
+    const auth = await this.authRepository.findOneBy({ id });
 
-    if(!auth) {
-      throw new Error("Auth does not exist!")
+    if (!auth) {
+      throw new Error('Auth does not exist!');
     }
     return auth;
   }
-
 
   async validateUser(email: string, password: string): Promise<any> {
     const auth = await this.findOneByEmail(email);
@@ -98,9 +94,8 @@ export class AuthService {
     };
   }
 
-
   async update(updateAuthDto: UpdateAuthDto) {
-    const auth = await this.findOneByEmail(updateAuthDto.email)
+    const auth = await this.findOneByEmail(updateAuthDto.email);
     return await this.authRepository.update(auth, updateAuthDto);
   }
 
@@ -120,15 +115,21 @@ export class AuthService {
       throw new Error('Incorrect old password');
     }
 
-    if (!this.passwordService.checkPasswordStrength(changePasswordDto.password)) {
-      throw new Error("Password is too weak");
+    if (
+      !this.passwordService.checkPasswordStrength(changePasswordDto.password)
+    ) {
+      throw new Error('Password is too weak');
     }
 
-    const hashedPassword = await this.passwordService.hashPassword(changePasswordDto.password);
+    const hashedPassword = await this.passwordService.hashPassword(
+      changePasswordDto.password,
+    );
 
-    return await this.authRepository.update(auth, {password: hashedPassword}).then(() => {
-      return {message: 'Password changed successfullt'};
-    })
+    return await this.authRepository
+      .update(auth, { password: hashedPassword })
+      .then(() => {
+        message: 'Password changed successfully'
+      });
   }
 
   async resetPassword(email: string) {
@@ -158,28 +159,32 @@ export class AuthService {
 
     const authId = this.jwtService.decode(token.split(' ')[1]).id;
     const auth = await this.find(authId);
-    const hashedPassword = await this.passwordService.hashPassword(confirmResetPasswordDto.password);
+    const hashedPassword = await this.passwordService.hashPassword(
+      confirmResetPasswordDto.password,
+    );
 
-    return await this.authRepository.update(auth, {password: hashedPassword}).then(() => {
-      return {message: "Pa"}
-    })
+    return await this.authRepository
+      .update(auth, { password: hashedPassword })
+      .then(() => {
+        message: 'Password reset successfully'
+      });
   }
 
   async verifyAccount(token: string) {
-    const user = await this.userService.findOneById(
-      this.jwtService.decode(token).id,
-    );
+    const auth = await this.find(this.jwtService.decode(token).id);
 
-    if (!user) {
-      throw new Error('User does not exist!');
+    if (!auth) {
+      throw new Error('Auth does not exist!');
     }
 
-    user.isVerified = true;
+    auth.isVerified = true;
 
-    const updatedUser: UpdateAuthDto = {
-      ...user,
+    const updatedAuth: UpdateAuthDto = {
+      ...auth,
     };
 
-    return await this.userService.update(user.id, updatedUser);
+    return await this.update(updatedAuth).then(() => {
+      message: 'Account verified successfully';
+    });
   }
 }
