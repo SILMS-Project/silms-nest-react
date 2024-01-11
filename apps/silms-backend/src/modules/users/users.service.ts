@@ -27,16 +27,16 @@ export class UsersService {
       auth: await this.authService.findOneByEmail(createUserDto.email)
     }
 
-    const newUser = this.userRepository.create({
-      ...userProps
-    })
 
     // Create user's auth
     const newAuth = await this.authService.create({
-      ...createUserDto
+      ...createUserDto,
     })
 
-    newUser.auth = newAuth;
+    const newUser = this.userRepository.create({
+      ...userProps,
+      auth: newAuth,
+    })
 
     return await this.userRepository.save(newUser);
   }

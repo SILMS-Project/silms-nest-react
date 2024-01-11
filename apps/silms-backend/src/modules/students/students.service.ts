@@ -32,6 +32,7 @@ export class StudentsService {
 
     const newStudent = this.studentRepository.create({
       ...studentProps,
+      user: newUser,
     });
 
     return this.studentRepository.save(newStudent);
@@ -44,7 +45,7 @@ export class StudentsService {
   async findByMatricNo(matricNo: string) {
     return await this.studentRepository.findOne({
       where: { matricNo },
-      relations: ['profile'],
+      relations: ['user'],
     });
   }
 

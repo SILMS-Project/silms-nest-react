@@ -29,6 +29,7 @@ export class LecturersService {
 
     const newLecturer = this.lecturerRepository.create({
       ...lecturerProps,
+      user: newUser,
     });
 
     return this.lecturerRepository.save(newLecturer);
