@@ -16,15 +16,15 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<User | any> {
 
-    const user = await this.findByAuthId(createUserDto.authId);
-    
+    const user = await this.findByAuthEmail(createUserDto.email);
+
     if (user) {
       throw new Error('User already exists');
     }
 
     const userProps: UserProps = {
       ...createUserDto,
-      auth: await this.authService.find(createUserDto.authId)
+      auth: await this.authService.findOneByEmail(createUserDto.email)
     }
 
     const newUser = this.userRepository.create({
@@ -41,17 +41,16 @@ export class UsersService {
     return await this.userRepository.save(newUser);
   }
 
-  async findByAuthId(authId: string) : Promise<User> {
-    const user = await this.userRepository.findOneBy({auth: {id: authId}});
-
-    if (!user) {
-      throw new Error("User not found!");
-    }
-    return user;
+  async findByAuthEmail(email: string) : Promise<User> {
+    return await this.userRepository.findOneBy({auth: {email}});
   }
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
+  }
+
+  async findOneById(id: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   async find(id: string): Promise<User | undefined> {

@@ -3,11 +3,12 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 import { Roles } from '../auth/guards/roles.decorator';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
-    private usersService: UsersService,
+    private authService: AuthService,
     private reflector: Reflector,
   ) {}
 
@@ -18,8 +19,8 @@ export class RolesGuard implements CanActivate {
     if (!roles) {
       return true;
     }
-    console.log(roles);
-    const user = await this.usersService.find(request.user.id);
+
+    const user = await this.authService.find(request.user.id);
     return roles[0] === user.role;
   }
 

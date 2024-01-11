@@ -24,7 +24,7 @@ export class User {
   @Column()
   lastName: string;
 
-  @OneToOne(() => Auth, (auth) => auth.user)
+  @OneToOne(() => Auth, (auth) => auth.user, {cascade: true})
   @JoinColumn()
   auth: Auth;
 

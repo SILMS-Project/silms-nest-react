@@ -24,7 +24,7 @@ export class AuthService {
   ) {}
 
   async create(createAuthDto: CreateAuthDto) : Promise<Auth> {
-    const auth = this.findOneByEmail(createAuthDto.email);
+    const auth = await this.findOneByEmail(createAuthDto.email);
 
     if (auth) {
       throw new Error('Auth already exists!');
@@ -48,12 +48,7 @@ export class AuthService {
   }
 
   async findOneByEmail(email: string) {
-    const auth = await this.authRepository.findOneBy({ email });
-
-    if (!auth) {
-      throw new Error('Auth does not exist!');
-    }
-    return auth;
+    return await this.authRepository.findOneBy({ email });
   }
 
   async find(id: string) {

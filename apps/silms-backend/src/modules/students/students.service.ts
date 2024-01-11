@@ -32,7 +32,6 @@ export class StudentsService {
 
     const newStudent = this.studentRepository.create({
       ...studentProps,
-      profile: newUser.profile,
     });
 
     return this.studentRepository.save(newStudent);

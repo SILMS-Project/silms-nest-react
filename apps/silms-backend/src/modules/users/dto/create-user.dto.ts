@@ -18,11 +18,6 @@ export class CreateUserDto {
   lastName: string;
 
   @ApiProperty()
-  @IsNotEmpty({message: 'authId is required'})
-  @IsUUID()
-  authId: string;
-
-  @ApiProperty()
   @IsEmail({}, { message: 'Invalid email format' })
   @IsNotEmpty({ message: 'Email is required' })
   @IsString({ message: 'Email should be a string' })
