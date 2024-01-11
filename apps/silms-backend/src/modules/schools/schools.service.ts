@@ -3,8 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { Repository } from 'typeorm';
-import { School } from '@modules/schools/entities/school.entity'; 
-import {  Program } from '@modules/programs/entities/program.entity'; 
+import { School } from './entities/school.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike } from 'typeorm';
 
@@ -20,13 +19,13 @@ export class SchoolsService {
     school.name = createSchoolDto.name;
     school.abbreviation = createSchoolDto.abbreviation;
 
-    // const programs = createSchoolDto.programs.map((programName: string) => {
-    //   const program = new Program();
-    //   program.programName = programName;
-    //   return program;
-    // });
+    const foundName = await this.schoolRepository.findOne({where : {name: createSchoolDto.name}})
+    const foundAbbr = await this.schoolRepository.findOne({where : {abbreviation: createSchoolDto.abbreviation}})
 
-    // school.programs = programs;
+    if (foundAbbr && foundName) {
+      throw new Error('School already exists');
+    }
+
     const savedSchool =await this.schoolRepository.save(school);
     return savedSchool;
   } catch (error) {
@@ -45,30 +44,39 @@ export class SchoolsService {
         id: id,
       },
     });
-
-
     if (!school) {
-      throw new NotFoundException(`School with ID ${id} not found`);
+      throw new NotFoundException(`School with ID "${id}" not found`);
     }
 
     return school;
   }
 
+  //find school by name
+    async findByName(name: string): Promise<School[]> {
+      const schools = await this.schoolRepository.find({ where: { name: name} });
+      
+      if (!schools || schools.length === 0) {
+        throw new NotFoundException(`Schedule with Name ${name} not found`);
+      }
+  
+      return schools;
+    }
+
   //find school by abbrevation
-  async findSchoolByAbbreviation(abbreviation: string): Promise<School[] | undefined> {
+  async findSchoolByAbbreviation(abbreviation: string): Promise<School[]> {
     const lowercaseAbbreviation = abbreviation.toLowerCase();
-    try {
+
       const schools = await this.schoolRepository.find({
         where: {
           abbreviation: ILike(`%${lowercaseAbbreviation}%`), // Use Like for case-insensitive search
         },
         relations: ['programs']
       });
-      return schools;
-    } catch (error) {
-      console.error('Error finding school by abbreviation:', error);
+    
+    if (schools.length === 0) {
       throw new NotFoundException(`School with Abbreviation ${abbreviation} not found`);
     }
+    return schools;
   }
   
 
