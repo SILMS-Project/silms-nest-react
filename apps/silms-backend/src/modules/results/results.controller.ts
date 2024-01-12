@@ -28,7 +28,7 @@ export class ResultsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Create a result' })
   @ApiResponse({ status: 201, description: 'Created.' })
-  @Post()
+  @Post('create')
   create(@Body() createResultDto: CreateResultDto) {
     return this.resultsService.create(createResultDto);
   }
