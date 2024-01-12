@@ -44,6 +44,19 @@ export class SubmissionsController {
   findOne(@Param('id') id: string) {
     return this.submissionsService.findOne(id);
   }
+
+  @Version('1')
+  @Get(':id/submissions')
+  @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
+  getSubmissionsForAssessment(@Param('id') id: string) {
+    try {
+      const submissions = this.submissionsService.getAssessmentSubmissions(id);
+      return { submissions };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
   
   @Version('1')
   @Get('student/:studentId')
@@ -64,18 +77,6 @@ export class SubmissionsController {
     try {
       const status = await this.submissionsService.getSubmissionStatus(submissionId);
       return status;
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
-    }
-  }
-  @Version('1')
-  @Get(':id/submissions')
-  @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
-  @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
-  getSubmissionsForAssessment(@Param('id') id: string) {
-    try {
-      const submissions = this.submissionsService.getAssessmentSubmissions(id);
-      return { submissions };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
