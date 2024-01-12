@@ -69,8 +69,14 @@ export class UsersService {
     return await this.userRepository.findOne({ where: { email } });
   }
 
-  async findOneById(id: string): Promise<User | undefined> {
-    return await this.userRepository.findOne({ where: { id } });
+  async findOneById(id: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id } });
+  
+    if (!user) {
+      throw new Error(`User with ID ${id} not found`);
+    }
+  
+    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<any> {
@@ -84,13 +90,18 @@ export class UsersService {
     });
   }
 
-  async remove(id: string): Promise<any> {
-    const user = this.userRepository.findOne({ where: { id } });
-    if (!user) {
-      throw new Error('User not found');
-    }
-    return this.userRepository.delete(id).then(() => {
-      return { message: 'User deleted successfully' };
-    });
+async remove(id: string): Promise<{ message: string }> {
+  
+  const user = await this.userRepository.findOne({ where: { id } });
+
+  if (!user) {
+    throw new Error('User not found');
   }
+
+  await this.userRepository.remove(user);
+
+  return { message: 'User deleted successfully' };
+  
+}
+
 }
