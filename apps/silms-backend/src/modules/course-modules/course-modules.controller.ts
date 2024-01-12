@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CourseModulesService } from './course-modules.service';
 import { CreateCourseModuleDto } from './dto/create-course-module.dto';
 import { UpdateCourseModuleDto } from './dto/update-course-module.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CourseModule } from './entities/course-module.entity';
 
 @ApiTags('course-modules')
 @Controller('course-modules')
@@ -33,8 +36,25 @@ export class CourseModulesController {
   @Get()
   @ApiOperation({ summary: 'Get all course modules' })
   @ApiResponse({ status: 200, description: 'Retrieved all course modules' })
-  findAll() {
+  async findAll():Promise<CourseModule[]> {
     return this.courseModulesService.findAll();
+  }
+
+  @Version('1')
+  @Get('with-contents')
+  @ApiOperation({ summary: 'Get all course modules with contents' })
+  @ApiResponse({ status: 200, description: 'Retrieved all course modules with contents' })
+  @ApiResponse({ status: 404, description: 'No course modules with contents found' })
+  async findAllWithContents(): Promise<CourseModule[]> {
+    try {
+      const courseModules = await this.courseModulesService.findAllWithContents();
+      if (!courseModules.length) {
+        throw new HttpException('No course modules with contents found', HttpStatus.NOT_FOUND);
+      }
+      return courseModules;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Version('1')
@@ -44,6 +64,7 @@ export class CourseModulesController {
   findOne(@Param('id') id: string) {
     return this.courseModulesService.findOne(id);
   }
+
 
   @Version('1')
   @Patch(':id')

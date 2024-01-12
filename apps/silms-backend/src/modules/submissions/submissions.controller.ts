@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Submission } from './entities/submission.entity';
 
 @ApiTags('submissions')
 @Controller('submissions')
@@ -43,6 +46,43 @@ export class SubmissionsController {
   }
 
   @Version('1')
+  @Get(':id/submissions')
+  @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
+  getSubmissionsForAssessment(@Param('id') id: string) {
+    try {
+      const submissions = this.submissionsService.getAssessmentSubmissions(id);
+      return { submissions };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+  
+  @Version('1')
+  @Get('student/:studentId')
+  @ApiOperation({ summary: 'Get all submissions for a student by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved all submissions for the student' })
+  findAllSubmissionsForStudent(@Param('studentId') studentId: string) {
+    try {
+      const submissions =this.submissionsService.findAllStudentSubmissions(studentId);
+      return submissions;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+  @Get('status/:submissionId')
+  @ApiOperation({ summary: 'Get submission status by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submission status' })
+  async getSubmissionStatus(@Param('submissionId') submissionId: string): Promise<string> {
+    try {
+      const status = await this.submissionsService.getSubmissionStatus(submissionId);
+      return status;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @Version('1')
   @Patch(':id')
   @ApiOperation({ summary: 'Update a submission by ID' })
   @ApiResponse({ status: 200, description: 'Updated submission successfully' })
@@ -52,6 +92,19 @@ export class SubmissionsController {
   ) {
     return this.submissionsService.update(id, updateSubmissionDto);
   }
+
+  @Get('assessment/:id/students')
+  @ApiOperation({ summary: 'Get all students profiles and grades from an assessment' })
+  @ApiResponse({ status: 200, description: 'Retrieved all students profiles and grades' })
+  async getAllStudentsProfilesAndGrades(
+    @Param('id') id: string) {
+    try {
+      const result = await this.submissionsService.getAllStudentsProfilesAndGrades(id);
+      return result;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+}
 
   @Version('1')
   @Get('assessment/:id')

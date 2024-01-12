@@ -3,27 +3,29 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { Repository } from 'typeorm';
-import { School } from '@modules/schools/entities/school.entity'; 
-import {  Program } from '@modules/programs/entities/program.entity'; 
+import { School } from './entities/school.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike } from 'typeorm';
 
 @Injectable()
 export class SchoolsService {
-  constructor (@InjectRepository(School) private readonly schoolRepository: Repository<School>){}
+  constructor (@InjectRepository(School) 
+  private readonly schoolRepository: Repository<School>)
+  {}
+
   async create(createSchoolDto: CreateSchoolDto){
   try {
     const school = new School();
     school.name = createSchoolDto.name;
     school.abbreviation = createSchoolDto.abbreviation;
 
-    const programs = createSchoolDto.programs.map((programName: string) => {
-      const program = new Program();
-      program.programName = programName;
-      return program;
-    });
+    const foundName = await this.schoolRepository.findOne({where : {name: createSchoolDto.name}})
+    const foundAbbr = await this.schoolRepository.findOne({where : {abbreviation: createSchoolDto.abbreviation}})
 
-    school.programs = programs;
+    if (foundAbbr && foundName) {
+      throw new Error('School already exists');
+    }
+
     const savedSchool =await this.schoolRepository.save(school);
     return savedSchool;
   } catch (error) {
@@ -42,61 +44,55 @@ export class SchoolsService {
         id: id,
       },
     });
-
-
     if (!school) {
-      throw new NotFoundException(`School with ID ${id} not found`);
+      throw new NotFoundException(`School with ID "${id}" not found`);
     }
 
     return school;
   }
 
+  //find school by name
+    async findByName(name: string): Promise<School[]> {
+      const schools = await this.schoolRepository.find({ where: { name: name} });
+      
+      if (!schools || schools.length === 0) {
+        throw new NotFoundException(`Schedule with Name ${name} not found`);
+      }
+  
+      return schools;
+    }
+
   //find school by abbrevation
-  async findSchoolByAbbreviation(abbreviation: string): Promise<School[] | undefined> {
+  async findSchoolByAbbreviation(abbreviation: string): Promise<School[]> {
     const lowercaseAbbreviation = abbreviation.toLowerCase();
-    try {
+
       const schools = await this.schoolRepository.find({
         where: {
           abbreviation: ILike(`%${lowercaseAbbreviation}%`), // Use Like for case-insensitive search
         },
         relations: ['programs']
       });
-      return schools;
-    } catch (error) {
-      console.error('Error finding school by abbreviation:', error);
+    
+    if (schools.length === 0) {
       throw new NotFoundException(`School with Abbreviation ${abbreviation} not found`);
     }
+    return schools;
   }
   
 
   // update(id: number, updateSchoolDto: UpdateSchoolDto) {
   //   return `This action updates a #${id} school`;
   // }
-  async update(id: string, updateSchoolDto: UpdateSchoolDto): Promise<School> {
-    const school = await this.findOne(id);
-  
-    // Update the properties based on the fields provided in the updateSchoolDto
-    if (updateSchoolDto.name) {
-      school.name = updateSchoolDto.name;
+  async update(id: string, updateSchoolDto: UpdateSchoolDto) {
+    const school = await this.schoolRepository.findOne({where: { id } });
+    
+    if (!school) {
+      throw new NotFoundException(`School with id: ${id} not found`);
     }
-  
-    if (updateSchoolDto.abbreviation) {
-      school.abbreviation = updateSchoolDto.abbreviation;
-    }
-  
-    if (updateSchoolDto.programs) {
-      // Assuming that programs is an array of strings in the updateSchoolDto
-      school.programs = updateSchoolDto.programs.map((programName: string) => {
-        const program = new Program();
-        program.programName = programName;
-        return program;
-      });
-    }
-  
-    // Save the updated school entity
-    const updatedSchool = await this.schoolRepository.save(school);
-    return updatedSchool;
+    Object.assign(school, updateSchoolDto)
+    return await this.schoolRepository.save(school);
   }
+  
   
 
   remove(id: number) {

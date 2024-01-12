@@ -7,11 +7,15 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { AssessmentsService } from './assessments.service';
 import { CreateAssessmentDto } from './dto/create-assessment.dto';
 import { UpdateAssessmentDto } from './dto/update-assessment.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Submission } from '../submissions/entities/submission.entity';
+import { Assessment } from './entities/assessment.entity';
 
 @ApiTags('assessments')
 @Controller('assessments')
@@ -40,6 +44,29 @@ export class AssessmentsController {
   @ApiResponse({ status: 200, description: 'Retrieved assessment by ID' })
   findOne(@Param('id') id: string) {
     return this.assessmentsService.findOne(id);
+  }
+
+  @Version('1')
+  @Get('/course/:id')
+  @ApiOperation({ summary: 'Get assessments for a course' })
+  @ApiResponse({ status: 200, description: 'Retrieved assesments for course ' })
+  findByCourse(@Param('id') id: string) {
+    try{
+    return this.assessmentsService.findByCourse(id);
+    }catch(error){
+      throw new  HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
+  @Get(':id/totalGrade')
+  @ApiOperation({ summary: 'Get total grade of an assessment by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved total grade of the assessment' })
+  async getAssessmentTotalGrade(@Param('id') id: string): Promise<number> {
+    try {
+      const totalGrade = await this.assessmentsService.getAssessmentGrade(id);
+      return totalGrade;
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 
   @Version('1')

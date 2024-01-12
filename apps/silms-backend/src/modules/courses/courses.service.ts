@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
@@ -22,7 +23,7 @@ export class CoursesService {
       throw new Error('Course already exists');
     }
 
-    const program = await this.programsService.findOne(
+    const program = await this.programsService.findById(
       createCourseDto.programId,
     );
 
@@ -53,7 +54,7 @@ export class CoursesService {
     const course = await this.courseRepository.findOne({ where: { id } });
 
     if (!course) {
-      throw new Error('Course not found.');
+      throw new NotFoundException(`Schedule with ID ${id} not found`);
     }
 
     return course;
@@ -61,7 +62,7 @@ export class CoursesService {
 
   async findCourseByProgram(programId: string) {
     const courses = await this.courseRepository.find({
-      where: { program: { id: programId } },
+      where: { program: { id: programId } }
     });
     return courses;
   }
@@ -97,7 +98,7 @@ export class CoursesService {
 
   async findByCode(code: string): Promise<Course> {
     const course = await this.courseRepository.findOne({
-      where: { code },
+      where: { courseCode: code },
     } as FindOneOptions<Course>);
 
     if (!course) {
@@ -115,7 +116,7 @@ export class CoursesService {
     }
     if (updateCourseDto.programId) {
       // Assuming you have a repository for Program, fetch the Program
-      const program = await this.programsService.findOne(
+      const program = await this.programsService.findById(
         updateCourseDto.programId,
       );
 

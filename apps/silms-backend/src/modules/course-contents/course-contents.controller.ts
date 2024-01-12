@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Version,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CourseContentsService } from './course-contents.service';
 import { CreateCourseContentDto } from './dto/create-course-content.dto';
@@ -43,6 +45,23 @@ export class CourseContentsController {
   @ApiResponse({ status: 200, description: 'Retrieved course content by ID' })
   findOne(@Param('id') id: string) {
     return this.courseContentsService.findOne(id);
+  }
+
+  @Version('1')
+  @Get('module/:moduleId')
+  @ApiOperation({ summary: 'Get all course contents for a course module' })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved all course contents for the module',
+  })
+  async findAllByModule(@Param('moduleId') moduleId: string) {
+    try {
+      const contents =
+        await this.courseContentsService.findAllByModule(moduleId);
+      return { contents };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
   }
 
   @Version('1')

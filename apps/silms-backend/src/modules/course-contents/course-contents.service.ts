@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CourseContent } from './entities/course-content.entity';
 import { CreateCourseContentDto } from './dto/create-course-content.dto';
 import { UpdateCourseContentDto } from './dto/update-course-content.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { CourseContent } from './entities/course-content.entity';
-import { Repository } from 'typeorm';
 import { CourseContentProps } from './interfaces/course-content.interface';
 import { CourseModulesService } from '../course-modules/course-modules.service';
 
@@ -13,7 +13,9 @@ export class CourseContentsService {
     @InjectRepository(CourseContent)
     private readonly courseContentRepository: Repository<CourseContent>,
     private courseModulesService: CourseModulesService,
+
   ) {}
+
 
   async create(createCourseContentDto: CreateCourseContentDto) {
     const courseContentProps: CourseContentProps = {
@@ -44,12 +46,32 @@ export class CourseContentsService {
     return courseContent;
   }
 
+  async findAllByModule(moduleId: string): Promise<CourseContent[]> {
+    // Check if the module exists
+    const courseContents = await this.courseContentRepository.find({
+      where: { courseModule: { id: moduleId } },
+    });
+
+    if (!courseContents.length) {
+      throw new NotFoundException(
+        `No course contents found for module with ID ${moduleId}`,
+      );
+    }
+
+    return courseContents;
+  }
+  
   async update(id: string, updateCourseContentDto: UpdateCourseContentDto) {
     const courseContent = await this.findOne(id);
-    return await this.courseContentRepository.update(
-      courseContent,
-      updateCourseContentDto,
-    );
+
+    // this ensures that the courseModuleId is not updated
+    const { courseModuleId, ...updatedProps } = updateCourseContentDto;
+
+    // Update the cours content entity with the new properties
+    Object.assign(courseContent, updatedProps);
+
+    // Save the updated cours content
+    return await this.courseContentRepository.save(courseContent);
   }
 
   async remove(id: string) {

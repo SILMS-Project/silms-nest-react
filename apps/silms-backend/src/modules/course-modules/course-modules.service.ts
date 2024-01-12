@@ -4,7 +4,6 @@ import { UpdateCourseModuleDto } from './dto/update-course-module.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CourseModule } from './entities/course-module.entity';
 import { Repository } from 'typeorm';
-import { CoursesModuleProps } from './interfaces/courses-modules.interface';
 import { CoursesService } from '../courses/courses.service';
 
 @Injectable()
@@ -13,25 +12,19 @@ export class CourseModulesService {
     @InjectRepository(CourseModule)
     private readonly courseModuleRepository: Repository<CourseModule>,
     private coursesService: CoursesService,
-  ) {}
+    // Add other repositories or services as needed
+    ) {}
 
-  async create(createCourseModuleDto: CreateCourseModuleDto) {
-    const coursesModuleProps: CoursesModuleProps = {
-      ...createCourseModuleDto,
-      course: await this.coursesService.findById(
-        createCourseModuleDto.courseId,
-      ),
-    };
-
-    const newCourseModule = this.courseModuleRepository.create({
-      ...coursesModuleProps,
-    });
-
-    return await this.courseModuleRepository.save(newCourseModule);
+  async create(createCourseModuleDto: CreateCourseModuleDto): Promise<CourseModule> {
+    const courseModule = this.courseModuleRepository.create(createCourseModuleDto);
+    // Additional logic 
+    const savedCourseModule = await this.courseModuleRepository.save(courseModule);
+    return savedCourseModule;
   }
 
-  async findAll() {
-    return await this.courseModuleRepository.find();
+  async findAll(): Promise<CourseModule[]> {
+    const courseModules = await this.courseModuleRepository.find();
+    return courseModules;
   }
 
   async findOne(id: string) {
@@ -42,6 +35,10 @@ export class CourseModulesService {
       throw new Error('Course module not found');
     }
     return courseModule;
+  }
+
+  async findAllWithContents(): Promise<CourseModule[]> {
+    return this.courseModuleRepository.find({ relations: ['courseContents'] });
   }
 
   async update(id: string, updateCourseModuleDto: UpdateCourseModuleDto) {

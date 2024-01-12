@@ -66,20 +66,32 @@ export class ResultsService {
   }
 
   async findByStudentId(studentId: string): Promise<Result[]> {
-    const studentCourses =
-      await this.studentCoursesService.findByStudentId(studentId);
-
-    if (!studentCourses || studentCourses.length === 0) {
-      throw new Error('Student Courses not found');
+    const studentCourses = await this.studentCoursesService.findByStudentId(studentId);
+  
+    if (studentCourses.length === 0) {
+      throw new Error('No courses found for the student');
     }
+  
+    const results = await Promise.all(
+      studentCourses.map(async (studentCourse) => {
+        try {
+          return await this.findByStudentCourse(studentCourse.id);
+        } catch (error) {
+          
+          console.error(`Error finding result for student course ${studentCourse.id}: ${error.message}`);
+          return null; 
+        }
+      }),
 
-    return await Promise.all(
-      studentCourses.map((studentCourse) =>
-        this.findByStudentCourse(studentCourse.id),
-      ),
     );
+    const validResults = results.filter((result) => result !== null);
+  
+    if (validResults.length === 0) {
+      throw new Error('No valid results found for the student');
+    }
+  
+    return validResults;
   }
-
   async calculateTotalScoreAndGrade(id: string) {
     const result = await this.findOne(id);
     const { ca1, ca2, ca3, exam } = result;
@@ -134,10 +146,15 @@ export class ResultsService {
     return { GPA: gpaResult.toFixed(2) };
   }
 
-  async update(id: string, updateResultDto: UpdateResultDto) {
-    const result = await this.findOne(id);
-    return await this.resultsRepository.update(result, updateResultDto);
+  async update(id: string, updateResultDto: UpdateResultDto): Promise<Result> {
+    const result = await this.findOne(id);  
+    const updatedResult = Object.assign(result, updateResultDto);
+    
+    await this.resultsRepository.save(updatedResult);
+  
+    return updatedResult;
   }
+  
 
   async remove(id: string) {
     const result = await this.findOne(id);
