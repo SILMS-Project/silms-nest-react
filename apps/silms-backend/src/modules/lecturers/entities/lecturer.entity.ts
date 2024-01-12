@@ -1,5 +1,5 @@
 import { LecturerCourses } from '@/modules/lecturer-courses/entities/lecturer-courses.entity';
-import { Profile } from '@/modules/users/entities/profile.entity';
+import { User } from '@/modules/users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -20,9 +20,9 @@ export class Lecturer {
   @Column()
   department: string;
 
-  @OneToOne(() => Profile, (profile) => profile.lecturer)
+  @OneToOne(() => User, (user) => user.lecturer)
   @JoinColumn()
-  profile: Profile;
+  user: User;
 
   @OneToMany(() => LecturerCourses, (lecturerCourses) => lecturerCourses.course)
   lecturerCourses: LecturerCourses[];

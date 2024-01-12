@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Lecturer } from './entities/lecturer.entity';
 import { Repository } from 'typeorm';
 import { LecturerProps } from './interfaces/lecturer.interface';
-import { UsersService } from '../users/services/users.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class LecturersService {
@@ -29,7 +29,7 @@ export class LecturersService {
 
     const newLecturer = this.lecturerRepository.create({
       ...lecturerProps,
-      profile: newUser.profile,
+      user: newUser,
     });
 
     return this.lecturerRepository.save(newLecturer);

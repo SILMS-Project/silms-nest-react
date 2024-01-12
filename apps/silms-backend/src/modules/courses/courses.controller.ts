@@ -143,7 +143,7 @@ export class CoursesController {
       const course = await this.coursesService.findByCode(code);
       return { course, status: HttpStatus.OK };
     } catch (error) {
-      throw new HttpException('Course not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Course was not found', HttpStatus.NOT_FOUND);
     }
   }
 

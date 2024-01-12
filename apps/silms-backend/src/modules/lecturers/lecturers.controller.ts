@@ -15,6 +15,8 @@ import { LecturersService } from './lecturers.service';
 import { CreateLecturerDto } from './dto/create-lecturer.dto';
 import { UpdateLecturerDto } from './dto/update-lecturer.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Roles } from '../auth/guards/roles.decorator';
+import { RolesGuard } from '../auth/guards/roles-auth.guard';
 
 @ApiTags('lecturers')
 @Controller('lecturers')
@@ -29,14 +31,15 @@ export class LecturersController {
     return this.lecturersService.create(createLecturerDto);
   }
 
-  //   @Version('1')
-  //   @UseGuards(JwtAuthGuard)
-  //   @Get()
-  //   @ApiOperation({ summary: 'Get all lecturers' })
-  //   @ApiResponse({ status: 200, description: 'List of all lecturers' })
-  //   findAll() {
-  //     return this.lecturersService.findAll();
-  //   }
+    @Version('1')
+    @Roles(['admin'])
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Get()
+    @ApiOperation({ summary: 'Get all lecturers' })
+    @ApiResponse({ status: 200, description: 'List of all lecturers' })
+    findAll() {
+      return this.lecturersService.findAll();
+    }
 
   @Version('1')
   @UseGuards(JwtAuthGuard)

@@ -4,7 +4,7 @@ import { UpdateStudentDto } from './dto/update-student.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Student } from './entities/student.entity';
-import { UsersService } from '../users/services/users.service';
+import { UsersService } from '../users/users.service';
 import { StudentProps } from './interfaces/student.interface';
 
 @Injectable()
@@ -32,7 +32,7 @@ export class StudentsService {
 
     const newStudent = this.studentRepository.create({
       ...studentProps,
-      profile: newUser.profile,
+      user: newUser,
     });
 
     return this.studentRepository.save(newStudent);
@@ -45,7 +45,7 @@ export class StudentsService {
   async findByMatricNo(matricNo: string) {
     return await this.studentRepository.findOne({
       where: { matricNo },
-      relations: ['profile'],
+      relations: ['user'],
     });
   }
 

@@ -9,13 +9,13 @@ import {
   UseGuards,
   Version,
 } from '@nestjs/common';
-import { UsersService } from './services/users.service';
+import { UsersService } from './users.service';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { RolesGuard } from './roles-auth.guard';
+import { RolesGuard } from '../auth/guards/roles-auth.guard';
 import { Roles } from '../auth/guards/roles.decorator';
 
 @ApiTags('user')
@@ -48,7 +48,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'User found by ID' })
   @ApiResponse({ status: 404, description: 'User not found' })
   findOne(@Param('id') id: string) {
-    return this.usersService.findOneById(id);
+    return this.usersService.find(id);
   }
 
   @Version('1')

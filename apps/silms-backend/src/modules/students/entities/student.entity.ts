@@ -1,7 +1,7 @@
 import { Grade } from '@/modules/grades/entities/grade.entity';
 import { StudentCourse } from '@/modules/student-courses/entities/student-course.entity';
 import { Submission } from '@/modules/submissions/entities/submission.entity';
-import { Profile } from '@/modules/users/entities/profile.entity';
+import { User } from '@/modules/users/entities/user.entity';
 import {
   Column,
   Entity,
@@ -28,9 +28,9 @@ export class Student {
   @Column()
   level: string;
 
-  @OneToOne(() => Profile, (profile) => profile.student)
+  @OneToOne(() => User, (user) => user.student)
   @JoinColumn()
-  profile: Profile;
+  user: User;
 
   @OneToMany(() => StudentCourse, (studentCourse) => studentCourse.student)
   studentCourses: StudentCourse[];
