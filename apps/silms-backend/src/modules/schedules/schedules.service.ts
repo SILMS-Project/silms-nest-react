@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Schedule } from './entities/schedule.entity';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
@@ -63,6 +63,35 @@ export class SchedulesService {
 
     return schedule;
   }
+
+  async getAllSchedulesByProgramAndLevel(programId: string, level: number): Promise<Schedule[]> {
+    try {
+      // Fetch courses by program and level
+      const courses = await this.coursesService.findCourseByLevelProgram(programId, level);
+    
+      // Extract course IDs
+      const courseIds = courses.map(course => course.id);
+  
+      // If there are no courses, return an empty array (or handle it as needed)
+      if (!courseIds.length) {
+        return [];
+      }
+  
+      // Fetch schedules by course IDs using the 'In' operator
+      const schedules = await this.scheduleRepository.find({
+        where: { course: { id: In(courseIds) } },
+        relations: ['course', 'session'], // Load related entities
+      });
+    
+      return schedules;
+    } catch (error) {
+      // Handle errors appropriately
+      console.error(`Error fetching schedules by program and level: ${error.message || error}`);
+      throw error; // Rethrow the error to be handled by the caller
+    }
+  }
+  
+  
   
   async update(id: string, updateScheduleDto: UpdateScheduleDto): Promise<Schedule> {
     const schedule = await this.scheduleRepository.findOne({ where: { id } });
