@@ -8,6 +8,7 @@ import {
   Param,
   Delete,
   Version,
+  HttpStatus,
 } from '@nestjs/common';
 import { SchedulesService } from './schedules.service';
 import { Schedule } from './entities/schedule.entity';
@@ -39,6 +40,31 @@ export class SchedulesController {
   })
   findAll() {
     return this.schedulesService.findAll();
+  }
+
+  @Version('1')
+  @Get('by-program-level')
+  @ApiOperation({ summary: 'Get all schedules by program and level' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'List of schedules by program and level',
+    type: Schedule,
+    isArray: true,
+  })
+  async findByProgramAndLevel(@Body() { programId, level }: { programId: string; level: string }) {
+    try {
+      const schedules = await this.schedulesService.getAllSchedulesByProgramAndLevel(programId, parseInt(level, 10));
+      return {
+        status: HttpStatus.OK,
+        message: 'List of schedules by program and level',
+        data: schedules,
+      };
+    } catch (error) {
+      return {
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: `Failed to fetch schedules by program and level: ${error.message || error}`,
+      };
+    }
   }
 
   @Version('1')
