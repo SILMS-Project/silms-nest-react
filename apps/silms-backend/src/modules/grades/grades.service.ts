@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateGradeDto } from './dto/create-grade.dto';
 import { UpdateGradeDto } from './dto/update-grade.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -45,13 +45,21 @@ export class GradesService {
   }
 
   async findAll(): Promise<Grade[]> {
-    return await this.gradeRepository.find();
+    const grades= await this.gradeRepository.find({
+    relations: ['submission', 'student', 'student.user'],
+  });
+
+    if (!grades || grades.length === 0) {
+      throw new Error('No grades found');
+    }
+
+    return grades;
   }
 
   async findOne(id: string): Promise<Grade> {
     const grade = await this.gradeRepository.findOne({
       where: { id },
-      relations: ['submission', 'student', 'student.profile'],
+      relations: ['submission', 'student', 'student.user'],
     });
 
     if (!grade) {
@@ -60,9 +68,18 @@ export class GradesService {
     return grade;
   }
 
-  async update(id: string, updateGradeDto: UpdateGradeDto) {
-    const grade = await this.findOne(id);
-    return await this.gradeRepository.update(grade, updateGradeDto);
+  async update(id: string, updateGradeDto: UpdateGradeDto): Promise<Grade> {
+    const grade = await this.gradeRepository.findOne({ where: { id } });
+
+    if (!grade) {
+      throw new NotFoundException(`Grade with ID ${id} not found`);
+    }
+
+    // Update the properties from the DTO
+    Object.assign(grade, updateGradeDto);
+
+    // Save the updated grade
+    return await this.gradeRepository.save(grade);
   }
 
   async remove(id: string) {
