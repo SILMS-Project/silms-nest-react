@@ -75,11 +75,11 @@ export class ResultsController {
 
   @Post('calculate')
   calculate(@Body() body: any) {
-    return this.resultsService.calculateTotalScoreAndGrade(body);
+    return this.resultsService.calculateTotalScoreAndGrade(body.id);
   }
 
   @Post('calculate-gpa')
   calculateGPA(@Body() body: any) {
-    return this.resultsService.calculateGPAByStudentId(body);
+    return this.resultsService.calculateGPAByStudentId(body.id);
   }
 }

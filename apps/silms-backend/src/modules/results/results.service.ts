@@ -82,8 +82,17 @@ export class ResultsService {
 
   async calculateTotalScoreAndGrade(id: string) {
     const result = await this.findOne(id);
-    const { ca1, ca2, ca3 } = result;
-    const total = ca1 + ca2 + ca3;
+    const { ca1, ca2, ca3, exam } = result;
+
+    if (exam > 65) {
+      throw new Error('Exam score cannot be greater than 65');
+    }
+
+    if (ca1 > 15 || ca2 > 15 || ca3 > 15) {
+      throw new Error('CA score cannot be greater than 15');
+    }
+
+    const total = ca1 + ca2 + ca3 + exam;
 
     const grade =
       total >= 70
@@ -99,7 +108,7 @@ export class ResultsService {
     result.total = total;
     result.grade = grade;
 
-    return await this.resultsRepository.update(id, result);
+    return await this.resultsRepository.update(id, result).then(() => result);
   }
 
   async calculateGPAByStudentId(studentId: string) {
