@@ -24,8 +24,8 @@ export class ResultsController {
   constructor(private readonly resultsService: ResultsService) {}
 
   @Version('1')
-  @Roles([Role.Lecturer])
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Roles([Role.Lecturer])
+  // @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Create a result' })
   @ApiResponse({ status: 201, description: 'Created.' })
   @Post('create')

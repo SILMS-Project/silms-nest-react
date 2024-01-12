@@ -17,7 +17,7 @@ export class ResultsService {
   ) {}
 
   async create(createResultDto: CreateResultDto) {
-    const result = this.resultsRepository.findOneBy({studentCourse: {id: createResultDto.studentCourseId}});
+    const result = await this.resultsRepository.findOneBy({studentCourse: {id: createResultDto.studentCourseId}});
     if (result) {
       throw new Error('Result already exists');
     }
