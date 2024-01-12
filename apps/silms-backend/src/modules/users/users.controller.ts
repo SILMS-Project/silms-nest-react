@@ -42,7 +42,7 @@ export class UsersController {
   }
 
   @Version('1')
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiOperation({ summary: 'Get a user by ID' })
   @ApiResponse({ status: 200, description: 'User found by ID' })
@@ -52,7 +52,7 @@ export class UsersController {
   }
 
   @Version('1')
-  //@UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiOperation({ summary: 'Update a user by ID' })
   @ApiResponse({ status: 200, description: 'User successfully updated' })
@@ -62,8 +62,8 @@ export class UsersController {
   }
 
   @Version('1')
-  //@Roles(['admin'])
-  //@UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(['admin'])
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a user by ID' })
   @ApiResponse({ status: 200, description: 'User successfully deleted' })
