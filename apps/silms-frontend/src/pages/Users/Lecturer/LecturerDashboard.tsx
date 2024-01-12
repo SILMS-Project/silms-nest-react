@@ -1,8 +1,11 @@
+import DashboardLayout from "@/components/DashboardLayout";
 
 const LecturerDashboard = () => {
   return (
-    <div>LecturerDashboard</div>
-  )
-}
+    <DashboardLayout>
+      <div>LecturerDashboard</div>
+    </DashboardLayout>
+  );
+};
 
-export default LecturerDashboard
+export default LecturerDashboard;

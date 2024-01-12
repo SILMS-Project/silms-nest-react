@@ -30,7 +30,7 @@ const SideMenu = () => {
   const menus = [
     {
       title: "Dashboard",
-      link: "",
+      link: "student-dashboard",
       icon: <DashboardIcon />,
       isActive: true,
     },
@@ -42,13 +42,13 @@ const SideMenu = () => {
     },
     {
       title: "Result",
-      link: "result",
+      link: "results",
       icon: <ResultIcon />,
       isActive: false,
     },
     {
       title: "Enrollment",
-      link: "enrollment",
+      link: "courses/enrollment",
       icon: <EnrollmentIcon />,
       isActive: false,
     },

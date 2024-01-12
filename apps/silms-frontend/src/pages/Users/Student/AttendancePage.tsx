@@ -1,11 +1,11 @@
 import DashboardLayout from "@/components/DashboardLayout";
 
-const ResultsPage = () => {
+const AttendancePage = () => {
   return (
     <DashboardLayout>
-      <div>ResultsPage</div>
+      <div>AttendancePage</div>
     </DashboardLayout>
   );
 };
 
-export default ResultsPage;
+export default AttendancePage;

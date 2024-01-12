@@ -1,8 +1,11 @@
+import DashboardLayout from "@/components/DashboardLayout";
 
 const ResultsDetails = () => {
   return (
-    <div>ResultsDetails</div>
-  )
-}
+    <DashboardLayout>
+      <div>ResultsDetails</div>
+    </DashboardLayout>
+  );
+};
 
-export default ResultsDetails
+export default ResultsDetails;

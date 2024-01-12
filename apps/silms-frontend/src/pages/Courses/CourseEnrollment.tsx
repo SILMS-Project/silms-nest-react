@@ -1,8 +1,11 @@
+import DashboardLayout from "@/components/DashboardLayout";
 
 const CourseEnrollment = () => {
   return (
-    <div>CourseEnrollment</div>
-  )
-}
+    <DashboardLayout>
+      <div>CourseEnrollment</div>
+    </DashboardLayout>
+  );
+};
 
-export default CourseEnrollment
+export default CourseEnrollment;
