@@ -87,7 +87,7 @@ export class CoursesService {
 
   async findByCode(code: string): Promise<Course> {
     const course = await this.courseRepository.findOne({
-      where: { code },
+      where: { courseCode: code },
     } as FindOneOptions<Course>);
 
     if (!course) {
