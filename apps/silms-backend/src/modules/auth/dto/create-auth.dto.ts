@@ -79,8 +79,8 @@ export class ChangePasswordDto {
   confirmPassword: string;
 
   @ApiProperty()
-  @IsNotEmpty({ message: 'Invalid request, id is required' })
-  id: string;
+  @IsNotEmpty({ message: 'Invalid request, authId is required' })
+  authId: string;
 
   @ApiProperty()
   @IsNotEmpty()

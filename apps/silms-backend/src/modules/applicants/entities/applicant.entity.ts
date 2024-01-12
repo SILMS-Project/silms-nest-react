@@ -7,7 +7,7 @@ import {
   Column,
 } from 'typeorm';
 import { Application } from '@/modules/applications/entities/application.entity';
-import { Profile } from '@/modules/users/entities/profile.entity';
+import { User } from '@/modules/users/entities/user.entity';
 
 @Entity()
 export class Applicant {
@@ -23,7 +23,7 @@ export class Applicant {
   @OneToMany(() => Application, (application) => application.applicant)
   applications: Application[];
 
-  @OneToOne(() => Profile, (profile) => profile.applicant)
+  @OneToOne(() => User, (user) => user.applicant)
   @JoinColumn()
-  profile: Profile;
+  user: User;
 }

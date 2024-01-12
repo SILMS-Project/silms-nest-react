@@ -3,6 +3,7 @@ import { User } from '../users/entities/user.entity';
 import { ISendMailOptions, MailerService } from '@nestjs-modules/mailer';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
+import { Auth } from '../auth/entities/auth.entity';
 
 export const emailIconsPath = join(
   __dirname,
@@ -55,7 +56,7 @@ export class MailService {
   ) {}
 
   async sendUserVerificationEmail(
-    user: User,
+    auth: Auth,
     emailToken: string,
   ): Promise<void> {
     const url = `${this.configService.get(
@@ -72,7 +73,7 @@ export class MailService {
     };
 
     const msg = {
-      to: user.email,
+      to: auth.email,
       ...confirmationTemplate,
     };
 
@@ -94,7 +95,7 @@ export class MailService {
     }
   }
 
-  async sendResetPassword(user: User, emailToken: string): Promise<void> {
+  async sendResetPassword(auth: Auth, emailToken: string): Promise<void> {
     const url = `${this.configService.get(
       'SERVER_URL',
     )}/backend/auth/confirm-reset-password/${emailToken}`;
@@ -103,15 +104,15 @@ export class MailService {
       from: process.env.SENDGRID_FROM_EMAIL,
       subject: '[Wisr] Password Reset Request',
       context: {
-        email: user.email,
-        name: `${user.profile} ${user.profile}`,
+        email: auth.email,
+        name: `${auth.user.firstName} ${auth.user.lastName}`,
         url: url,
       },
       attachments: [...emailAttachments],
     };
 
     const msg = {
-      to: user.email,
+      to: auth.email,
       ...confirmationTemplate,
     };
 
