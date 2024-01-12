@@ -8,11 +8,10 @@ Endpoint: *:id*
 Endpoint: *:id*  
 <span style="color:green;">&#10004;</span> Ensures successful update of user details.
 
-<span style="color:red;">&#10060;</span> Flags if user with specified ID doesn't exist.
-<span style="color:red;">&#100060;</span> Doesn't update foreign key values when applicable.
+<span style="color:green;">&#10004;</span> Flags if user with specified ID doesn't exist.
 
 ### Delete user [DELETE]
 Endpoint: *:id*  
-<span style="color:red;">&#10060;</span> Flags Unssucessful deletion due to foreign keys not being properly handled
+<span style="color:green;">&#10004;</span> Ensures successful deletion of user details.
 
 <span style="color:green;">&#10004;</span> Flags if user with specified ID doesn't exist.
