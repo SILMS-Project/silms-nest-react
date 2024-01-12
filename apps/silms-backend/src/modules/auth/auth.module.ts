@@ -8,6 +8,7 @@ import { MailModule } from '../mail/mail.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { PasswordService } from './password.service';
+import { RolesGuard } from './guards/roles-auth.guard';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { PasswordService } from './password.service';
     MailModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, PasswordService],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy, PasswordService, RolesGuard],
+  exports: [AuthService, RolesGuard],
 })
 export class AuthModule {}
