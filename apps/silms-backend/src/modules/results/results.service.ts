@@ -6,6 +6,7 @@ import { Result } from './entities/result.entity';
 import { Repository } from 'typeorm';
 import { StudentCoursesService } from '../student-courses/student-courses.service';
 import { Grades } from '@/utils/constants';
+import { ResultsProps } from './interfaces/result.interface';
 
 @Injectable()
 export class ResultsService {
@@ -15,12 +16,30 @@ export class ResultsService {
     private studentCoursesService: StudentCoursesService,
   ) {}
 
-  create(createResultDto: CreateResultDto) {
-    return 'This action adds a new result';
+  async create(createResultDto: CreateResultDto) {
+    const result = this.resultsRepository.findOneBy({studentCourse: {id: createResultDto.studentCourseId}});
+    if (result) {
+      throw new Error('Result already exists');
+    }
+
+    const resultProps : ResultsProps = {
+      ...createResultDto,
+      studentCourse: await this.studentCoursesService.find(createResultDto.studentCourseId),
+    };
+    
+    const newResult = this.resultsRepository.create({
+      ...resultProps,
+    });
+
+    return await this.resultsRepository.save(newResult);
   }
 
-  findAll() {
-    return `This action returns all results`;
+  async findAll() : Promise<Result[]> {
+    const results = await this.resultsRepository.find({relations: ['studentCourse', 'studentCourse.student','studentCourse.course']});
+    if (!results || results.length === 0) {
+      throw new Error('No results found');
+    }
+    return results;
   }
 
   async findOne(id: string) {
@@ -50,6 +69,10 @@ export class ResultsService {
     const studentCourses =
       await this.studentCoursesService.findByStudentId(studentId);
 
+    if (!studentCourses || studentCourses.length === 0) {
+      throw new Error('Student Courses not found');
+    }
+
     return await Promise.all(
       studentCourses.map((studentCourse) =>
         this.findByStudentCourse(studentCourse.id),
@@ -57,7 +80,7 @@ export class ResultsService {
     );
   }
 
-  async calculateTotalScore(id: string) {
+  async calculateTotalScoreAndGrade(id: string) {
     const result = await this.findOne(id);
     const { ca1, ca2, ca3 } = result;
     const total = ca1 + ca2 + ca3;
@@ -107,7 +130,8 @@ export class ResultsService {
     return await this.resultsRepository.update(result, updateResultDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} result`;
+  async remove(id: string) {
+    const result = await this.findOne(id);
+    return await this.resultsRepository.remove(result);
   }
 }

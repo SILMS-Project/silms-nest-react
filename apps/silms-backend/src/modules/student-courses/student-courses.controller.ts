@@ -62,7 +62,7 @@ export class StudentCoursesController {
   @ApiResponse({ status: 200, description: 'Student course found by ID' })
   @ApiResponse({ status: 404, description: 'Student course not found' })
   findOne(@Param('id') id: string) {
-    return this.studentCoursesService.findOne(+id);
+    return this.studentCoursesService.find(id);
   }
 
   @Version('1')
