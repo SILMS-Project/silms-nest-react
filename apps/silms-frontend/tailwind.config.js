@@ -12,7 +12,9 @@ export default {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
-
+      boxShadow: {
+        custom: '0px 4px 20px 0px rgba(0, 0, 0, 0.25)',
+      },
       colors: {
         custom: {
           primary: {
