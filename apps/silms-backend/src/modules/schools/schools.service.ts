@@ -84,13 +84,13 @@ export class SchoolsService {
   //   return `This action updates a #${id} school`;
   // }
   async update(id: string, updateSchoolDto: UpdateSchoolDto) {
-    const school = await this.findOne(id);
-  
+    const school = await this.schoolRepository.findOne({where: { id } });
+    
     if (!school) {
       throw new NotFoundException(`School with id: ${id} not found`);
     }
-  
-    return await this.schoolRepository.update(id, updateSchoolDto);
+    Object.assign(school, updateSchoolDto)
+    return await this.schoolRepository.save(school);
   }
   
   
