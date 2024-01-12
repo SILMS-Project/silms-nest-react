@@ -17,6 +17,8 @@ export default {
       },
       colors: {
         custom: {
+          success: "#8ADD21",
+          danger: "#DD2121",
           primary: {
             1: "#063760",
             2: "#597995",
