@@ -6,6 +6,7 @@ import { Result } from './entities/result.entity';
 import { Repository } from 'typeorm';
 import { StudentCoursesService } from '../student-courses/student-courses.service';
 import { Grades } from '@/utils/constants';
+import { ResultsProps } from './interfaces/result.interface';
 
 @Injectable()
 export class ResultsService {
@@ -15,12 +16,30 @@ export class ResultsService {
     private studentCoursesService: StudentCoursesService,
   ) {}
 
-  create(createResultDto: CreateResultDto) {
-    return 'This action adds a new result';
+  async create(createResultDto: CreateResultDto) {
+    const result = await this.resultsRepository.findOneBy({studentCourse: {id: createResultDto.studentCourseId}});
+    if (result) {
+      throw new Error('Result already exists');
+    }
+
+    const resultProps : ResultsProps = {
+      ...createResultDto,
+      studentCourse: await this.studentCoursesService.find(createResultDto.studentCourseId),
+    };
+    
+    const newResult = this.resultsRepository.create({
+      ...resultProps,
+    });
+
+    return await this.resultsRepository.save(newResult);
   }
 
-  findAll() {
-    return `This action returns all results`;
+  async findAll() : Promise<Result[]> {
+    const results = await this.resultsRepository.find({relations: ['studentCourse', 'studentCourse.student','studentCourse.course']});
+    if (!results || results.length === 0) {
+      throw new Error('No results found');
+    }
+    return results;
   }
 
   async findOne(id: string) {
@@ -47,20 +66,45 @@ export class ResultsService {
   }
 
   async findByStudentId(studentId: string): Promise<Result[]> {
-    const studentCourses =
-      await this.studentCoursesService.findByStudentId(studentId);
+    const studentCourses = await this.studentCoursesService.findByStudentId(studentId);
+  
+    if (studentCourses.length === 0) {
+      throw new Error('No courses found for the student');
+    }
+  
+    const results = await Promise.all(
+      studentCourses.map(async (studentCourse) => {
+        try {
+          return await this.findByStudentCourse(studentCourse.id);
+        } catch (error) {
+          
+          console.error(`Error finding result for student course ${studentCourse.id}: ${error.message}`);
+          return null; 
+        }
+      }),
 
-    return await Promise.all(
-      studentCourses.map((studentCourse) =>
-        this.findByStudentCourse(studentCourse.id),
-      ),
     );
+    const validResults = results.filter((result) => result !== null);
+  
+    if (validResults.length === 0) {
+      throw new Error('No valid results found for the student');
+    }
+  
+    return validResults;
   }
-
-  async calculateTotalScore(id: string) {
+  async calculateTotalScoreAndGrade(id: string) {
     const result = await this.findOne(id);
-    const { ca1, ca2, ca3 } = result;
-    const total = ca1 + ca2 + ca3;
+    const { ca1, ca2, ca3, exam } = result;
+
+    if (exam > 65) {
+      throw new Error('Exam score cannot be greater than 65');
+    }
+
+    if (ca1 > 15 || ca2 > 15 || ca3 > 15) {
+      throw new Error('CA score cannot be greater than 15');
+    }
+
+    const total = ca1 + ca2 + ca3 + exam;
 
     const grade =
       total >= 70
@@ -76,7 +120,7 @@ export class ResultsService {
     result.total = total;
     result.grade = grade;
 
-    return await this.resultsRepository.update(id, result);
+    return await this.resultsRepository.update(id, result).then(() => result);
   }
 
   async calculateGPAByStudentId(studentId: string) {
@@ -102,12 +146,18 @@ export class ResultsService {
     return { GPA: gpaResult.toFixed(2) };
   }
 
-  async update(id: string, updateResultDto: UpdateResultDto) {
-    const result = await this.findOne(id);
-    return await this.resultsRepository.update(result, updateResultDto);
+  async update(id: string, updateResultDto: UpdateResultDto): Promise<Result> {
+    const result = await this.findOne(id);  
+    const updatedResult = Object.assign(result, updateResultDto);
+    
+    await this.resultsRepository.save(updatedResult);
+  
+    return updatedResult;
   }
+  
 
-  remove(id: number) {
-    return `This action removes a #${id} result`;
+  async remove(id: string) {
+    const result = await this.findOne(id);
+    return await this.resultsRepository.remove(result);
   }
 }

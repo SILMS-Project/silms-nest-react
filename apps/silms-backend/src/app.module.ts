@@ -3,7 +3,7 @@ import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ScheduleModule } from '@nestjs/schedule';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import {
   utilities as nestWinstonModuleUtilities,
   WinstonModule,
@@ -13,29 +13,29 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ErrorFilter } from './filters/error.filter';
 import { Logger, MiddlewareConsumer, Module } from '@nestjs/common';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { RequestLoggerMiddleware } from './utils/request-logger.middleware';
+import { RequestLoggerMiddleware } from '@utils/request-logger.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig } from './configurations/typeorm.config';
-import { UsersModule } from './modules/users/users.module';
-import { SchoolsModule } from './modules/schools/schools.module';
-import { ProgramsModule } from './modules/programs/programs.module';
-import { StudentsModule } from './modules/students/students.module';
-import { CoursesModule } from './modules/courses/courses.module';
-import { LecturersModule } from './modules/lecturers/lecturers.module';
-import { StudentCoursesModule } from './modules/student-courses/student-courses.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { MailModule } from './modules/mail/mail.module';
-import { LecturerCoursesModule } from './modules/lecturer-courses/lecturer-courses.module';
-import { CourseContentsModule } from './modules/course-contents/course-contents.module';
-import { AssessmentsModule } from './modules/assessments/assessments.module';
-import { GradesModule } from './modules/grades/grades.module';
-import { SubmissionsModule } from './modules/submissions/submissions.module';
-import { CourseModulesModule } from './modules/course-modules/course-modules.module';
-import { ApplicantsModule } from './modules/applicants/applicants.module';
-import { ApplicationsModule } from './modules/applications/applications.module';
-import { ResultsModule } from './modules/results/results.module';
-import { SessionsModule } from './modules/sessions/sessions.module';
-import { SchedulesModule } from './modules/schedules/schedules.module';
+import { typeOrmConfig } from '@configurations/typeorm.config';
+import { UsersModule } from '@modules/users/users.module';
+import { SchoolsModule } from '@modules/schools/schools.module';
+import { ProgramsModule } from '@modules/programs/programs.module';
+import { StudentsModule } from '@modules/students/students.module';
+import { CoursesModule } from '@modules/courses/courses.module';
+import { LecturersModule } from '@modules/lecturers/lecturers.module';
+import { StudentCoursesModule } from '@modules/student-courses/student-courses.module';
+import { AuthModule } from '@modules/auth/auth.module';
+import { MailModule } from '@modules/mail/mail.module';
+import { LecturerCoursesModule } from '@modules/lecturer-courses/lecturer-courses.module';
+import { CourseContentsModule } from '@modules/course-contents/course-contents.module';
+import { AssessmentsModule } from '@modules/assessments/assessments.module';
+import { GradesModule } from '@modules/grades/grades.module';
+import { SubmissionsModule } from '@modules/submissions/submissions.module';
+import { CourseModulesModule } from '@modules/course-modules/course-modules.module';
+import { ApplicantsModule } from '@modules/applicants/applicants.module';
+import { ApplicationsModule } from '@modules/applications/applications.module';
+import { ResultsModule } from '@modules/results/results.module';
+import { SessionsModule } from '@modules/sessions/sessions.module';
+import { SchedulesModule } from '@modules/schedules/schedules.module';
 
 @Module({
   imports: [

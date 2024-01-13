@@ -21,12 +21,20 @@ export class StudentCoursesService {
     return await this.studentCourseRepository.save(createdStudentCourse);
   }
 
-  findAll() {
-    return `This action returns all studentCourses`;
+  async findAll() {
+    const studentCourses = await this.studentCourseRepository.find({relations: ['student', 'course']});
+    if (!studentCourses || studentCourses.length === 0) {
+      throw new Error('No student courses found');
+    }
+    return studentCourses;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} studentCourse`;
+  find(id: string) {
+    const studentCourse = this.studentCourseRepository.findOneBy({id});
+    if (!studentCourse) {
+      throw new Error('Student Course not found');
+    }
+    return studentCourse;
   }
 
   async findByStudentId(studentId: string): Promise<StudentCourse[]> {

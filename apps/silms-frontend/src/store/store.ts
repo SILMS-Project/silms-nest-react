@@ -11,8 +11,16 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
+import menuSlice from "./slices/menuSlice";
+
+export type RootState = {
+  main: any;
+  user: any;
+  menu: any;
+};
 
 const rootReducer = combineReducers<any>({
+  menu: menuSlice,
   [appApi.reducerPath]: appApi.reducer,
 });
 

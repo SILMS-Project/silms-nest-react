@@ -12,8 +12,4 @@ export class CreateSchoolDto {
   @IsString({ message: 'Abbreviation should be a string' })
   readonly abbreviation: string;
 
-  @ApiProperty({ type: [String], example: ['Program A', 'Program B'] })
-  @IsArray({ message: 'Programs should be an array' })
-  @ArrayMinSize(1, { message: 'At least one program is required' })
-  readonly programs: string[];
 }

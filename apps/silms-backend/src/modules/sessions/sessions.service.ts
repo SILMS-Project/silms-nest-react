@@ -2,10 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
 import { Session } from './entities/session.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SessionsService {
-  sessionRepository: any;
+  constructor(
+    @InjectRepository(Session)
+    private readonly sessionRepository: Repository<Session>,
+  ) {}
+
   //create session function
   async create(createSessionDto: CreateSessionDto): Promise<Session> {
     const session = this.sessionRepository.create(createSessionDto);
@@ -13,8 +19,9 @@ export class SessionsService {
     return savedSession;
   }
 
-  findAll() {
-    return `This action returns all sessions`;
+  async findAll(): Promise<Session[]> {
+    const courses = await this.sessionRepository.find();
+    return courses;
   }
 
   findOne(id: number) {
@@ -39,14 +46,17 @@ export class SessionsService {
     });
 
     if (!currentSession) {
-      throw new NotFoundException('Current session not found');
+      throw new NotFoundException('No current session');
     }
 
     return currentSession;
   }
 
   //update session
-  async update(id: string, updateSessionDto: UpdateSessionDto): Promise<Session> {
+  async update(
+    id: string,
+    updateSessionDto: UpdateSessionDto,
+  ): Promise<Session> {
     const session = await this.sessionRepository.findOne({ where: { id } });
 
     if (!session) {
@@ -58,13 +68,17 @@ export class SessionsService {
     const updatedSession = await this.sessionRepository.save(session);
 
     return updatedSession;
+    
   }
 
   //update session status: if the status is set to true for a session, all other sessions should be set to false, meaning they are not the current
   async updateStatus(id: string, status: boolean): Promise<Session> {
     if (status) {
       // If the status is set to true, update all other sessions to false
-      await this.sessionRepository.update({ isCurrentSession: true }, { isCurrentSession: false });
+      await this.sessionRepository.update(
+        { isCurrentSession: true },
+        { isCurrentSession: false },
+      );
     }
 
     const session = await this.sessionRepository.findOne({ where: { id } });

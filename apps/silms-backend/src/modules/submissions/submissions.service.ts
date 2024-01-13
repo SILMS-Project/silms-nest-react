@@ -7,8 +7,8 @@ import { Repository } from 'typeorm';
 import { SubmissionProps } from './interfaces/submission.interface';
 import { AssessmentsService } from '../assessments/assessments.service';
 import { StudentsService } from '../students/students.service';
-import { Profile } from '../users/entities/profile.entity';
 import { Grade } from '../grades/entities/grade.entity';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class SubmissionsService {
@@ -88,13 +88,13 @@ export class SubmissionsService {
         throw new NotFoundException('Submission not found');
       }
     }
-    async getAllStudentsProfilesAndGrades(assessmentId: string): Promise<{
-      students: { studentId: string; profile:Profile; grade: Grade }[];
+    async getAllStudentsUserProfilesAndGrades(assessmentId: string): Promise<{
+      students: { studentId: string; user:User; grade: Grade }[];
     }> {
       try {
         const submissions = await this.submissionRepository.find({
           where: { assessment: { id: assessmentId } },
-          relations: ['grade', 'student', 'student.profile'],
+          relations: ['grade', 'student', 'student.user'],
         });
   
         if (!submissions || submissions.length === 0) {
@@ -103,7 +103,7 @@ export class SubmissionsService {
   
         const students = submissions.map((submission) => ({
           studentId: submission.student.id,
-          profile: submission.student.profile,
+          user: submission.student.user,
           grade: submission.grade,
         }));
   
@@ -122,6 +122,23 @@ export class SubmissionsService {
     }
     return submissions;
   }
+
+  
+  async getAssessmentSubmissions(assessmentId: string): Promise<Submission[]> {
+    const assessment = await this.assessmentService.findOne( assessmentId );
+
+    if (!assessment) {
+      throw new NotFoundException(
+        `Assessment with ID ${assessmentId} not found`,
+      );
+    }
+
+    // Assuming there's a relationship between Assessment and Submission, adjust accordingly
+    const submissions = await this.findByAssessmentId(assessmentId);
+
+    return submissions;
+  }
+
 
   async update(id: string, updateSubmissionDto: UpdateSubmissionDto) {
     const submission = await this.findOne(id);

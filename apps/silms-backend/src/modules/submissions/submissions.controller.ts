@@ -14,6 +14,7 @@ import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Submission } from './entities/submission.entity';
 
 @ApiTags('submissions')
 @Controller('submissions')
@@ -43,6 +44,19 @@ export class SubmissionsController {
   findOne(@Param('id') id: string) {
     return this.submissionsService.findOne(id);
   }
+
+  @Version('1')
+  @Get(':id/submissions')
+  @ApiOperation({ summary: 'Get submissions for an assessment by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved submissions for the assessment', type: Submission, isArray: true })
+  getSubmissionsForAssessment(@Param('id') id: string) {
+    try {
+      const submissions = this.submissionsService.getAssessmentSubmissions(id);
+      return { submissions };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+    }
+  }
   
   @Version('1')
   @Get('student/:studentId')
@@ -67,6 +81,7 @@ export class SubmissionsController {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
+
   @Version('1')
   @Patch(':id')
   @ApiOperation({ summary: 'Update a submission by ID' })
@@ -84,7 +99,7 @@ export class SubmissionsController {
   async getAllStudentsProfilesAndGrades(
     @Param('id') id: string) {
     try {
-      const result = await this.submissionsService.getAllStudentsProfilesAndGrades(id);
+      const result = await this.submissionsService.getAllStudentsUserProfilesAndGrades(id);
       return result;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);

@@ -4,9 +4,10 @@ import { ResultsController } from './results.controller';
 import { Result } from './entities/result.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StudentCoursesModule } from '../student-courses/student-courses.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Result]), StudentCoursesModule],
+  imports: [TypeOrmModule.forFeature([Result]), StudentCoursesModule, AuthModule],
   controllers: [ResultsController],
   providers: [ResultsService],
 })
