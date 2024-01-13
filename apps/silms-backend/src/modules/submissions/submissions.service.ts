@@ -88,13 +88,13 @@ export class SubmissionsService {
         throw new NotFoundException('Submission not found');
       }
     }
-    async getAllStudentsProfilesAndGrades(assessmentId: string): Promise<{
+    async getAllStudentsUserProfilesAndGrades(assessmentId: string): Promise<{
       students: { studentId: string; user:User; grade: Grade }[];
     }> {
       try {
         const submissions = await this.submissionRepository.find({
           where: { assessment: { id: assessmentId } },
-          relations: ['grade', 'student', 'student.profile'],
+          relations: ['grade', 'student', 'student.user'],
         });
   
         if (!submissions || submissions.length === 0) {
