@@ -4,7 +4,7 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   const onClickGoHome = () => {
-    navigate("/dashboard", {
+    navigate("/student-dashboard", {
       replace: true,
     });
   };
@@ -28,13 +28,13 @@ const NotFound = () => {
 
         <div className="w-full flex justify-between gap-5 mt-4">
           <button
-            className="w-1/2 rounded-xl bg-custom-accent-1 text-custom-primary-1 text-base font-medium hover:bg-transparent hover:text-custom-accent-1 border-2 border-custom-accent-1 focus:outline-none"
+            className="w-1/2 rounded-xl min-h-[48px] bg-custom-accent-1 text-custom-primary-1 text-base font-medium hover:bg-transparent hover:text-custom-accent-1 border-2 border-custom-accent-1 focus:outline-none"
             onClick={handleGoBack}
           >
             Go back
           </button>
           <button
-            className="w-1/2 rounded-xl bg-white text-custom-accent-1 text-base font-medium hover:bg-custom-accent-1 hover:text-custom-primary-1  border-2 border-custom-accent-1 focus:outline-none"
+            className="w-1/2 rounded-xl bg-white min-h-[48px] text-custom-accent-1 text-base font-medium hover:bg-custom-accent-1 hover:text-custom-primary-1  border-2 border-custom-accent-1 focus:outline-none"
             onClick={onClickGoHome}
           >
             Go home
