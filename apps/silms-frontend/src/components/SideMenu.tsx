@@ -42,13 +42,13 @@ const SideMenu = () => {
     },
     {
       title: "Result",
-      link: "results",
+      link: "result",
       icon: <ResultIcon />,
       isActive: false,
     },
     {
       title: "Enrollment",
-      link: "courses/enrollment",
+      link: "enrollment",
       icon: <EnrollmentIcon />,
       isActive: false,
     },
