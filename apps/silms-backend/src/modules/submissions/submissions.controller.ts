@@ -99,7 +99,7 @@ export class SubmissionsController {
   async getAllStudentsProfilesAndGrades(
     @Param('id') id: string) {
     try {
-      const result = await this.submissionsService.getAllStudentsProfilesAndGrades(id);
+      const result = await this.submissionsService.getAllStudentsUserProfilesAndGrades(id);
       return result;
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.NOT_FOUND);
