@@ -82,7 +82,7 @@ function App() {
             />
 
             <Route
-              path="/courses/enrollment"
+              path="/enrollment"
               element={
                 <Suspense fallback={<PageLoader />}>
                   {React.createElement(
@@ -104,7 +104,7 @@ function App() {
             />
 
             <Route
-              path="/results"
+              path="/result"
               element={
                 <Suspense fallback={<PageLoader />}>
                   {React.createElement(
@@ -137,11 +137,22 @@ function App() {
             />
 
             <Route
-              path="/results/:id"
+              path="/result/:id"
               element={
                 <Suspense fallback={<PageLoader />}>
                   {React.createElement(
                     lazy(() => import("@/pages/Results/ResultsDetails"))
+                  )}
+                </Suspense>
+              }
+            />
+
+            <Route
+              path="/settings"
+              element={
+                <Suspense fallback={<PageLoader />}>
+                  {React.createElement(
+                    lazy(() => import("@/pages/Users/SettingsPage"))
                   )}
                 </Suspense>
               }
