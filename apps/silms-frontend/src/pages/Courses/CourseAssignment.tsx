@@ -37,7 +37,7 @@ const CourseAssignment = () => {
                     src="/assets/icons/profile-image1.svg"
                   />
                   <p className="text-custom-primary-2 text-[0.75rem] font-medium leading-normal">
-                  Mr. Charles Igah
+                    Mr. Charles Igah
                   </p>
                 </div>
               </div>
@@ -60,12 +60,15 @@ const CourseAssignment = () => {
                     className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-[0.3125rem] bg-custom-secondary-3 hover:bg-gray-100"
                   >
                     <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                      <img src="/assets/icons/backup.svg"/>
+                      <img src="/assets/icons/backup.svg" />
                       <p className="mb-3 text-black text-[0.875rem] font-semibold">
-                      Browse or drag a file here to upload it.
+                        Browse or drag a file here to upload it.
                       </p>
                       <button className="rounded-[0.3125rem] bg-custom-accent-1 shadow-md px-4 py-2">
-                        <p className="text-custom-primary-1 text-[0.875rem] font-semibold "> Browse</p>
+                        <p className="text-custom-primary-1 text-[0.875rem] font-semibold ">
+                          {" "}
+                          Browse
+                        </p>
                       </button>
                     </div>
                     <FileInput id="dropzone-file" className="hidden" />
@@ -77,8 +80,53 @@ const CourseAssignment = () => {
           </div>
           <div className="col-span-2">
             <div className="flex flex-col gap-8">
-              <div className="h-[7rem] bg-yellow-400">
-                {/* //TODO: Implement submission deadline timer designs*/}
+              <div
+                className="h-[6.1875rem] rounded-[0.3125rem] "
+                style={{
+                  background:
+                    "linear-gradient(103deg, #1C274C 31.19%, #063760 86.87%)",
+                }}
+              >
+                <div className="flex justify-center gap-2 px-8 py-5">
+                  <div className="flex text-center">
+                  <div className="flex flex-col gap-1">
+                  <p className="text-white text-[2rem] font-semibold">2 </p>
+                  <p className="text-white font-semibold text-xs ">Days</p>
+                  </div>
+                  <div className="flex flex-col gap-1 ml-2">
+                  <p className="text-white text-[2rem] font-semibold">:</p>
+                  <p className="text-white font-semibold text-xs "></p>
+                  </div>
+                  </div>
+                  <div className="flex text-center">
+                  <div className="flex flex-col gap-1">
+                  <p className="text-white text-[2rem] font-semibold">22 </p>
+                  <p className="text-white font-semibold text-xs ">Hours</p>
+                  </div>
+                  <div className="flex flex-col gap-1 ml-2">
+                  <p className="text-white text-[2rem] font-semibold">:</p>
+                  <p className="text-white font-semibold text-xs "></p>
+                  </div>
+                  </div>
+                  <div className="flex text-center">
+                  <div className="flex flex-col gap-1">
+                  <p className="text-white text-[2rem] font-semibold">30 </p>
+                  <p className="text-white font-semibold text-xs ">Minutes</p>
+                  </div>
+                  <div className="flex flex-col gap-1  ml-2">
+                  <p className="text-white text-[2rem] font-semibold">:</p>
+                  <p className="text-white font-semibold text-xs "></p>
+                  </div>
+                  </div>
+                  <div className="flex text-center">
+                  <div className="flex flex-col gap-1">
+                  <p className="text-white text-[2rem] font-semibold">59 </p>
+                  <p className="text-white font-semibold text-xs ">Seconds</p>
+                  </div>
+                  
+                  </div>
+
+                </div>
               </div>
               <div className="h-96 bg-lime-600">
                 {/* //TODO: Implement submission status designs */}
