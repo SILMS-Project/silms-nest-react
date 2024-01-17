@@ -711,7 +711,7 @@ const StudentDashboard = () => {
                 inline={true}
                 showClearButton={false}
                 showTodayButton={false}
-                // title={"Week 7"}
+                title={"Week 7"}
                 theme={{
                   views: {
                     days: {
