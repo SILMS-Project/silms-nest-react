@@ -81,7 +81,7 @@ const CourseAssignment = () => {
           <div className="col-span-2">
             <div className="flex flex-col gap-8">
               <div
-                className="h-[6.1875rem] rounded-[0.3125rem] "
+                className="h-[6.1875rem] rounded-[0.3125rem] relative"
                 style={{
                   background:
                     "linear-gradient(103deg, #1C274C 31.19%, #063760 86.87%)",
@@ -89,43 +89,58 @@ const CourseAssignment = () => {
               >
                 <div className="flex justify-center gap-2 px-8 py-5">
                   <div className="flex text-center">
-                  <div className="flex flex-col gap-1">
-                  <p className="text-white text-[2rem] font-semibold">2 </p>
-                  <p className="text-white font-semibold text-xs ">Days</p>
-                  </div>
-                  <div className="flex flex-col gap-1 ml-2">
-                  <p className="text-white text-[2rem] font-semibold">:</p>
-                  <p className="text-white font-semibold text-xs "></p>
-                  </div>
-                  </div>
-                  <div className="flex text-center">
-                  <div className="flex flex-col gap-1">
-                  <p className="text-white text-[2rem] font-semibold">22 </p>
-                  <p className="text-white font-semibold text-xs ">Hours</p>
-                  </div>
-                  <div className="flex flex-col gap-1 ml-2">
-                  <p className="text-white text-[2rem] font-semibold">:</p>
-                  <p className="text-white font-semibold text-xs "></p>
-                  </div>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-white text-[2rem] font-semibold">2 </p>
+                      <p className="text-white font-semibold text-xs ">Days</p>
+                    </div>
+                    <div className="flex flex-col gap-1 ml-2">
+                      <p className="text-white text-[2rem] font-semibold">:</p>
+                      <p className="text-white font-semibold text-xs "></p>
+                    </div>
                   </div>
                   <div className="flex text-center">
-                  <div className="flex flex-col gap-1">
-                  <p className="text-white text-[2rem] font-semibold">30 </p>
-                  <p className="text-white font-semibold text-xs ">Minutes</p>
-                  </div>
-                  <div className="flex flex-col gap-1  ml-2">
-                  <p className="text-white text-[2rem] font-semibold">:</p>
-                  <p className="text-white font-semibold text-xs "></p>
-                  </div>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-white text-[2rem] font-semibold">
+                        22{" "}
+                      </p>
+                      <p className="text-white font-semibold text-xs ">Hours</p>
+                    </div>
+                    <div className="flex flex-col gap-1 ml-2">
+                      <p className="text-white text-[2rem] font-semibold">:</p>
+                      <p className="text-white font-semibold text-xs "></p>
+                    </div>
                   </div>
                   <div className="flex text-center">
-                  <div className="flex flex-col gap-1">
-                  <p className="text-white text-[2rem] font-semibold">59 </p>
-                  <p className="text-white font-semibold text-xs ">Seconds</p>
+                    <div className="flex flex-col gap-1">
+                      <p className="text-white text-[2rem] font-semibold">
+                        30{" "}
+                      </p>
+                      <p className="text-white font-semibold text-xs ">
+                        Minutes
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-1  ml-2">
+                      <p className="text-white text-[2rem] font-semibold">:</p>
+                      <p className="text-white font-semibold text-xs "></p>
+                    </div>
                   </div>
-                  
+                  <div className="flex text-center">
+                    <div className="flex flex-col gap-1">
+                      <p className="text-white text-[2rem] font-semibold">
+                        59{" "}
+                      </p>
+                      <p className="text-white font-semibold text-xs ">
+                        Seconds
+                      </p>
+                    </div>
                   </div>
-
+                </div>
+                <div className="absolute bottom-0 w-full flex justify-center">
+                  <div className="rounded-t-2xl bg-white pt-2 px-4 w-fit">
+                    <p className="text-[#1C274C] text-xs font-semibold">
+                      Time Remaining
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="h-96 bg-lime-600">
