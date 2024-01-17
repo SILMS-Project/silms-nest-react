@@ -691,7 +691,7 @@ const StudentDashboard = () => {
                 className="w-full"
               />
             </div>
-            <div className="flex flex-col bg-white border-[#666666] shadow-md rounded-md z-2 absolute top-[13rem] h-50 w-[21.01rem] left-1 z-2">
+            <div className="flex flex-col bg-white border-[#666666] shadow-md rounded-md z-2 absolute top-[200px] h-50 w-full left-0 z-2">
               <div className="flex justify-center py-4">
                 <LineIcon />
               </div>
@@ -710,7 +710,7 @@ const StudentDashboard = () => {
                 <p className="font-bold text-[0.7rem]">Week 7</p>
               </div>
               <Datepicker
-                className="flex w-full justify-center shadow-none"
+                className="flex w-full justify-center shadow-none pb-10"
                 inline={true}
                 showClearButton={false}
                 showTodayButton={false}
