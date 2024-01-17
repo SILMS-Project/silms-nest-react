@@ -97,7 +97,7 @@ const CoursesPage = () => {
                       <div className="flex gap-2 items-center">
                         <img
                           className="w-4 h-4"
-                          src="assets/images/profile-image.png"
+                          src="/assets/images/profile-image.png"
                         />
                         <p className="text-custom-primary-2 text-[0.625rem]">
                           Pius Onobhayedo, PhD.
