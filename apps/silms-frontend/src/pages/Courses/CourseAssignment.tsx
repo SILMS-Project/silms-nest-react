@@ -17,7 +17,30 @@ const CourseAssignment = () => {
                 backgroundImage: `linear-gradient(to right,  rgba(230, 240, 237, 1) 0%, rgba(230, 240, 237, 1) calc(100% - 12rem), rgba(232, 234, 243, 0) 100%)`,
               }}
             >
-              {/* //TODO:  Implement the course assignment banner designs*/}
+              <div className="flex flex-col gap-2 px-6 py-4 h-full space-center">
+                <div className="flex flex-row gap-4 items-center">
+                  <p className="text-[#9E9E9E] text-center text-[0.75rem] font-medium ">
+                    CSC 421
+                  </p>
+                  <div className="rounded-[0.8125rem] bg-[#40E0BA] px-3 py-1">
+                    <p className="text-black text-center text-[0.625rem] leading-normal font-medium">
+                      Elective
+                    </p>
+                  </div>
+                </div>
+                <p className="text-[#263238] text-[1.25rem] font-semibold leading-normal">
+                  Introduction to Data Science and Engineering
+                </p>
+                <div className="flex gap-2 items-center">
+                  <img
+                    className="w-8 h-8 "
+                    src="/assets/icons/profile-image1.svg"
+                  />
+                  <p className="text-custom-primary-2 text-[0.75rem] font-medium leading-normal">
+                  Mr. Charles Igah
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
