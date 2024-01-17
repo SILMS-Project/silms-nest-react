@@ -1,4 +1,5 @@
 import CalenderIcon from "@/assets/icons/CalenderIcon";
+import LineIcon from "@/assets/icons/LineIcon";
 import DashboardLayout from "@/components/DashboardLayout";
 import ScheduleUnit from "@/components/ScheduleUnit";
 import { Datepicker, DatepickerProps } from "flowbite-react";
@@ -682,26 +683,31 @@ const StudentDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-2 h-[40rem]">
-            <div className="flex justify-center items-center rounded">
+          <div className="col-span-2 h-[40rem] relative">
+            <div className="">
               <img
                 src="/assets/icons/SILMS_DashB_Illustration.svg"
                 alt="Dashboard Illustartion"
-                className="w-[300px]"
+                className="w-full"
               />
             </div>
-            <div className="flex flex-col">
-              <div className="grid grid-cols-2 content-center">
-                <div className="flex justify-end pt-1 mr-2">
+            <div className="flex flex-col bg-white border-[#666666] shadow-md rounded-md z-2 absolute top-[13rem] h-50 w-[21.01rem] left-1 z-2">
+              <div className="flex justify-center py-4">
+                <LineIcon />
+              </div>
+              <div className="flex flex-row justify-center">
+                <div className="flex justify-end py-1 pr-2">
                   <CalenderIcon />
                 </div>
-                <div className="mr-6">
+                <div className="flex flex-col">
                   <p className="font-bold text-[0.9rem]">Year 1 Semester 1</p>
-                  <p className="text-[#969696] text-[0.6rem] font-bold">2023/2024 Session</p>
+                  <p className="leading-none text-[#969696] text-[0.6rem] font-bold">
+                    2023/2024 Session
+                  </p>
                 </div>
               </div>
               <Datepicker
-                className="flex w-full justify-center"
+                className="flex w-full justify-center shadow-none"
                 inline={true}
                 showClearButton={false}
                 showTodayButton={false}
@@ -718,6 +724,11 @@ const StudentDashboard = () => {
                     },
                   },
                   popup: {
+                    root: {
+                      // inline: "",
+                      // base: "",
+                      inner: "",
+                    },
                     header: {
                       selectors: {
                         button: {
