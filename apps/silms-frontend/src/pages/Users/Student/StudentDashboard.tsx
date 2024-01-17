@@ -706,12 +706,15 @@ const StudentDashboard = () => {
                   </p>
                 </div>
               </div>
+              <div className="flex justify-center">
+                <p className="font-bold text-[0.7rem]">Week 7</p>
+              </div>
               <Datepicker
                 className="flex w-full justify-center shadow-none"
                 inline={true}
                 showClearButton={false}
                 showTodayButton={false}
-                title={"Week 7"}
+                // title={"Week 7"}
                 theme={{
                   views: {
                     days: {
@@ -726,7 +729,7 @@ const StudentDashboard = () => {
                   popup: {
                     root: {
                       // inline: "",
-                      // base: "",
+                      base: "",
                       inner: "",
                     },
                     header: {
