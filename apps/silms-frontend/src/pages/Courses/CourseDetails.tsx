@@ -16,7 +16,7 @@ const CourseDetails = () => {
                 backgroundImage: `linear-gradient(to right,  rgba(230, 240, 237, 1) 0%, rgba(230, 240, 237, 1) calc(100% - 12rem), rgba(232, 234, 243, 0) 100%)`,
               }}
             >
-              {/* //TODO:  Implement the course details banner designs */}
+              
               <div className="flex flex-col gap-2 px-6 py-4 h-full space-center">
                 <div className="flex flex-row gap-4 items-center">
                   <p className="text-[#9E9E9E] text-center text-[0.75rem] font-medium ">
