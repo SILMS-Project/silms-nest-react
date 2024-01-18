@@ -33,9 +33,21 @@ export class AssessmentsController {
   @Version('1')
   @Get()
   @ApiOperation({ summary: 'Get all assessments' })
-  @ApiResponse({ status: 200, description: 'Retrieved all assessments' })
-  findAll() {
-    return this.assessmentsService.findAll();
+  @ApiResponse({ status: 200, description: 'Retrieved all assessments successfully' })
+  async findAll() {
+    try {
+      const assessments = await this.assessmentsService.findAll();
+      return {
+        status: HttpStatus.OK,
+        message: 'Retrieved all assessments successfully',
+        data: assessments,
+      };
+    } catch (error) {
+      return {
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: `Failed to fetch assessments: ${error.message || error}`,
+      };
+    }
   }
 
   @Version('1')
@@ -51,15 +63,18 @@ export class AssessmentsController {
   @ApiOperation({ summary: 'Get assessments for a course' })
   @ApiResponse({ status: 200, description: 'Retrieved assesments for course ' })
   findByCourse(@Param('id') id: string) {
-    try{
-    return this.assessmentsService.findByCourse(id);
-    }catch(error){
-      throw new  HttpException(error.message, HttpStatus.NOT_FOUND);
+    try {
+      return this.assessmentsService.findByCourse(id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
     }
   }
   @Get(':id/totalGrade')
   @ApiOperation({ summary: 'Get total grade of an assessment by ID' })
-  @ApiResponse({ status: 200, description: 'Retrieved total grade of the assessment' })
+  @ApiResponse({
+    status: 200,
+    description: 'Retrieved total grade of the assessment',
+  })
   async getAssessmentTotalGrade(@Param('id') id: string): Promise<number> {
     try {
       const totalGrade = await this.assessmentsService.getAssessmentGrade(id);
