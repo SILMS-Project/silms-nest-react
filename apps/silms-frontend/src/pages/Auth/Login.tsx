@@ -2,8 +2,7 @@ import { LoginProps } from "@/store/interfaces/user.interface";
 import { LoginSchema } from "@/utils/Yup";
 import { Checkbox, Label } from "flowbite-react";
 import { Form, Formik } from "formik";
-import { Dispatch, useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import {  useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { LiaEyeSlashSolid, LiaEyeSolid } from "react-icons/lia";
 
@@ -11,10 +10,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   // const { data: googleApi } = useGetGoogleLinkQuery();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onLogin = useCallback((props: LoginProps) => {
-    // return dispatch(login(props));
+    return props;
   }, []);
 
   return (

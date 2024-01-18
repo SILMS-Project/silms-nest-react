@@ -57,7 +57,7 @@ const CourseAssignment = () => {
                 <div className="flex w-full items-center justify-center">
                   <Label
                     htmlFor="dropzone-file"
-                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-[0.3125rem] bg-custom-secondary-3 hover:bg-gray-100"
+                    className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-[0.3125rem] bg-custom-secondary-3 hover:bg-custom-secondary-2"
                   >
                     <div className="flex flex-col items-center justify-center pb-6 pt-5">
                       <img src="/assets/icons/backup.svg" />
