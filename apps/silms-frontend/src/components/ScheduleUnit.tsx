@@ -1,8 +1,5 @@
-import ScheduleIcons from "@/assets/icons/ScheduleIcons";
-import { ReactNode } from "react";
-
 interface LayoutProps {
-  icon: ReactNode;
+  icon: string;
   courseCode: string;
   lecturerName: string;
   startTime: string;
@@ -13,26 +10,30 @@ interface LayoutProps {
 
 const ScheduleUnit = (props: LayoutProps) => {
   return (
-    <div className="">
-      <div className="flex flex-row space-x-4">
-        <div>
-          <p className="font-bold text-[0.7rem]">{props.startTime}</p>
-        </div>
-        <div
-          className={`rounded-md flex flex-row ${props.textColor} items-center ${props.bg} w-[229px] h-[68px] px-3`}
-        >
-          {/* {props.icon} */}
-          <ScheduleIcons icon={props.icon} />
-          <div className="flex flex-col ml-2 gap-0">
-            <p className="font-bold leading-none text-[0.9rem] w-[63px] h-[19px]">
+    <div className="flex flex-row space-x-4 w-full">
+      <div>
+        <p className="font-bold text-[0.75rem]">{props.startTime}</p>
+      </div>
+      <div
+        className={`rounded-[0.625rem] flex flex-row ${props.textColor} ${props.bg} items-center w-full gap-4 px-3 py-4`}
+      >
+        <img
+          src={`${props.icon}`}
+          className="w-[2.375rem] h-[2.375rem]"
+          alt="schedule unit icon"
+        />
+
+        <div className="flex flex-row w-full justify-between">
+          <div className="flex flex-col  w-full">
+            <p className="font-bold leading-normal text-[0.875rem] ">
               {props.courseCode}
             </p>
-            <p className="leading-none text-[0.5rem] font-bold truncate w-[70px]">
+            <p className="leading-normal text-[0.625rem] font-semibold truncate">
               {props.lecturerName}
             </p>
           </div>
-          <div className="flex flex-col items-start ml-5 mb-5">
-            <p className="leading-none text-[0.49rem] font-bold w-[63px]">
+          <div className="flex flex-col">
+            <p className="leading-normal whitespace-nowrap text-[0.625rem] font-bold">
               {props.startTime} - {props.endTime}
             </p>
           </div>
