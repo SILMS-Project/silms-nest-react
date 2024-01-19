@@ -58,83 +58,83 @@ const CourseDetails = () => {
                   <p className="text-white text-base font-semibold"> Enrolled Students</p>
                   <p className="text-white text-xs font-semibold"> 25 students </p>
                   <div className="flex flex-col w-full justify-between py-2 gap-3">
-                  <div className="flex space-x-8">
+                  <div className="flex justify-between">
                   <div className="flex gap-1 items-center py-2">
                   <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
+                  <div className="flex flex-col place-items-start justify-center">
                     <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
                     <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
                   </div>
                   </div>
                   <div className="flex gap-1 items-center py-2">
                   <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Nweje Wendy</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">nwendy@pau.edu.ng</p>
                   </div>
                   </div>
                   </div>
-                  <div className="flex space-x-8">
+                  <div className="flex justify-between">
                   <div className="flex gap-1 items-center py-2">
                   <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Ali-concern Abba</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">aabba@pau.edu.ng</p>
                   </div>
                   </div>
+                  <div className="flex items-center gap-1 py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col place-items-start justify-center align-middle">
+                    <p className="text-white text-xs font-medium leading-normal">Olowokere Anjola</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">oanjola@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  </div>
+                  <div className="flex justify-between">
                   <div className="flex gap-1 items-center py-2">
                   <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
-                  </div>
-                  </div>
-                  </div>
-                  <div className="flex space-x-8">
-                  <div className="flex gap-1 items-center py-2">
-                  <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
-                  </div>
-                  </div>
-                  <div className="flex gap-1 items-center py-2">
-                  <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
-                  </div>
-                  </div>
-                  </div>
-                  <div className="flex space-x-8">
-                  <div className="flex gap-1 items-center py-2">
-                  <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Egbuna Kenenna</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">ekenenn@pau.edu.ng</p>
                   </div>
                   </div>
                   <div className="flex gap-1 items-center py-2">
                   <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Oyewole Nifemi</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">onifemi@pau.edu.ng</p>
                   </div>
                   </div>
                   </div>
-                  <div className="flex space-x-8">
+                  <div className="flex justify-between">
                   <div className="flex gap-1 items-center py-2">
                   <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
-                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Juba Anjolade</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">ajubs@pau.edu.ng</p>
                   </div>
                   </div>
                   <div className="flex gap-1 items-center py-2">
                   <img src="/assets/icons/profile-image1.svg" />
-                  <div className="flex flex-col items-center justify-center">
-                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Pepple Anderson</p>
                     <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  </div>
+                  <div className="flex justify-between">
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Lewu Oyindamola</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">olewu@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col place-items-start justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Tswanya Grace</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">tswanya@pau.edu.ng</p>
                   </div>
                   </div>
                   </div>
