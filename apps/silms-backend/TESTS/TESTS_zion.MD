@@ -16,3 +16,5 @@ Validate password requirements: at least 1 number, 1 special character, 1 capita
 <span style="color:green;">&#10004;</span> Flag incorrect email format
 
 <span style="color:red;">&#10060;</span> Flag if matric number is not exactly 11 digits long
+
+<span style="color:green;">&#10004;</span> Flag if required details are missing.
