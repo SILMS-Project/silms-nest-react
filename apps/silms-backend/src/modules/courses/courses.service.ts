@@ -16,9 +16,12 @@ export class CoursesService {
   ) {}
 
   async create(createCourseDto: CreateCourseDto): Promise<Course> {
-    const course = await this.courseRepository.save(createCourseDto);
 
-    // const program = await this.programRepository.findOne({where:{id:createCourseDto.programId},});
+    const course = await this.courseRepository.findOneBy({courseCode: createCourseDto.courseCode, program: {id: createCourseDto.programId}});
+
+    if (course) {
+      throw new Error('Course already exists');
+    }
 
     const program = await this.programsService.findById(
       createCourseDto.programId,
@@ -29,9 +32,17 @@ export class CoursesService {
         `Program with id ${createCourseDto.programId} does not exist`,
       );
     }
-    course.program = program;
-    const savedCourse = await this.courseRepository.save(course);
-    return savedCourse;
+
+    const courseProps = {
+      ...createCourseDto,
+      program: program,
+    };
+
+    const newCourse = this.courseRepository.create({
+      ...courseProps,
+    });
+    
+    return await this.courseRepository.save(newCourse);
   }
 
   async findAll(): Promise<Course[]> {
@@ -87,7 +98,7 @@ export class CoursesService {
 
   async findByCode(code: string): Promise<Course> {
     const course = await this.courseRepository.findOne({
-      where: { code },
+      where: { courseCode: code },
     } as FindOneOptions<Course>);
 
     if (!course) {

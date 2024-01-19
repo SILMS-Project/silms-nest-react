@@ -1,6 +1,6 @@
 import { Grades } from '@/utils/constants';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateResultDto {
   @ApiProperty()
@@ -32,4 +32,9 @@ export class CreateResultDto {
   @IsOptional()
   @IsString()
   readonly grade?: Grades;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'Student Course ID is required' })
+  @IsUUID()
+  readonly studentCourseId: string;
 }

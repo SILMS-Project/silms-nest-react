@@ -1,15 +1,18 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UsersModule } from '@modules/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '@modules/auth/jwt.strategy';
 import { MailModule } from '../mail/mail.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Auth } from './entities/auth.entity';
+import { PasswordService } from './password.service';
+import { RolesGuard } from './guards/roles-auth.guard';
 
 @Module({
   imports: [
-    UsersModule,
+    TypeOrmModule.forFeature([Auth]),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
@@ -18,6 +21,7 @@ import { MailModule } from '../mail/mail.module';
     MailModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, PasswordService, RolesGuard],
+  exports: [AuthService, RolesGuard],
 })
 export class AuthModule {}

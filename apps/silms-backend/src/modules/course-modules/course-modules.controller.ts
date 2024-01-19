@@ -41,14 +41,6 @@ export class CourseModulesController {
   }
 
   @Version('1')
-  @Get(':id')
-  @ApiOperation({ summary: 'Get a course module by ID' })
-  @ApiResponse({ status: 200, description: 'Retrieved course module by ID' })
-  findOne(@Param('id') id: string) {
-    return this.courseModulesService.findOne(id);
-  }
-
-  @Version('1')
   @Get('with-contents')
   @ApiOperation({ summary: 'Get all course modules with contents' })
   @ApiResponse({ status: 200, description: 'Retrieved all course modules with contents' })
@@ -64,6 +56,15 @@ export class CourseModulesController {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @Version('1')
+  @Get(':id')
+  @ApiOperation({ summary: 'Get a course module by ID' })
+  @ApiResponse({ status: 200, description: 'Retrieved course module by ID' })
+  findOne(@Param('id') id: string) {
+    return this.courseModulesService.findOne(id);
+  }
+
 
   @Version('1')
   @Patch(':id')
