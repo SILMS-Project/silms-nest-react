@@ -44,17 +44,102 @@ const CourseDetails = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-7 gap-4">
-          <div className="col-span-5 bg-gray-600">
+        <div className="grid grid-cols-9 gap-4">
+          <div className="col-span-6 bg-gray-600">
             {/* //TODO:  Implement the course details modules designs*/}
           </div>
-          <div className="col-span-2">
+          <div className="col-span-3">
             <div className="flex flex-col gap-8">
               <div className="h-[25rem] bg-blue-800">
                 {/* //TODO: Implement grades summary on course details designs*/}
               </div>
-              <div className="h-24 bg-rose-600">
-                {/* //TODO: Implement course details enrolled students designs */}
+              <div className="bg-[#063760] rounded-[0.3125rem]">
+                <div className="flex flex-col py-6 px-5">
+                  <p className="text-white text-base font-semibold"> Enrolled Students</p>
+                  <p className="text-white text-xs font-semibold"> 25 students </p>
+                  <div className="flex flex-col w-full justify-between py-2 gap-3">
+                  <div className="flex space-x-8">
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  </div>
+                  <div className="flex space-x-8">
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  </div>
+                  <div className="flex space-x-8">
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  </div>
+                  <div className="flex space-x-8">
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  </div>
+                  <div className="flex space-x-8">
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  <div className="flex gap-1 items-center py-2">
+                  <img src="/assets/icons/profile-image1.svg" />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-white text-xs font-medium leading-normal">Anderson Pepple</p>
+                    <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">apepple@pau.edu.ng</p>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
