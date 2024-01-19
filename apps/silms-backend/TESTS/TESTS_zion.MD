@@ -32,6 +32,11 @@ Endpoint: *nil*
 
 ### Get a Student by ID [GET]   
 Endpoint: *:id*  
-<span style="color:green;">&#10004;</span> Successfully retrieved student by ID.  
+<span style="color:red;">&#10060;</span> Successfully retrieved student by ID.  
 
-<span style="color:green;">&#10004;</span> Sends appropriate error message if student does not exist.  
+<hr style="color:red;">
+"error": {
+        "statusCode": 500,
+        "message": "Property \"profile\" was not found in \"Student\". Make sure your query is correct."
+    }
+<hr style="color:red;">
