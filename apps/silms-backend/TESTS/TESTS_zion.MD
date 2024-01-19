@@ -40,3 +40,14 @@ Endpoint: *:id*
         "message": "Property \"profile\" was not found in \"Student\". Make sure your query is correct."
     }
 <hr style="color:red;">
+
+### Update Student by ID [PATCH]  
+Endpoint: *:id*  
+<span style="color:red;">&#10060;</span> Student updated successfully.
+
+<hr style="color:red;">
+"error": {
+        "statusCode": 500,
+        "message": "Property \"profile\" was not found in \"Student\". Make sure your query is correct."
+    }
+<hr style="color:red;">
