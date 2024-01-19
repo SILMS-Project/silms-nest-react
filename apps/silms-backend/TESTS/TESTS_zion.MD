@@ -18,3 +18,20 @@ Validate password requirements: at least 1 number, 1 special character, 1 capita
 <span style="color:red;">&#10060;</span> Flag if matric number is not exactly 11 digits long
 
 <span style="color:green;">&#10004;</span> Flag if required details are missing.
+
+
+### Get All Students [GET] 
+Endpoint: *nil*  
+<span style="color:red;">&#10060;</span> All students retrieved successfully.
+<hr style="color:red;">
+"error": {
+        "statusCode": 500,
+        "message": "Property \"profile\" was not found in \"Student\". Make sure your query is correct."
+    }
+<hr style="color:red;">
+
+### Get a Student by ID [GET]   
+Endpoint: *:id*  
+<span style="color:green;">&#10004;</span> Successfully retrieved student by ID.  
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if student does not exist.  
