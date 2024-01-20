@@ -69,8 +69,12 @@ const StudentDashboard = () => {
                 <div className="bg-indigo-800">
                   {/* //TODO: Implement student dashboard enrolled courses display designs*/}
                 </div>
-                <div className="bg-indigo-800">
-                  {/* //TODO: Implement student dashboard units done display designs*/}
+                <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
+                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/units-done-icon.svg"/>
+                  <div className="flex flex-col">
+                    <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">64</p>
+                    <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Units Done</p>
+                  </div>
                 </div>
                 <div className="bg-indigo-800">
                   {/* //TODO: Implement student dashboard outstanding fees display designs*/}
