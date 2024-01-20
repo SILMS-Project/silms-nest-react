@@ -70,14 +70,14 @@ const StudentDashboard = () => {
                   {/* //TODO: Implement student dashboard enrolled courses display designs*/}
                 </div>
                 <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
-                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/units-done-icon.svg"/>
+                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/units-done-icon.svg" />
                   <div className="flex flex-col">
                     <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">64</p>
                     <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Units Done</p>
                   </div>
                 </div>
                 <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
-                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/outstanding-fees-icon.svg"/>
+                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/outstanding-fees-icon.svg" />
                   <div className="flex flex-col">
                     <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">1</p>
                     <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Outstanding Fees</p>
@@ -130,8 +130,111 @@ const StudentDashboard = () => {
                   )}
                 </div>
               </div>
-              <div className="h-32 bg-amber-700">
-                {/* //TODO: Implement student dashboard upcoming assessments designs*/}
+
+              <div className="flex flex-col gap-4">
+                <p className="text-[#000] text-[0.875rem] font-bold leading-normal"> Upcoming Assessments (3)</p>
+
+
+                <div className="relative overflow-x-auto ">
+                  <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead className="text-xs font-bold text-[#8D8D92]">
+                      <tr>
+                        <th scope="col" className="px-6 py-3">
+                          #
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Homework Title
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Due date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          Status
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                          {/* <span className="sr-only">Edit</span> */}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td className="px-6 py-4">
+                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
+                        </td>
+                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
+                          <div className="flex flex-col gap-1">
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">Regression Exercise</p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">CSC 421</p>
+                          </div>
+                        </th>
+
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col gap-1">
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
+                        </td>
+                        <td className="px-6 py-4 ">
+                          <button className="px-4 py-1 flex justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                        </td>
+                      </tr>
+                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td className="px-6 py-4">
+                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
+                        </td>
+                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
+                          <div className="flex flex-col gap-1">
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">Regression Exercise</p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">CSC 421</p>
+                          </div>
+                        </th>
+
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col gap-1">
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
+                        </td>
+                        <td className="px-6 py-4 ">
+                          <button className="px-4 py-1 flex justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                        </td>
+                      </tr>
+                      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td className="px-6 py-4">
+                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
+                        </td>
+                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
+                          <div className="flex flex-col gap-1">
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">Regression Exercise</p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">CSC 421</p>
+                          </div>
+                        </th>
+
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col gap-1">
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
+                        </td>
+                        <td className="px-6 py-4 ">
+                          <button className="px-4 py-1 flex justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+
+              
               </div>
 
               <div className="flex flex-col gap-5">
