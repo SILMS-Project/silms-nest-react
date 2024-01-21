@@ -56,7 +56,14 @@ const StudentDashboard = () => {
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4">
-        <div className="bg-neutral-600 h-14 w-full">
+        <div className="h-14 w-full">
+      <div className="h-[24px] [font-family:'Inter-Bold',Helvetica] font-bold text-black text-[20px] tracking-[0] leading-[normal] whitespace-nowrap">
+        Hi, Adeola
+      </div>
+      <div className="h-[15px] [font-family:'Inter-Bold',Helvetica] font-bold text-[#969696] text-[12px] tracking-[0] leading-[normal]">
+        Welcome back
+      </div>
+
           {/* //TODO: Implement student dashboard user greeting designs*/}
         </div>
         <div className="grid grid-cols-7 gap-4">
@@ -103,7 +110,7 @@ const StudentDashboard = () => {
 
                 {/* {scheduleUnits.length > 3 && (
                       // Code to be rendered if the condition is true
-                      
+
                     )} */}
 
                 <div className="grid grid-cols-2 gap-4 w-full h-fit">
@@ -234,7 +241,7 @@ const StudentDashboard = () => {
                   </table>
                 </div>
 
-              
+
               </div>
 
               <div className="flex flex-col gap-5">
