@@ -71,12 +71,11 @@ const StudentDashboard = () => {
               <div className="h-[4.5rem] w-full gap-4 grid grid-cols-4">
 
                 <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
-                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/units-done-icon.svg" />
+                  <img className="w-[2.5rem] h-[2.5rem]" src="\assets\icons\gpa-icon.svg" />
                   <div className="flex flex-col">
                     <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">4.05</p>
                     <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">CGPA</p>
                   </div>
-                  {/* //TODO: Implement student dashboard cgpa display designs*/}
                 </div>
 
                 <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
@@ -85,8 +84,8 @@ const StudentDashboard = () => {
                     <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">12</p>
                     <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Enrolled Courses</p>
                   </div>
-                  {/* //TODO: Implement student dashboard enrolled courses display designs*/}
                 </div>
+
                 <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
                   <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/units-done-icon.svg" />
                   <div className="flex flex-col">
@@ -94,6 +93,7 @@ const StudentDashboard = () => {
                     <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Units Done</p>
                   </div>
                 </div>
+
                 <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
                   <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/outstanding-fees-icon.svg" />
                   <div className="flex flex-col">
