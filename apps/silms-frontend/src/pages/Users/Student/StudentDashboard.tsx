@@ -56,34 +56,34 @@ const StudentDashboard = () => {
         <div className="bg-neutral-600 h-14 w-full">
           {/* //TODO: Implement student dashboard user greeting designs*/}
         </div>
-        <div className="grid grid-cols-7 gap-4">
-          <div className="col-span-5">
+        <div className="flex flex-col lg:grid lg:grid-cols-7 gap-4">
+          <div className="flex flex-col lg:col-span-5">
             <div className="flex flex-col gap-8">
-              <div className="h-[4.5rem] w-full gap-4 grid grid-cols-4">
-                <div className="bg-indigo-800">
+              <div className=" w-full gap-4 grid grid-cols-2 md:grid-cols-4">
+                <div className="bg-indigo-800 h-[4.5rem]">
                   {/* //TODO: Implement student dashboard cgpa display designs*/}
                 </div>
-                <div className="bg-indigo-800">
+                <div className="bg-indigo-800 h-[4.5rem]">
                   {/* //TODO: Implement student dashboard enrolled courses display designs*/}
                 </div>
-                <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
-                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/units-done-icon.svg" />
+                <div className=" h-[4.5rem] flex gap-4 rounded-[0.625rem] px-3 py-2 items-center md:px-6 md:py-4 bg-[#E6F0ED]">
+                  <img className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]" src="/assets/icons/units-done-icon.svg" />
                   <div className="flex flex-col">
-                    <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">64</p>
-                    <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Units Done</p>
+                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">64</p>
+                    <p className="text-[#969696] text-[0.675rem] md:text-[0.75rem] font-semibold leading-normal">Units Done</p>
                   </div>
                 </div>
-                <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
-                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/outstanding-fees-icon.svg" />
+                <div className="h-[4.5rem] flex gap-4 rounded-[0.625rem] px-3 py-2 items-center md:px-6 md:py-4 bg-[#E6F0ED]">
+                  <img className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]" src="/assets/icons/outstanding-fees-icon.svg" />
                   <div className="flex flex-col">
-                    <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">1</p>
-                    <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Outstanding Fees</p>
+                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">1</p>
+                    <p className="text-[#969696] text-[0.625rem] md:text-[0.75rem] font-semibold leading-normal">Outstanding Fees</p>
                   </div>
                   {/* //TODO: Implement student dashboard outstanding fees display designs*/}
                 </div>
               </div>
-              <div className="flex flex-row space-x-8 w-full">
-                <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-8 space-x-6 sm:space-x-8 w-full">
+                <div className="col-span-2 flex flex-col gap-2">
                   {scheduleLabels.map((schedule) => (
                     <ScheduleItemsLabel
                       key={schedule.id}
@@ -103,7 +103,7 @@ const StudentDashboard = () => {
                       
                     )} */}
 
-                <div className="grid grid-cols-2 gap-4 w-full h-fit">
+                <div className=" col-span-3 sm:col-span-5 md:col-span-6 grid md:grid-cols-2 gap-4  h-fit">
                   {scheduleUnits.map(
                     ({
                       scheduleId,
@@ -128,11 +128,10 @@ const StudentDashboard = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 ">
                 <p className="text-[#000] text-[0.875rem] font-bold leading-normal"> Upcoming Assessments (3)</p>
 
-
-                <div className="relative overflow-x-auto ">
+               <div className="relative overflow-x-auto">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead className="text-xs font-bold text-[#8D8D92]">
                       <tr>
@@ -149,13 +148,12 @@ const StudentDashboard = () => {
                           Status
                         </th>
                         <th scope="col" className="px-6 py-3">
-                          {/* <span className="sr-only">Edit</span> */}
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="px-6 py-4">
+                        <td className="px-3 py-2 sm:px-6 sm:py-4">
                           <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
                         </td>
                         <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
@@ -166,7 +164,7 @@ const StudentDashboard = () => {
                         </th>
 
                         <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-col gap-1 whitespace-nowrap">
                             <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
                             <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
                           </div>
@@ -175,11 +173,11 @@ const StudentDashboard = () => {
                           <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
                         </td>
                         <td className="px-6 py-4 ">
-                          <button className="px-4 py-1 flex justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                          <button className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
                         </td>
                       </tr>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="px-6 py-4">
+                        <td className="px-3 py-2 sm:px-6 sm:py-4">
                           <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
                         </td>
                         <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
@@ -190,7 +188,7 @@ const StudentDashboard = () => {
                         </th>
 
                         <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-col gap-1 whitespace-nowrap">
                             <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
                             <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
                           </div>
@@ -199,11 +197,11 @@ const StudentDashboard = () => {
                           <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
                         </td>
                         <td className="px-6 py-4 ">
-                          <button className="px-4 py-1 flex justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                          <button className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
                         </td>
                       </tr>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td className="px-6 py-4">
+                        <td className="px-3 py-2 sm:px-6 sm:py-4">
                           <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
                         </td>
                         <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
@@ -214,7 +212,7 @@ const StudentDashboard = () => {
                         </th>
 
                         <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-col gap-1 whitespace-nowrap">
                             <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
                             <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
                           </div>
@@ -223,7 +221,7 @@ const StudentDashboard = () => {
                           <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
                         </td>
                         <td className="px-6 py-4 ">
-                          <button className="px-4 py-1 flex justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                          <button className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
                         </td>
                       </tr>
 
@@ -231,7 +229,6 @@ const StudentDashboard = () => {
                   </table>
                 </div>
 
-              
               </div>
 
               <div className="flex flex-col gap-5">
@@ -240,14 +237,14 @@ const StudentDashboard = () => {
                     Recently Accessed courses
                   </p>
                 </div>
-                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  h-full gap-4">
+                <div className="grid sm:grid-cols-2 md:grid-cols-3  h-full gap-4">
                   {[0, 1, 2].map((_, index) => (
                     // <Link to={"/"}>
                     <div
                       key={index}
                       className="bg-custom-secondary-3 rounded-[0.625rem] h-auto w-full"
                     >
-                      <div className="flex flex-col h-full items-center">
+                      <div className="flex flex-col h-full sm:items-center">
                         <img
                           src="/assets/images/course-image1.png"
                           className="w-full h-[7.0625rem] rounded-t-[0.625rem]"
@@ -255,7 +252,7 @@ const StudentDashboard = () => {
 
                         <div className="flex flex-col h-full p-4 justify-between leading-normal">
                           <div className="flex items-center">
-                            <div className="w-full bg-custom-secondary-2 rounded-full h-1.5 dark:bg-gray-700">
+                            <div className="w-[70%] sm:w-full bg-custom-secondary-2 rounded-full h-1.5 dark:bg-gray-700">
                               <div
                                 className={`bg-custom-primary-1 h-1.5 w-[60%] rounded-full`}
                               ></div>
@@ -288,15 +285,15 @@ const StudentDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-2 h-[40rem] relative">
-            <div className="">
+          <div className="w-full lg:col-span-2 lg:relative">
+            <div className="w-full lg:flex hidden">
               <img
                 src="/assets/icons/SILMS_DashB_Illustration.svg"
                 alt="Dashboard Illustartion"
                 className="w-full"
               />
             </div>
-            <div className="flex flex-col bg-white border-[#666666] shadow-md rounded-md z-2 absolute top-[200px] h-50 w-full left-0 z-2">
+            <div className="flex flex-col bg-white border-[#666666] shadow-md rounded-md lg:absolute lg:top-[200px] h-50 w-full lg:left-0">
               <div className="flex justify-center py-4">
                 <LineIcon />
               </div>
@@ -315,7 +312,7 @@ const StudentDashboard = () => {
                 <p className="font-bold text-[0.7rem]">Week 7</p>
               </div>
               <Datepicker
-                className="flex w-full justify-center shadow-none pb-10"
+                className="flex w-full justify-center shadow-none pb-10 overflow-x-auto"
                 inline={true}
                 showClearButton={false}
                 showTodayButton={false}

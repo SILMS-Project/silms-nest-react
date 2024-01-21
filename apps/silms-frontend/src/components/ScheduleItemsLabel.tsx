@@ -23,7 +23,7 @@ const ScheduleItemsLabel = ({
 
   return (
     <div
-      className="flex flex-row pl-0 relative space-x-3 rounded-md px-5 cursor-pointer  h-[74.954px] w-[228.323px]"
+      className="flex flex-row pl-0 relative space-x-3 rounded-md px-5 cursor-pointer  h-[74.954px] w-full"
       onClick={handleClick}
     >
       <div
@@ -32,18 +32,18 @@ const ScheduleItemsLabel = ({
         } pb-2 `}
       >
         <div
-          className={`flex flex-col pl-5 ${
+          className={`flex flex-col pl-2 sm:pl-5 ${
             isSelectedSchedule === id ? "text-[#9747FF]" : "text-black"
           } items-center mr-2`}
         >
-          <p className="text-[0.9rem]">{day}</p>
-          <p className="font-extrabold text-[1.7rem]">{date}</p>
+          <p className="sm:text-[0.9rem] text-[0.75rem]">{day}</p>
+          <p className="font-extrabold sm:text-[1.7rem] text-[1.3rem]">{date}</p>
         </div>
-        <div className="flex flex-col gap-1 border-l-2 border-[#D9D9D9] pl-3">
-          <p className="text-[#000] text-[0.8.6rem] font-bold pt-2 leading-none">
+        <div className="flex flex-col gap-1 border-l-2 border-[#D9D9D9] pl-3 pr-6">
+          <p className="text-[#000] text-[0.9rem] sm:text-[1rem] font-bold pt-2 leading-none ">
             {classes} Classes
           </p>
-          <p className="text-[#8D8D92] text-[0.59rem] font-semibold leading-none">
+          <p className="text-[#8D8D92] text-[0.59rem] font-semibold leading-none ">
             {time}
           </p>
         </div>
