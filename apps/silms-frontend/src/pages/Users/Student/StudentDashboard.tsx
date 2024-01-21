@@ -57,13 +57,15 @@ const StudentDashboard = () => {
     <DashboardLayout>
       <div className="flex flex-col gap-4">
         <div className="h-14 w-full">
-      <div className="h-[24px] [font-family:'Inter-Bold',Helvetica] font-bold text-black text-[20px] tracking-[0] leading-[normal] whitespace-nowrap">
-        Hi, Adeola
-      </div>
-      <div className="h-[15px] [font-family:'Inter-Bold',Helvetica] font-bold text-[#969696] text-[12px] tracking-[0] leading-[normal]">
-        Welcome back
-      </div>
-          {/* //TODO: Implement student dashboard user greeting designs*/}
+          <div className="flex items-center">
+            <div className="h-[24px] [font-family:'Inter-Bold',Helvetica] font-bold text-black text-[20px] tracking-[0] leading-[normal] whitespace-nowrap">
+              Hi, Adeola
+            </div>
+            <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/waving-hand-skin-4-svgrepo-com.svg" />
+          </div>
+          <div className="h-[15px] [font-family:'Inter-Bold',Helvetica] font-bold text-[#969696] text-[12px] tracking-[0] leading-[normal]">
+            Welcome back
+          </div>
         </div>
         <div className="grid grid-cols-7 gap-4">
           <div className="col-span-5">
