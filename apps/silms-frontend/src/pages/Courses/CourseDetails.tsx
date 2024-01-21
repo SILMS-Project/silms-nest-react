@@ -45,12 +45,12 @@ const CourseDetails = () => {
           </div>
         </div>
         <div className="grid grid-cols-7 gap-4">
-          <div className="col-span-5 bg-gray-600">
+          <div className="col-span-5 bg-gray-600 w-full h-[43px] bg-[#063760] rounded-[5px]">
             {/* //TODO:  Implement the course details modules designs*/}
           </div>
           <div className="col-span-2">
             <div className="flex flex-col gap-8">
-              <div className="h-[25rem] bg-[#e6f0ed] rounded-[5px] px-[1.69rem] py-[1.5rem]">
+            <div className="w-full h-[405px] bg-[#e6f0ed] rounded-[5px] px-[1.69rem] py-[1.5rem]">
                 <div className="w-[67px] h-[23px] font-semibold text-[#263238] text-[16px] tracking-[0] leading-[normal]">
                   Grades
                 </div>
