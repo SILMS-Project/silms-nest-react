@@ -16,7 +16,7 @@ const CourseDetails = () => {
                 backgroundImage: `linear-gradient(to right,  rgba(230, 240, 237, 1) 0%, rgba(230, 240, 237, 1) calc(100% - 12rem), rgba(232, 234, 243, 0) 100%)`,
               }}
             >
-              
+
               <div className="flex flex-col gap-2 px-6 py-4 h-full space-center">
                 <div className="flex flex-row gap-4 items-center">
                   <p className="text-[#9E9E9E] text-center text-[0.75rem] font-medium ">
@@ -37,7 +37,7 @@ const CourseDetails = () => {
                     src="/assets/icons/profile-image1.svg"
                   />
                   <p className="text-custom-primary-2 text-[0.75rem] font-medium leading-normal">
-                  Mr. Charles Igah
+                    Mr. Charles Igah
                   </p>
                 </div>
               </div>
@@ -50,7 +50,11 @@ const CourseDetails = () => {
           </div>
           <div className="col-span-2">
             <div className="flex flex-col gap-8">
-              <div className="h-[25rem] bg-blue-800">
+              <div className="h-[25rem] bg-[#e6f0ed] rounded-[5px] px-[1.69rem] py-[1.5rem]">
+                <div className="w-[67px] h-[23px] font-semibold text-[#263238] text-[16px] tracking-[0] leading-[normal]">
+                  Grades
+                </div>
+                
                 {/* //TODO: Implement grades summary on course details designs*/}
               </div>
               <div className="h-24 bg-rose-600">
