@@ -1,12 +1,9 @@
 import CalenderIcon from "@/assets/icons/CalenderIcon";
 import LineIcon from "@/assets/icons/LineIcon";
 import DashboardLayout from "@/components/DashboardLayout";
-import ScheduleItem from "@/components/ScheduleItem";
 import ScheduleItemsLabel from "@/components/ScheduleItemsLabel";
 import ScheduleUnit from "@/components/ScheduleUnit";
 import {
-  ScheduleItems,
-  getRandomColor,
   scheduleUnits,
 } from "@/utils/colorUtils";
 import { Datepicker } from "flowbite-react";
