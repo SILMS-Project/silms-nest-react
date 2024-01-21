@@ -50,13 +50,21 @@ const CourseDetails = () => {
           </div>
           <div className="col-span-2">
             <div className="flex flex-col gap-8">
-            <div className="w-full h-[405px] bg-[#e6f0ed] rounded-[5px] px-[1.69rem] py-[1.5rem]">
-                <div className="w-[67px] h-[23px] font-semibold text-[#263238] text-[16px] tracking-[0] leading-[normal]">
-                  Grades
+              <div className="w-full h-[405px] bg-[#e6f0ed] rounded-[5px] px-[1.69rem] py-[1.5rem] flex items-start justify-between">
+                <div className="flex items-start">
+                  <div className="w-[67px] h-[23px] font-semibold text-[#263238] text-[16px] tracking-[0] leading-[normal]">
+                    Grades
+                  </div>
                 </div>
-                
-                {/* //TODO: Implement grades summary on course details designs*/}
+                <div>
+                <img
+                    className="w-5 h-5 "
+                    src="/assets/icons/menu-icon.svg"
+                  />
+                  {/* TODO: Add your icon here */}
+                </div>
               </div>
+
               <div className="h-24 bg-rose-600">
                 {/* //TODO: Implement course details enrolled students designs */}
               </div>
