@@ -3,9 +3,7 @@ import LineIcon from "@/assets/icons/LineIcon";
 import DashboardLayout from "@/components/DashboardLayout";
 import ScheduleItemsLabel from "@/components/ScheduleItemsLabel";
 import ScheduleUnit from "@/components/ScheduleUnit";
-import {
-  scheduleUnits,
-} from "@/utils/colorUtils";
+import { scheduleUnits } from "@/utils/colorUtils";
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 
@@ -53,33 +51,80 @@ const StudentDashboard = () => {
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4">
-        <div className="bg-neutral-600 h-14 w-full">
-          {/* //TODO: Implement student dashboard user greeting designs*/}
+        <div className="h-14 w-full">
+          <div className="flex items-center">
+            <div className="h-[24px] [font-family:'Inter-Bold',Helvetica] font-bold text-black text-[20px] tracking-[0] leading-[normal] whitespace-nowrap">
+              Hi, Adeola
+            </div>
+            <img
+              className="w-[2.5rem] h-[2.5rem]"
+              src="/assets/icons/waving-hand-skin-4-svgrepo-com.svg"
+            />
+          </div>
+          <div className="h-[15px] [font-family:'Inter-Bold',Helvetica] font-bold text-[#969696] text-[12px] tracking-[0] leading-[normal]">
+            Welcome back
+          </div>
         </div>
         <div className="flex flex-col lg:grid lg:grid-cols-7 gap-4">
           <div className="flex flex-col lg:col-span-5">
             <div className="flex flex-col gap-8">
               <div className=" w-full gap-4 grid grid-cols-2 md:grid-cols-4">
-                <div className="bg-indigo-800 h-[4.5rem]">
-                  {/* //TODO: Implement student dashboard cgpa display designs*/}
+                <div className="flex h-[4.5rem] gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
+                  <img
+                    className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]"
+                    src="\assets\icons\gpa-icon.svg"
+                  />
+                  <div className="flex flex-col">
+                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">
+                      4.05
+                    </p>
+                    <p className="text-[#969696] text-[0.675rem] md:text-[0.75rem] font-semibold leading-normal">
+                      CGPA
+                    </p>
+                  </div>
                 </div>
-                <div className="bg-indigo-800 h-[4.5rem]">
-                  {/* //TODO: Implement student dashboard enrolled courses display designs*/}
+                <div className="h-[4.5rem] flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
+                  <img
+                    className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]"
+                    src="\assets\icons\enrolled_courses.svg"
+                  />
+                  <div className="flex flex-col">
+                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">
+                      12
+                    </p>
+                    <p className="text-[#969696] text-[0.675rem] md:text-[0.75rem] font-semibold leading-normal">
+                      Enrolled Courses
+                    </p>
+                  </div>
                 </div>
                 <div className=" h-[4.5rem] flex gap-4 rounded-[0.625rem] px-3 py-2 items-center md:px-6 md:py-4 bg-[#E6F0ED]">
-                  <img className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]" src="/assets/icons/units-done-icon.svg" />
+                  <img
+                    className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]"
+                    src="/assets/icons/units-done-icon.svg"
+                  />
+
                   <div className="flex flex-col">
-                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">64</p>
-                    <p className="text-[#969696] text-[0.675rem] md:text-[0.75rem] font-semibold leading-normal">Units Done</p>
+                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">
+                      64
+                    </p>
+                    <p className="text-[#969696] text-[0.675rem] md:text-[0.75rem] font-semibold leading-normal">
+                      Units Done
+                    </p>
                   </div>
                 </div>
                 <div className="h-[4.5rem] flex gap-4 rounded-[0.625rem] px-3 py-2 items-center md:px-6 md:py-4 bg-[#E6F0ED]">
-                  <img className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]" src="/assets/icons/outstanding-fees-icon.svg" />
+                  <img
+                    className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]"
+                    src="/assets/icons/outstanding-fees-icon.svg"
+                  />
                   <div className="flex flex-col">
-                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">1</p>
-                    <p className="text-[#969696] text-[0.625rem] md:text-[0.75rem] font-semibold leading-normal">Outstanding Fees</p>
+                    <p className="text-[#000000] text-[1rem] md:text-[1.125rem] font-bold leading-normal">
+                      1
+                    </p>
+                    <p className="text-[#969696] text-[0.625rem] md:text-[0.75rem] font-semibold leading-normal">
+                      Outstanding Fees
+                    </p>
                   </div>
-                  {/* //TODO: Implement student dashboard outstanding fees display designs*/}
                 </div>
               </div>
               <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-8 space-x-6 sm:space-x-8 w-full">
@@ -100,7 +145,7 @@ const StudentDashboard = () => {
 
                 {/* {scheduleUnits.length > 3 && (
                       // Code to be rendered if the condition is true
-                      
+
                     )} */}
 
                 <div className=" col-span-3 sm:col-span-5 md:col-span-6 grid md:grid-cols-2 gap-4  h-fit">
@@ -129,9 +174,12 @@ const StudentDashboard = () => {
               </div>
 
               <div className="flex flex-col gap-4 ">
-                <p className="text-[#000] text-[0.875rem] font-bold leading-normal"> Upcoming Assessments (3)</p>
+                <p className="text-[#000] text-[0.875rem] font-bold leading-normal">
+                  {" "}
+                  Upcoming Assessments (3)
+                </p>
 
-               <div className="relative overflow-x-auto">
+                <div className="relative overflow-x-auto">
                   <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead className="text-xs font-bold text-[#8D8D92]">
                       <tr>
@@ -147,88 +195,163 @@ const StudentDashboard = () => {
                         <th scope="col" className="px-6 py-3">
                           Status
                         </th>
-                        <th scope="col" className="px-6 py-3">
-                        </th>
+                        <th scope="col" className="px-6 py-3"></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td className="px-3 py-2 sm:px-6 sm:py-4">
-                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
+                          <img
+                            className="w-[1.5625rem] h-[1.5625rem]"
+                            src="/assets/icons/description-icon.svg"
+                          />
                         </td>
-                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white"
+                        >
                           <div className="flex flex-col gap-1">
-                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">Regression Exercise</p>
-                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">CSC 421</p>
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">
+                              Regression Exercise
+                            </p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">
+                              CSC 421
+                            </p>
                           </div>
                         </th>
 
                         <td className="px-6 py-4">
                           <div className="flex flex-col gap-1 whitespace-nowrap">
-                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
-                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">
+                              2 Dec 2023
+                            </p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">
+                              14 days left
+                            </p>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
+                          <img
+                            className="w-[1.5625rem] h-[1.5625rem]"
+                            src="/assets/icons/clock-loader-icon.svg"
+                          />
                         </td>
                         <td className="px-6 py-4 ">
-                          <button className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                          <button
+                            className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]"
+                            style={{
+                              boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)",
+                            }}
+                          >
+                            <p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">
+                              View Exercise
+                            </p>
+                          </button>
                         </td>
                       </tr>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td className="px-3 py-2 sm:px-6 sm:py-4">
-                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
+                          <img
+                            className="w-[1.5625rem] h-[1.5625rem]"
+                            src="/assets/icons/description-icon.svg"
+                          />
                         </td>
-                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white"
+                        >
                           <div className="flex flex-col gap-1">
-                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">Regression Exercise</p>
-                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">CSC 421</p>
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">
+                              Regression Exercise
+                            </p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">
+                              CSC 421
+                            </p>
                           </div>
                         </th>
 
                         <td className="px-6 py-4">
                           <div className="flex flex-col gap-1 whitespace-nowrap">
-                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
-                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">
+                              2 Dec 2023
+                            </p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">
+                              14 days left
+                            </p>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
+                          <img
+                            className="w-[1.5625rem] h-[1.5625rem]"
+                            src="/assets/icons/clock-loader-icon.svg"
+                          />
                         </td>
                         <td className="px-6 py-4 ">
-                          <button className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                          <button
+                            className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]"
+                            style={{
+                              boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)",
+                            }}
+                          >
+                            <p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">
+                              View Exercise
+                            </p>
+                          </button>
                         </td>
                       </tr>
                       <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td className="px-3 py-2 sm:px-6 sm:py-4">
-                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/description-icon.svg" />
+                          <img
+                            className="w-[1.5625rem] h-[1.5625rem]"
+                            src="/assets/icons/description-icon.svg"
+                          />
                         </td>
-                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white">
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-white"
+                        >
                           <div className="flex flex-col gap-1">
-                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">Regression Exercise</p>
-                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">CSC 421</p>
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">
+                              Regression Exercise
+                            </p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">
+                              CSC 421
+                            </p>
                           </div>
                         </th>
 
                         <td className="px-6 py-4">
                           <div className="flex flex-col gap-1 whitespace-nowrap">
-                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">2 Dec 2023</p>
-                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">14 days left</p>
+                            <p className="text-[#000] text-[0.75rem] font-bold leading-normal">
+                              2 Dec 2023
+                            </p>
+                            <p className="text-[#8D8D92] text-[0.65rem] font-semibold leading-normal">
+                              14 days left
+                            </p>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <img className="w-[1.5625rem] h-[1.5625rem]" src="/assets/icons/clock-loader-icon.svg" />
+                          <img
+                            className="w-[1.5625rem] h-[1.5625rem]"
+                            src="/assets/icons/clock-loader-icon.svg"
+                          />
                         </td>
                         <td className="px-6 py-4 ">
-                          <button className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]" style={{ boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)" }}><p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">View Exercise</p></button>
+                          <button
+                            className="px-4 py-1 flex whitespace-nowrap justify-center items-center rounded-[0.3125rem] bg-[#7FEAD1]"
+                            style={{
+                              boxShadow: "4px 4px 6px 0px rgba(0, 0, 0, 0.15)",
+                            }}
+                          >
+                            <p className=" text-[#063760] text-[0.75rem] font-bold leading-normal">
+                              View Exercise
+                            </p>
+                          </button>
                         </td>
                       </tr>
-
                     </tbody>
                   </table>
                 </div>
-
               </div>
 
               <div className="flex flex-col gap-5">
