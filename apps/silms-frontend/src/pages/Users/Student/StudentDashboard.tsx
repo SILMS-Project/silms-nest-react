@@ -63,17 +63,28 @@ const StudentDashboard = () => {
       <div className="h-[15px] [font-family:'Inter-Bold',Helvetica] font-bold text-[#969696] text-[12px] tracking-[0] leading-[normal]">
         Welcome back
       </div>
-
           {/* //TODO: Implement student dashboard user greeting designs*/}
         </div>
         <div className="grid grid-cols-7 gap-4">
           <div className="col-span-5">
             <div className="flex flex-col gap-8">
               <div className="h-[4.5rem] w-full gap-4 grid grid-cols-4">
-                <div className="bg-indigo-800">
+
+                <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
+                  <img className="w-[2.5rem] h-[2.5rem]" src="/assets/icons/units-done-icon.svg" />
+                  <div className="flex flex-col">
+                    <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">4.05</p>
+                    <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">CGPA</p>
+                  </div>
                   {/* //TODO: Implement student dashboard cgpa display designs*/}
                 </div>
-                <div className="bg-indigo-800">
+
+                <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
+                  <img className="w-[2.5rem] h-[2.5rem]" src="\assets\icons\enrolled_courses.svg" />
+                  <div className="flex flex-col">
+                    <p className="text-[#000000] text-[1.125rem] font-bold leading-normal">12</p>
+                    <p className="text-[#969696] text-[0.75rem] font-semibold leading-normal">Enrolled Courses</p>
+                  </div>
                   {/* //TODO: Implement student dashboard enrolled courses display designs*/}
                 </div>
                 <div className="flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
