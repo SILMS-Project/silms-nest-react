@@ -70,6 +70,10 @@ export class AuthService {
       throw new Error('Account not verified');
     }
 
+    if (auth.isLoggedIn) {
+      throw new Error('User already logged in');
+    }
+
     const isValidPassword = await this.passwordService.comparePassword(
       password,
       auth.password,
@@ -89,9 +93,7 @@ export class AuthService {
       loginUserDto.password,
     );
 
-    if (auth.isLoggedIn) {
-      throw new Error('User already logged in');
-    }
+    
 
     const payload = { sub: auth.id };
 
