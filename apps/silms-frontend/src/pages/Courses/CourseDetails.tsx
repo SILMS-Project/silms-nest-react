@@ -45,23 +45,24 @@ const CourseDetails = () => {
           </div>
         </div>
         <div className="grid grid-cols-7 gap-4">
-          <div className="col-span-5 bg-gray-600 w-full h-[43px] bg-[#063760] rounded-[5px]">
+          <div className="col-span-5 w-full h-[43px] bg-[#063760] rounded-[5px]">
             {/* //TODO:  Implement the course details modules designs*/}
           </div>
           <div className="col-span-2">
             <div className="flex flex-col gap-8">
-              <div className="w-full h-[405px] bg-[#e6f0ed] rounded-[5px] px-[1.69rem] py-[1.5rem] flex items-start justify-between">
-                <div className="flex items-center">
-                  <div className="w-[67px] h-[23px] font-semibold text-[#263238] text-[16px] tracking-[0] leading-[normal]">
+              <div className="w-full h-[405px] bg-[#e6f0ed] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
+                <div className="flex items-center w-full justify-between">
+                  <p className="font-semibold text-[#263238] text-[1rem] leading-normal">
                     Grades
-                  </div>
+                  </p>
+                  <img className="w-[2.1875rem] h-[2.1875rem]" src="/assets/icons/menu-icon.svg" alt="Menu Icon" />
+
                 </div>
                 <div className="py-6" id="donut-chart">
                   {/* Add your donut chart content here */}
                 </div>
 
-                <div className="flex items-center">
-                  <img className="w-5 h-5" src="/assets/icons/menu-icon.svg" alt="Menu Icon" />
+                <div className="flex flex-col gap-4">
                   {/* You can adjust the margin or spacing as needed */}
                 </div>
               </div>
