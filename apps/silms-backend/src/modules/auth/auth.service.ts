@@ -36,8 +36,7 @@ export class AuthService {
 
     const authProps: AuthProps = {
       ...createAuthDto,
-      password: await this.passwordService.hashPassword(createAuthDto.password),
-      isVerified: false,
+      password: await this.passwordService.hashPassword(createAuthDto.password)
     };
 
     const newAuth = this.authRepository.create({
