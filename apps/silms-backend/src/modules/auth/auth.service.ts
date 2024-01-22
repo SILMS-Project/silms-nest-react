@@ -19,13 +19,14 @@ import { Token } from './entities/token.entity';
 export class AuthService {
   constructor(
     @InjectRepository(Auth) private readonly authRepository: Repository<Auth>,
-    @InjectRepository(Token) private readonly tokenRepository: Repository<Token>,
+    @InjectRepository(Token)
+    private readonly tokenRepository: Repository<Token>,
     private jwtService: JwtService,
     private passwordService: PasswordService,
     private mailService: MailService,
   ) {}
 
-  async create(createAuthDto: CreateAuthDto) : Promise<Auth> {
+  async create(createAuthDto: CreateAuthDto): Promise<Auth> {
     const auth = await this.findOneByEmail(createAuthDto.email);
 
     if (auth) {
@@ -38,7 +39,7 @@ export class AuthService {
 
     const authProps: AuthProps = {
       ...createAuthDto,
-      password: await this.passwordService.hashPassword(createAuthDto.password)
+      password: await this.passwordService.hashPassword(createAuthDto.password),
     };
 
     const newAuth = this.authRepository.create({
@@ -98,7 +99,9 @@ export class AuthService {
     const payload = { sub: auth.id };
 
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: await this.tokenRepository.save({
+        token: this.jwtService.sign(payload),
+      }),
     };
   }
 
@@ -141,7 +144,7 @@ export class AuthService {
     return await this.authRepository
       .update(auth, { password: hashedPassword })
       .then(() => {
-        message: 'Password changed successfully'
+        message: 'Password changed successfully';
       });
   }
 
@@ -179,7 +182,7 @@ export class AuthService {
     return await this.authRepository
       .update(auth, { password: hashedPassword })
       .then(() => {
-        message: 'Password reset successfully'
+        message: 'Password reset successfully';
       });
   }
 
