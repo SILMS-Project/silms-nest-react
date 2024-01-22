@@ -99,9 +99,7 @@ export class AuthService {
     const payload = { sub: auth.id };
 
     return {
-      access_token: await this.tokenRepository.save({
-        token: this.jwtService.sign(payload),
-      }),
+      access_token: this.jwtService.sign(payload),
     };
   }
 
