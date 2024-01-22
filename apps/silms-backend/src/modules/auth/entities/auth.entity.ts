@@ -20,7 +20,7 @@ export class Auth {
   isVerified: boolean;
 
   @Column({ nullable: false })
-  isLogged: boolean;
+  isLoggedIn: boolean;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
