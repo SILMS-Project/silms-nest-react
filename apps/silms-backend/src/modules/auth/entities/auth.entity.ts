@@ -19,6 +19,9 @@ export class Auth {
   @Column({ default: false })
   isVerified: boolean;
 
+  @Column({ nullable: false })
+  isLogged: boolean;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 

@@ -51,7 +51,7 @@ export class AuthService {
     return await this.authRepository.findOneBy({ email });
   }
 
-  async find(id: string) {
+  async findOne(id: string) {
     const auth = await this.authRepository.findOneBy({ id });
 
     if (!auth) {
@@ -63,12 +63,20 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<any> {
     const auth = await this.findOneByEmail(email);
 
+    if (!auth) {
+      throw new UnauthorizedException();
+    }
+
+    if (!auth.isVerified) {
+      throw new Error('Account not verified');
+    }
+
     const isValidPassword = await this.passwordService.comparePassword(
       password,
       auth.password,
     );
 
-    if (auth && isValidPassword) {
+    if (isValidPassword) {
       const { password, email, ...rest } = auth;
       return rest;
     }
@@ -82,6 +90,10 @@ export class AuthService {
       loginUserDto.password,
     );
 
+    if (auth.isLogged) {
+      throw new Error('User already logged in');
+    }
+
     const payload = { sub: auth.id };
 
     return {
@@ -91,6 +103,11 @@ export class AuthService {
 
   async update(updateAuthDto: UpdateAuthDto) {
     const auth = await this.findOneByEmail(updateAuthDto.email);
+
+    if (!auth) {
+      throw new Error('Auth does not exist!');
+    }
+
     return await this.authRepository.update(auth, updateAuthDto);
   }
 
@@ -99,7 +116,7 @@ export class AuthService {
       throw new Error('Passwords do not match');
     }
 
-    const auth = await this.find(changePasswordDto.authId);
+    const auth = await this.findOne(changePasswordDto.authId);
 
     if (
       !this.passwordService.comparePassword(
@@ -153,7 +170,7 @@ export class AuthService {
     }
 
     const authId = this.jwtService.decode(token.split(' ')[1]).id;
-    const auth = await this.find(authId);
+    const auth = await this.findOne(authId);
     const hashedPassword = await this.passwordService.hashPassword(
       confirmResetPasswordDto.password,
     );
@@ -166,7 +183,7 @@ export class AuthService {
   }
 
   async verifyAccount(token: string) {
-    const auth = await this.find(this.jwtService.decode(token).id);
+    const auth = await this.findOne(this.jwtService.decode(token).id);
 
     if (!auth) {
       throw new Error('Auth does not exist!');
