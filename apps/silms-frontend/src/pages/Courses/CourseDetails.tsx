@@ -1,6 +1,109 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import { useEffect, useState } from 'react';
+import ApexCharts from 'apexcharts';
 
 const CourseDetails = () => {
+
+  
+
+  const [chartOptions, setChartOptions] = useState({
+    series: [35.1, 23.5],
+    colors: ["linear-gradient(90deg, #40E0BA 0%, #3EA990 100%)", "#D9D9D9"],
+    chart: {
+      height: 320,
+      width: "100%",
+      type: "donut",
+    },
+    stroke: {
+      colors: ["transparent"],
+      lineCap: "",
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              fontFamily: "Inter, sans-serif",
+              offsetY: 20,
+            },
+            total: {
+              showAlways: true,
+              show: true,
+              label: "Unique visitors",
+              fontFamily: "Inter, sans-serif",
+              formatter: function (w: any) {
+                const sum = w.globals.seriesTotals.reduce((a: any, b: any) => {
+                  return a + b
+                }, 0)
+                return `${sum}k`
+              },
+            },
+            value: {
+              show: true,
+              fontFamily: "Inter, sans-serif",
+              offsetY: -20,
+              formatter: function (value: any) {
+                return value + "k"
+              },
+            },
+          },
+          size: "80%",
+        },
+      },
+    },
+    grid: {
+      padding: {
+        top: -2,
+      },
+    },
+    // labels: ["Direct", "Sponsor", "Affiliate", "Email marketing"],
+    dataLabels: {
+      enabled: false,
+    },
+    legend: {
+      position: "bottom",
+      fontFamily: "Inter, sans-serif",
+    },
+    yaxis: {
+      labels: {
+        formatter: function (value: any) {
+          return value + "k"
+        },
+      },
+    },
+    xaxis: {
+      labels: {
+        formatter: function (value: any) {
+          return value + "k"
+        },
+      },
+      axisTicks: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+    },
+  })
+
+  useEffect(() => {
+    const renderChart = () => {
+      if (document.getElementById('donut-chart') && typeof ApexCharts !== 'undefined') {
+        const chart = new ApexCharts(document.getElementById('donut-chart'), chartOptions);
+        chart.render();
+      }
+    };
+
+    renderChart();
+
+    // Clean up chart on component unmount
+    return () => {
+      ApexCharts.exec('donut-chart', 'destroy');
+    };
+  }, [chartOptions]);
+
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4">
@@ -50,7 +153,7 @@ const CourseDetails = () => {
           </div>
           <div className="col-span-2">
             <div className="flex flex-col gap-8">
-              <div className="w-full h-[405px] bg-[#e6f0ed] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
+              <div className="w-full  bg-[#e6f0ed] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
                 <div className="flex items-center w-full justify-between">
                   <p className="font-semibold text-[#263238] text-[1rem] leading-normal">
                     Grades
@@ -62,7 +165,28 @@ const CourseDetails = () => {
                   {/* Add your donut chart content here */}
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="flex w-full justify-between text-[#949494] text-[0.75rem] font-semibold leading-normal">
+                    <p> Assessment</p>
+                    <p> Grade </p>
+                  </div>
+                  <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                    <p> Regression Assignment </p>
+                    <p> 6/10 </p>
+                  </div>
+                  <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                    <p> Preprocessing Assignment</p>
+                    <p> 8/10 </p>
+                  </div>
+                  <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                    <p> Data Science Project </p>
+                    <p> 6/10 </p>
+                  </div>
+                  <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                    <p> Participation </p>
+                    <p> 2/5 </p>
+                  </div>
+
                   {/* You can adjust the margin or spacing as needed */}
                 </div>
               </div>
@@ -73,9 +197,6 @@ const CourseDetails = () => {
               </div>
             </div>
           </div>
-
-
-
         </div>
       </div>
     </DashboardLayout>
