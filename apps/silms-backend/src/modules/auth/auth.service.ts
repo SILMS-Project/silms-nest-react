@@ -13,14 +13,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
 import { AuthProps } from './interfaces/auth.interface';
-import { Token } from './entities/token.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(Auth) private readonly authRepository: Repository<Auth>,
-    @InjectRepository(Token)
-    private readonly tokenRepository: Repository<Token>,
     private jwtService: JwtService,
     private passwordService: PasswordService,
     private mailService: MailService,
