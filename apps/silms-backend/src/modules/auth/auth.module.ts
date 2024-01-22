@@ -9,11 +9,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Auth } from './entities/auth.entity';
 import { PasswordService } from './password.service';
 import { RolesGuard } from './guards/roles-auth.guard';
-import { Token } from './entities/token.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Auth, Token]),
+    TypeOrmModule.forFeature([Auth]),
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
