@@ -89,7 +89,7 @@ export class AuthService {
       loginUserDto.password,
     );
 
-    if (auth.isLogged) {
+    if (auth.isLoggedIn) {
       throw new Error('User already logged in');
     }
 
