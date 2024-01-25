@@ -1,97 +1,75 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import { useEffect, useState } from 'react';
-import ApexCharts from 'apexcharts';
+import { useEffect, useState } from "react";
+import ApexCharts from "apexcharts";
 
 const CourseDetails = () => {
-
-  
-
   const [chartOptions, setChartOptions] = useState({
-    series: [35.1, 23.5],
-    colors: ["linear-gradient(90deg, #40E0BA 0%, #3EA990 100%)", "#D9D9D9"],
+    series: [75],
+    colors: ["#40E0BA"],
     chart: {
-      height: 320,
+      height: "380px",
       width: "100%",
-      type: "donut",
-    },
-    stroke: {
-      colors: ["transparent"],
-      lineCap: "",
+      type: "radialBar",
+      sparkline: {
+        enabled: true,
+      },
     },
     plotOptions: {
-      pie: {
-        donut: {
-          labels: {
-            show: true,
-            name: {
-              show: true,
-              fontFamily: "Inter, sans-serif",
-              offsetY: 20,
-            },
-            total: {
-              showAlways: true,
-              show: true,
-              label: "Unique visitors",
-              fontFamily: "Inter, sans-serif",
-              formatter: function (w: any) {
-                const sum = w.globals.seriesTotals.reduce((a: any, b: any) => {
-                  return a + b
-                }, 0)
-                return `${sum}k`
-              },
-            },
-            value: {
-              show: true,
-              fontFamily: "Inter, sans-serif",
-              offsetY: -20,
-              formatter: function (value: any) {
-                return value + "k"
-              },
-            },
-          },
-          size: "80%",
+      radialBar: {
+        track: {
+          background: "#d9d9d9",
+        },
+        dataLabels: {
+          show: false,
+        },
+        hollow: {
+          margin: 0,
+          size: "60%",
         },
       },
     },
     grid: {
+      show: false,
+      strokeDashArray: 4,
       padding: {
-        top: -2,
+        left: 2,
+        right: 2,
+        top: -23,
+        bottom: -20,
       },
     },
-    // labels: ["Direct", "Sponsor", "Affiliate", "Email marketing"],
-    dataLabels: {
-      enabled: false,
-    },
+    labels: ["Current Grade"],
     legend: {
+      show: true,
       position: "bottom",
       fontFamily: "Inter, sans-serif",
     },
+    tooltip: {
+      enabled: true,
+      x: {
+        show: false,
+      },
+    },
     yaxis: {
+      show: false,
       labels: {
-        formatter: function (value: any) {
-          return value + "k"
+        formatter: function (value: string) {
+          return value + "%";
         },
       },
     },
-    xaxis: {
-      labels: {
-        formatter: function (value: any) {
-          return value + "k"
-        },
-      },
-      axisTicks: {
-        show: false,
-      },
-      axisBorder: {
-        show: false,
-      },
-    },
-  })
+  });
 
   useEffect(() => {
     const renderChart = () => {
-      if (document.getElementById('donut-chart') && typeof ApexCharts !== 'undefined') {
-        const chart = new ApexCharts(document.getElementById('donut-chart'), chartOptions);
+      if (
+        document.getElementById("radial-chart") &&
+        typeof ApexCharts !== "undefined"
+      ) {
+        const chart = new ApexCharts(
+          document.getElementById("radial-chart"),
+          chartOptions
+        );
         chart.render();
       }
     };
@@ -100,7 +78,7 @@ const CourseDetails = () => {
 
     // Clean up chart on component unmount
     return () => {
-      ApexCharts.exec('donut-chart', 'destroy');
+      ApexCharts.exec("radial-chart", "destroy");
     };
   }, [chartOptions]);
 
@@ -119,7 +97,6 @@ const CourseDetails = () => {
                 backgroundImage: `linear-gradient(to right,  rgba(230, 240, 237, 1) 0%, rgba(230, 240, 237, 1) calc(100% - 12rem), rgba(232, 234, 243, 0) 100%)`,
               }}
             >
-
               <div className="flex flex-col gap-2 px-6 py-4 h-full space-center">
                 <div className="flex flex-row gap-4 items-center">
                   <p className="text-[#9E9E9E] text-center text-[0.75rem] font-medium ">
@@ -158,11 +135,21 @@ const CourseDetails = () => {
                   <p className="font-semibold text-[#263238] text-[1rem] leading-normal">
                     Grades
                   </p>
-                  <img className="w-[2.1875rem] h-[2.1875rem]" src="/assets/icons/menu-icon.svg" alt="Menu Icon" />
-
+                  <img
+                    className="w-[2.1875rem] h-[2.1875rem]"
+                    src="/assets/icons/menu-icon.svg"
+                    alt="Menu Icon"
+                  />
                 </div>
-                <div className="py-6" id="donut-chart">
-                  {/* Add your donut chart content here */}
+                <div className="py-6" id="radial-chart">
+                  <div className="absolute inset-0 flex items-center justify-center flex-col">
+                    <p className="text-3xl font-bold text-[#263238] leading-none">
+                      75%
+                    </p>
+                    <p className="text-[#949494] text-sm font-semibold leading-none">
+                      22/35 marks
+                    </p>
+                  </div>
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
