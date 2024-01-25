@@ -24,7 +24,7 @@ const CourseDetails = () => {
         },
         hollow: {
           margin: 0,
-          size: "60%",
+          size: "58%",
         },
       },
     },
