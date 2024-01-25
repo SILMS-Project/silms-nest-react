@@ -7,7 +7,7 @@ const CourseDetails = () => {
     series: [75],
     colors: ["#40E0BA"],
     chart: {
-      height: "380px",
+      height: "280px",
       width: "100%",
       type: "radialBar",
       sparkline: {
@@ -142,14 +142,6 @@ const CourseDetails = () => {
                   />
                 </div>
                 <div className="py-6" id="radial-chart">
-                  <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <p className="text-3xl font-bold text-[#263238] leading-none">
-                      75%
-                    </p>
-                    <p className="text-[#949494] text-sm font-semibold leading-none">
-                      22/35 marks
-                    </p>
-                  </div>
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
