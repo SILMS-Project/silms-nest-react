@@ -41,5 +41,7 @@ export default {
       ...defaultTheme.screens,
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [require("flowbite/plugin")({
+    charts: true,
+  })],
 };
