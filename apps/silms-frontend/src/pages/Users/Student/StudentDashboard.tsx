@@ -51,17 +51,17 @@ const StudentDashboard = () => {
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4">
-        <div className="h-14 w-full">
-          <div className="flex items-center">
-            <div className="h-[24px] [font-family:'Inter-Bold',Helvetica] font-bold text-black text-[20px] tracking-[0] leading-[normal] whitespace-nowrap">
+        <div className="w-full">
+          <div className="flex items-center w-full">
+            <div className="font-bold text-black text-[1.25rem] leading-normal ">
               Hi, Adeola
             </div>
             <img
-              className="w-[2.5rem] h-[2.5rem]"
+               className="w-[1.5rem] md:w-[1.875rem] h-[1.5rem] md:h-[1.875rem]"
               src="/assets/icons/waving-hand-skin-4-svgrepo-com.svg"
             />
           </div>
-          <div className="h-[15px] [font-family:'Inter-Bold',Helvetica] font-bold text-[#969696] text-[12px] tracking-[0] leading-[normal]">
+          <div className="font-bold text-[#969696] text-[0.75rem] leading-normal">
             Welcome back
           </div>
         </div>
@@ -69,7 +69,7 @@ const StudentDashboard = () => {
           <div className="flex flex-col lg:col-span-5">
             <div className="flex flex-col gap-8">
               <div className=" w-full gap-4 grid grid-cols-2 md:grid-cols-4">
-                <div className="flex h-[4.5rem] gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
+              <div className="h-[4.5rem] flex gap-4 rounded-[0.625rem] px-3 py-2 items-center md:px-6 md:py-4 bg-[#E6F0ED]">
                   <img
                     className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]"
                     src="\assets\icons\gpa-icon.svg"
@@ -83,7 +83,7 @@ const StudentDashboard = () => {
                     </p>
                   </div>
                 </div>
-                <div className="h-[4.5rem] flex gap-4 rounded-[0.625rem] px-6 py-4 bg-[#E6F0ED]">
+                <div className="h-[4.5rem] flex gap-4 rounded-[0.625rem] px-3 py-2 items-center md:px-6 md:py-4 bg-[#E6F0ED]">
                   <img
                     className="w-[2rem] md:w-[2.5rem] h-[2rem] md:h-[2.5rem]"
                     src="\assets\icons\enrolled_courses.svg"
