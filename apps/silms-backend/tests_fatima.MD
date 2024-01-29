@@ -23,6 +23,6 @@ Ensure successful verification of the token if correct. (Error message: Status c
 
 <span style="color:green;">&#10004;</span>Ensure the endpoint returns a meaningful error response if any required parameters are empty.
 
-
+<span style="color:red;">&#10060;</span> Attempt to create a program with the same name as an existing one.
 
 
