@@ -1,71 +1,97 @@
-import EnrolledCoursesIcon from "@/assets/icons/EnrolledCoursesIcon";
-import HiIcon from "@/assets/icons/HiIcon";
-import LineIcon from "@/assets/icons/LineIcon";
-import OutStandingFeesIcon from "@/assets/icons/OutStandingFeesIcon";
-import ReportIcon from "@/assets/icons/ReportIcon";
-import UnitsDoneIcon from "@/assets/icons/UnitsDoneIcon";
-import CalenderImage from "@/assets/images/CalenderImage";
 import DashboardLayout from "@/components/DashboardLayout";
-import ScheduleItem from "@/components/ScheduleItem";
+import ScheduleItemsLabel from "@/components/ScheduleItemsLabel";
+import ScheduleUnit from "@/components/ScheduleUnit";
+import { scheduleUnits } from "@/utils/colorUtils";
+import { useState } from "react";
 
 const SchedulePage = () => {
-  // const menus = [
-  //   {
-  //     title: "4.05",
-  //     description: "CGPA",
-  //     icon: <ReportIcon />,
-  //   },
-  //   {
-  //     title: "12",
-  //     description: "Enrolled Courses",
-  //     icon: <EnrolledCoursesIcon />,
-  //   },
-  //   {
-  //     title: "64",
-  //     description: "Units Done",
-  //     icon: <UnitsDoneIcon />,
-  //   },
-  //   {
-  //     title: "1",
-  //     description: "Outstanding Fees",
-  //     icon: <OutStandingFeesIcon />,
-  //   },
-  // ];
+  const [isSelectedSchedule, setIsSelectedSchedule] = useState<string>("1");
+
+  const scheduleLabels = [
+    {
+      id: "1",
+      day: "Mon",
+      date: "10",
+      classes: "4",
+      time: "8:00 AM - 12:00 PM",
+    },
+    {
+      id: "2",
+      day: "Tue",
+      date: "11",
+      classes: "3",
+      time: "1:00 PM - 4:00 PM",
+    },
+    {
+      id: "3",
+      day: "Wed",
+      date: "12",
+      classes: "5",
+      time: "9:30 AM - 2:30 PM",
+    },
+    {
+      id: "4",
+      day: "Thu",
+      date: "13",
+      classes: "2",
+      time: "10:00 AM - 12:00 PM",
+    },
+    {
+      id: "5",
+      day: "Fri",
+      date: "14",
+      classes: "6",
+      time: "8:00 AM - 3:00 PM",
+    },
+  ];
 
   return (
     <DashboardLayout>
-      Schedule Page
-      {/* <div className="flex flex-col">
-        <div className="flex flex-row space-x-2">
-          <h2 className="font-inter font-bold text-[20px]">Hi, Adeola</h2>
-          <HiIcon />
-        </div>
-        <p className="text-[#969696]">Welcome back</p>
-      </div>
+     <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-8 space-x-6 sm:space-x-8 w-full">
+                <div className="col-span-2 flex flex-col gap-2">
+                  {scheduleLabels.map((schedule) => (
+                    <ScheduleItemsLabel
+                      key={schedule.id}
+                      id={schedule.id}
+                      day={schedule.day}
+                      date={schedule.date}
+                      classes={schedule.classes}
+                      time={schedule.time}
+                      isSelectedSchedule={isSelectedSchedule}
+                      setIsSelectedSchedule={setIsSelectedSchedule}
+                    />
+                  ))}
+                </div>
 
-      <div className="flex flex-row space-x-5 mt-6">
-        <div className="flex flex-row gap-4">
-          {menus.map(({ title, description, icon }) => (
-            <ScheduleItem
-              child={icon}
-              title={title}
-              description={description}
-            />
-          ))}
-        </div>
-        <div>
-          <div className="flex flex-col">
-            <div className="bg-[#EDEEF1] self-center rounded">
-              <CalenderImage />
-            </div>
-            <div className="flex flex-col pt-4 bg-[#FFF] rounded border-2 border-[#EDEEF1]">
-              <div className="self-center">
-                <LineIcon />
+                {/* {scheduleUnits.length > 3 && (
+                      // Code to be rendered if the condition is true
+
+                    )} */}
+
+                <div className=" col-span-3 sm:col-span-5 md:col-span-6 grid md:grid-cols-2 gap-4  h-fit">
+                  {scheduleUnits.map(
+                    ({
+                      scheduleId,
+                      courseCode,
+                      lecturerName,
+                      startTime,
+                      endTime,
+                      color,
+                    }) =>
+                      scheduleId === isSelectedSchedule && (
+                        <ScheduleUnit
+                          icon={color.icon}
+                          courseCode={courseCode}
+                          lecturerName={lecturerName}
+                          startTime={startTime}
+                          endTime={endTime}
+                          bg={color.bg}
+                          textColor={color.textColor}
+                        />
+                      )
+                  )}
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </DashboardLayout>
   );
 };
