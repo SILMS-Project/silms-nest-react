@@ -21,5 +21,8 @@ Ensure successful verification of the token if correct. (Error message: Status c
 
 <span style="color:green;">&#10004;</span>Send a valid request with all required parameters.
 
+<span style="color:green;">&#10004;</span>Ensure the endpoint returns a meaningful error response if any required parameters are empty.
+
+
 
 
