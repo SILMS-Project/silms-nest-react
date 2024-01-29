@@ -16,4 +16,10 @@ Verify that the email has been successfully sent to the user if they exist. (Err
 <span style="color:red;">&#10060;</span> Confirm reset password token:
 Ensure successful verification of the token if correct. (Error message: Status code 500 error:cannot read properties of null(reading 'id') )
 
+## Test All Endpoints in the Programs Section
+#### Create a new program:
+
+<span style="color:green;">&#10004;</span>Send a valid request with all required parameters.
+
+
 
