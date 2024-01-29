@@ -25,4 +25,6 @@ Ensure successful verification of the token if correct. (Error message: Status c
 
 <span style="color:red;">&#10060;</span> Attempt to create a program with the same name as an existing one.
 
+#### Get a program by Name:
 
+<span style="color:green;">&#10004;</span>Send a valid request with a program name.
