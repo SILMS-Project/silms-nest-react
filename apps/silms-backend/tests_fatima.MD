@@ -28,3 +28,5 @@ Ensure successful verification of the token if correct. (Error message: Status c
 #### Get a program by Name:
 
 <span style="color:green;">&#10004;</span>Send a valid request with a program name.
+
+<span style="color:red;">&#10060;</span> Flag if no name is inputted.
