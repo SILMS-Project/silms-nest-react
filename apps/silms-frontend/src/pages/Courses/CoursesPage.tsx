@@ -40,10 +40,10 @@ const CoursesPage = () => {
 
   return (
     <DashboardLayout>
-      <div className="flex w-full justify-between items-center">
+      <div className="flex flex-col md:flex-row w-full justify-between gap-2 md:gap-0 md:items-center">
         <p className="text-[#1C274C] text-2xl font-semibold">Courses</p>
         <div className="relative">
-          <input className="px-4 py-3 w-[22.5rem] h-8 pl-10 flex shadow-none bg-white rounded-lg border-2 border-[#D9D9D9] self-stretch gap-2 items-center focus:outline-none" />
+          <input className="px-4 py-3 md:w-[22.5rem] w-full h-8 pl-10 flex shadow-none bg-white rounded-lg border-2 border-[#D9D9D9] self-stretch gap-2 items-center focus:outline-none" />
           <div className="absolute inset-y-0 left-0 px-4 flex items-center">
             <img src="/assets/icons/search-icon.svg" />
           </div>
