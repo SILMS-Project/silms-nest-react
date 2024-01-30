@@ -40,3 +40,5 @@ Ensure successful verification of the token if correct. (Error message: Status c
 <span style="color:green;">&#10004;</span> Send a valid request to update a program with the correct ID.
 
 <span style="color:green;">&#10004;</span>  Flag if the wrong ID is inputted.
+
+<span style="color:red;">&#10060;</span> Ensure no empty required fields are allowed.
