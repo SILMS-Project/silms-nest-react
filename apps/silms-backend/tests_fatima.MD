@@ -35,3 +35,6 @@ Ensure successful verification of the token if correct. (Error message: Status c
 <span style="color:green;">&#10004;</span> Send a valid request with a program ID.
 
 <span style="color:green;">&#10004;</span> Flag if incorrect ID is inputted.
+
+#### Update a Program by ID
+<span style="color:green;">&#10004;</span> Send a valid request to update a program with the correct ID.
