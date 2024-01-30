@@ -44,6 +44,9 @@ Ensure successful verification of the token if correct. (Error message: Status c
 <span style="color:red;">&#10060;</span> Ensure no empty required fields are allowed.
 
 #### Delete a Program by ID
-<span style="color:red;">&#10060;</span> Send a valid request to delete a program with the correct ID. (Has yest to be implemented)
+<span style="color:red;">&#10060;</span> Send a valid request to delete a program with the correct ID. (Has yet to be implemented)
+
+<span style="color:red;">&#10060;</span> Flag if the wrong ID is inputted. (Has yet to be implemented)
+
 
 
