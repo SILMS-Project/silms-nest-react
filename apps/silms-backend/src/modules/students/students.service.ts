@@ -52,7 +52,7 @@ export class StudentsService {
   async findOne(id: string) {
     const student = await this.studentRepository.findOne({
       where: { id },
-      relations: ['profile'],
+      relations: ['user'],
     });
     if (!student) {
       throw new Error('Student not found');
