@@ -14,6 +14,6 @@ export class CreateCourseModuleDto {
 
   @ApiProperty()
   @IsNotEmpty({ message: 'courseId is required' })
-  @IsUUID()
+  @IsUUID('4', { message: 'Invalid Course ID format' })
   readonly courseId: string;
 }
