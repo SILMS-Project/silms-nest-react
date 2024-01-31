@@ -6,5 +6,8 @@ Tasks done by Eze.
 
 ✔ Made/Created design for the course enrollment/modal page on figma. 
 
+✔ Made changes to the design of the course enrollment page as instructed by the team lead.
+
+
 
 
