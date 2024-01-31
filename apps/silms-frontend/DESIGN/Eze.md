@@ -4,4 +4,7 @@ Tasks done by Eze.
 
 ✔ Created the wireframe for the course enrollment/modal page on figma.
 
+✔ Made/Created design for the course enrollment/modal page on figma. 
+
+
 
