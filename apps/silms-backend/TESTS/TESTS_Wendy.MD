@@ -87,19 +87,24 @@ Endpoint: *:id*
 Endpoint: *course/:lecturerId*  
 <span style="color:green;">&#10004;</span> Successfully retrieved courses taken by a lecturer.  
 
-<span style="color:red;">&#10004;</span> Sends appropriate error message if lectureId does not exist.   
+<span style="color:red;">&#10060;</span> Sends appropriate error message if lectureId does not exist.   
 
 ### Get lecturer(s) taking a course [GET] 
 Endpoint: *lecturer/:courseId*  
-<span style="color:green;">&#10004;</span> Successfully retrieved lecturer(s) taking a course .  
+<span style="color:green;">&#10004;</span> Successfully retrieved courses taken by a lecturer.  
 
-<span style="color:red;">&#10004;</span> Sends appropriate error message if lectureId does not exist.   
+<span style="color:red;">&#10060;</span> Sends appropriate error message if lectureId does not exist.   
 
-### Update School by ID [PATCH]  
+### Unassign a Lecturer to a Course [POST]  
+Endpoint: */unassigned*  
+<span style="color:green;">&#10004;</span> Lecturer successfully unassigned from course. 
+
+<span style="color:red;">&#10060;</span> Sends appropriate error message if lecture and course assignment does not exist. 
+
+### Update Lecturer-Course by ID [PATCH]  
 Endpoint: *:id*  
-<span style="color:green;">&#10004;</span> School updated successfully. 
-
+<span style="color:red;">&#10060;</span> Delete endpoint not yet implemented 
 
 ### Delete School [DELETE]  
 Endpoint: *:id*  
-<span style="color:red;">&#10060;</span> Delete endpoint not yet implemented (due to it's complexity)  
+<span style="color:red;">&#10060;</span> Delete endpoint not implemented 
