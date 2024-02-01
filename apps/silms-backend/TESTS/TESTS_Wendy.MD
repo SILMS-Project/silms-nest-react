@@ -51,3 +51,45 @@ Endpoint: *:id*
 Endpoint: *:id*  
 <span style="color:red;">&#10060;</span> Delete endpoint not yet implemented (due to it's complexity)  
 
+
+
+
+
+
+## Testing All Lecturer-Courses Endpoints  
+Route: */lecturer-courses*  
+Sample Url: *http://localhost:3000/backend/v1/lecturer-courses/* 
+
+
+### Create New Lecturer-Course Endpoint [POST]   
+Endpoint: *nil*  
+<span style="color:green;">&#10004;</span> Successfully assigned Lecturer to Course.  
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if courseId name is missing.     
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if LecturerId is missing.     
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Lecturer has already been assigned to course (creation already exists).   
+ 
+
+### Get a Lecturer-Course by ID [GET]   
+Endpoint: *:id*  
+<span style="color:green;">&#10004;</span> Successfully retrieved Lecturer-Course by ID.
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Lecturer-Course does not exist.  
+
+### Get a School by abbreviation [GET] 
+Endpoint: *abbreviation/:abbreviation*  
+<span style="color:green;">&#10004;</span> Successfully retrieved school by abbreviation.  
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if school does not exist.   
+
+
+### Update School by ID [PATCH]  
+Endpoint: *:id*  
+<span style="color:green;">&#10004;</span> School updated successfully. 
+
+
+### Delete School [DELETE]  
+Endpoint: *:id*  
+<span style="color:red;">&#10060;</span> Delete endpoint not yet implemented (due to it's complexity)  
