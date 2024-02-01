@@ -54,6 +54,7 @@ Endpoint: *:id*
 
 
 
+---
 
 
 ## Testing All Lecturer-Courses Endpoints  
@@ -62,7 +63,7 @@ Sample Url: *http://localhost:3000/backend/v1/lecturer-courses/*
 
 
 ### Create New Lecturer-Course Endpoint [POST]   
-Endpoint: *nil*  
+Endpoint: */create*  
 <span style="color:green;">&#10004;</span> Successfully assigned Lecturer to Course.  
 
 <span style="color:green;">&#10004;</span> Sends appropriate error message if courseId name is missing.     
@@ -71,6 +72,10 @@ Endpoint: *nil*
 
 <span style="color:green;">&#10004;</span> Sends appropriate error message if Lecturer has already been assigned to course (creation already exists).   
  
+### Get All Lecturer-Courses [GET] 
+Endpoint: *nil*  
+<span style="color:green;">&#10004;</span> All Lecturer-Course retrieved successfully.  
+
 
 ### Get a Lecturer-Course by ID [GET]   
 Endpoint: *:id*  
@@ -78,12 +83,17 @@ Endpoint: *:id*
 
 <span style="color:green;">&#10004;</span> Sends appropriate error message if Lecturer-Course does not exist.  
 
-### Get a School by abbreviation [GET] 
-Endpoint: *abbreviation/:abbreviation*  
-<span style="color:green;">&#10004;</span> Successfully retrieved school by abbreviation.  
+### Get a Courses taken by a Lecturer [GET] 
+Endpoint: *course/:lecturerId*  
+<span style="color:green;">&#10004;</span> Successfully retrieved courses taken by a lecturer.  
 
-<span style="color:green;">&#10004;</span> Sends appropriate error message if school does not exist.   
+<span style="color:red;">&#10004;</span> Sends appropriate error message if lectureId does not exist.   
 
+### Get lecturer(s) taking a course [GET] 
+Endpoint: *lecturer/:courseId*  
+<span style="color:green;">&#10004;</span> Successfully retrieved lecturer(s) taking a course .  
+
+<span style="color:red;">&#10004;</span> Sends appropriate error message if lectureId does not exist.   
 
 ### Update School by ID [PATCH]  
 Endpoint: *:id*  
