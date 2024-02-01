@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
@@ -32,8 +33,8 @@ export class LecturersController {
   }
 
     @Version('1')
-    @Roles(['admin'])
-    @UseGuards(JwtAuthGuard, RolesGuard)
+   // @Roles(['admin'])
+    //@UseGuards(JwtAuthGuard, RolesGuard)
     @Get()
     @ApiOperation({ summary: 'Get all lecturers' })
     @ApiResponse({ status: 200, description: 'List of all lecturers' })

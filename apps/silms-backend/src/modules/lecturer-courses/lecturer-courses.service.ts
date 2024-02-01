@@ -108,7 +108,21 @@ export class LecturerCoursesService {
       },
     });
 
+
+    if (!lecturerCourse) {
+      if (!createLecturerCourseDto.lecturerId) {
+        throw new Error('Lecturer ID is required for unassignment.');
+      }
+  
+      if (!createLecturerCourseDto.courseId) {
+        throw new Error('Course ID is required for unassignment.');
+      }
+  
+      throw new Error('Lecturer Course Assignment not found.');
+    }
+
     this.remove(lecturerCourse.id);
+    return 'Lecturer unassigned successfully.';
   }
 
   update(id: string, updateLecturerCourseDto: UpdateLecturerCourseDto) {
