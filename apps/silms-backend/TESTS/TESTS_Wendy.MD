@@ -105,6 +105,47 @@ Endpoint: */unassigned*
 Endpoint: *:id*  
 <span style="color:red;">&#10060;</span> Delete endpoint not yet implemented 
 
-### Delete School [DELETE]  
+
+
+---
+## Testing All Course-Module Endpoints  
+Route: */course-modules*  
+Sample Url: *http://localhost:3000/backend/v1/course-modules/* 
+
+
+### Create New Course-Module Endpoint [POST]   
+Endpoint: *nil*  
+<span style="color:green;">&#10004;</span> Course-Modules successfully created.  
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Module number name is missing.     
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Module title is missing.     
+  
+ 
+### Get All Course-Modules [GET] 
+Endpoint: *nil*  
+<span style="color:green;">&#10004;</span> All Course-Modules retrieved successfully. 
+
+### Get All Course-Modules with Course Content [GET] 
+Endpoint: *nil*  
+<span style="color:green;">&#10004;</span> All Course-Modules retrieved successfully with course content. 
+
+### Find a Course-Module by ID [GET]   
 Endpoint: *:id*  
-<span style="color:red;">&#10060;</span> Delete endpoint not implemented 
+<span style="color:green;">&#10004;</span> Successfully retrieved Course-Module by ID.
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Course-Module does not exist.  
+
+
+### Update Course-Module by ID [PATCH]  
+Endpoint: *:id*  
+<span style="color:green;">&#10004;</span>  Course-Module updated successfully.
+
+<span style="color:red;">&#10060;</span> Does not appropriate error message if Course-Module does not exist.
+
+
+### Delete Course-Module [DELETE]  
+Endpoint: *:id*  
+<span style="color:green;">&#10004;</span> Course-Module deleted successfully
+
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Course-Module does not exist.  
