@@ -13,7 +13,7 @@ const ResultsPage = () => {
           </Breadcrumb>
         </div>
 
-        <div className="flex justify-between w-full">
+        <div className="flex flex-col gap-6 md:gap-0 md:flex-row justify-between w-full">
           <div className="flex gap-4">
             <div className="flex justify-between items-center bg-custom-secondary-3 p-4 rounded-[0.625rem] w-52">
               <div className="h-full justify-center flex flex-col">
