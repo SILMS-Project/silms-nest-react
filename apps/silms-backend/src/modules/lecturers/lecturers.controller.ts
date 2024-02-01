@@ -32,15 +32,15 @@ export class LecturersController {
     return this.lecturersService.create(createLecturerDto);
   }
 
-    @Version('1')
-   // @Roles(['admin'])
-    //@UseGuards(JwtAuthGuard, RolesGuard)
-    @Get()
-    @ApiOperation({ summary: 'Get all lecturers' })
-    @ApiResponse({ status: 200, description: 'List of all lecturers' })
-    findAll() {
-      return this.lecturersService.findAll();
-    }
+  @Version('1')
+  @Roles(['admin'])
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Get()
+  @ApiOperation({ summary: 'Get all lecturers' })
+  @ApiResponse({ status: 200, description: 'List of all lecturers' })
+  findAll() {
+    return this.lecturersService.findAll();
+  }
 
   @Version('1')
   @UseGuards(JwtAuthGuard)
