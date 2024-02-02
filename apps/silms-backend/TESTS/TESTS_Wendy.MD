@@ -217,31 +217,11 @@ Endpoint: *:id*
 ## Testing All Student-Course Endpoints  
 Route: */student-courses*  
 Sample Url: *http://localhost:3000/backend/v1/student-courses/* 
-
-
-### Create New Schedule Endpoint [POST]   
-Endpoint: *nil*  
-<span style="color:green;">&#10004;</span> Successfully created school.  
-
-<span style="color:green;">&#10004;</span> Sends appropriate error message if DayOfWeek is not Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.     
-
-<span style="color:green;">&#10004;</span> Sends appropriate error message if DayOfWeek is missing.     
-
-<span style="color:green;">&#10004;</span> Sends appropriate error message if startTime is missing.   
-
-<span style="color:green;">&#10004;</span> Sends appropriate error message if endTime is missing.   
-
-<span style="color:green;">&#10004;</span> Sends appropriate error message if courseId does not exists.   
-
-<span style="color:green;">&#10004;</span> Flags if startTime is not a string. 
-
-<span style="color:green;">&#10004;</span> Flags if endTime is not a string.  
-
-<span style="color:green;">&#10004;</span> Flags if room is not a string.   
+   
 
 ### Get All Student-Course [GET] 
 Endpoint: *nil*  
-<span style="color:green;">&#10004;</span> All Schedules retrieved successfully. 
+<span style="color:green;">&#10004;</span> All Student-Courses retrieved successfully. 
 
 
 ### Find a Student-Course by ID [GET]   
@@ -252,21 +232,19 @@ Endpoint: *:id*
 
 
 
-### Update Schedule by ID [PATCH]  
+### Update Student-Course by ID [PATCH]  
 Endpoint: *:id* 
-```Body
-{
-    "programId":"62dd4598-439d-4bfd-bdc4-ff46c5c3076d",
-    "level":"100"
-}
+<span style="color:red;">&#10060;</span>  Endpoint not implemented
+
+
+
+### Delete Student-Course [DELETE]  
+Endpoint: *:id*  
+<span style="color:red;">&#10060;</span> Action not possible
+
+``` Error Response
+"message": "update or delete on table \"student_course\" violates foreign key constraint \"FK_c86b8c6ee305b2b82a94789dc69\" on table \"result\""
 ```
 
-<span style="color:green;">&#10004;</span>  Schedule updated successfully.
 
-<span style="color:green;">&#10004;</span>  Shows appropriate error message if Schedule does not exist.
 
-### Delete Schedule [DELETE]  
-Endpoint: *:id*  
-<span style="color:green;">&#10004;</span> Schedule deleted successfully
-
-<span style="color:green;">&#10004;</span> Sends appropriate error message if Schedule does not exist.  
