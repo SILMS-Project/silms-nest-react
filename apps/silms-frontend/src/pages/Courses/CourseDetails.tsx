@@ -1,14 +1,13 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { useEffect, useState } from "react";
 import ApexCharts from "apexcharts";
-import { CaretRightOutlined } from "@ant-design/icons";
-import type { CSSProperties } from "react";
-import React from "react";
-import type { CollapseProps } from "antd";
-import { Collapse, Space, theme } from "antd";
+import { FC } from 'react';
+import { Collapse, Space } from "antd";
 // import Panel from "antd/es/cascader/Panel";
 
 const CourseDetails = () => {
+
+  const A: FC = () => <Collapse accordion items={items} />;
   const [chartOptions, _] = useState({
     series: [75],
     colors: ["#40E0BA"],
@@ -94,28 +93,72 @@ const CourseDetails = () => {
   it can be found as a welcome guest in many households across the world.
 `;
 
-  const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
-    panelStyle
-  ) => [
-    {
-      key: "1",
-      label: "This is panel header 1",
-      children: <p>{text}</p>,
-      style: panelStyle,
-    },
-    {
-      key: "2",
-      label: "This is panel header 2",
-      children: <p>{text}</p>,
-      style: panelStyle,
-    },
-    {
-      key: "3",
-      label: "This is panel header 3",
-      children: <p>{text}</p>,
-      style: panelStyle,
-    },
-  ];
+  const items = [
+      {
+        key: "1",
+        label: "This is panel header 1",
+        children: <p>{text}</p>,
+        
+      },
+      {
+        key: "2",
+        label: "This is panel header 2",
+        children: <p>{text}</p>,
+        
+      },
+      {
+        key: "3",
+        label: "This is panel header 3",
+        children: <p>{text}</p>,
+      },
+      {
+        key: "4",
+        label: "This is panel header 4",
+        children: <p>{text}</p>,
+      },
+      {
+        key: "5",
+        label: "This is panel header 5",
+        children: <p>{text}</p>,
+      },
+    ];
+
+  // const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
+  //   panelStyle
+    
+  // ) => [
+  //   {
+  //     key: "1",
+  //     label: "This is panel header 1",
+  //     children: <p>{text}</p>,
+  //     style: panelStyle,
+  //   },
+  //   {
+  //     key: "2",
+  //     label: "This is panel header 2",
+  //     children: <p>{text}</p>,
+  //     style: panelStyle,
+  //   },
+  //   {
+  //     key: "3",
+  //     label: "This is panel header 3",
+  //     children: <p>{text}</p>,
+  //     style: panelStyle,
+  //   },
+  //   {
+  //     key: "4",
+  //     label: "This is panel header 4",
+  //     children: <p>{text}</p>,
+  //     style: panelStyle,
+  //   },
+  //   {
+  //     key: "5",
+  //     label: "This is panel header 5",
+  //     children: <p>{text}</p>,
+  //     style: panelStyle,
+  //   },
+  // ];
+
 
   return (
     <DashboardLayout>
@@ -170,9 +213,29 @@ const CourseDetails = () => {
               <Collapse
                 size="large"
                 items={[
+                  
                   {
                     key: "1",
-                    label: "Module 1 : Introduction to Data Science",
+                    label: (
+                      <div className="flex items-center justify-between">
+                        <p className="text-[1rem] font-semibold">
+                          Module 1 : Introduction to Data Science
+                        </p>
+                        <div className="flex items-center">
+                          <div className="w-[50%] bg-custom-secondary-2 rounded-full h-3.625rem dark:bg-gray-700">
+                            <div
+                              className={`bg-custom-accent-1 h-full rounded-full`}
+                              style={{ width: '60%' }}
+                            ></div>
+                          </div>
+                          <span className="ml-2 text-[#000000] text-[0.625rem] font-semibold">
+                            {60}%
+                          </span>
+                        </div>
+                      </div>
+                    ),
+                  
+              
                     children: (
                       <>
                         <div>
@@ -210,9 +273,10 @@ const CourseDetails = () => {
                               src="/assets/icons/noteBig-icon.svg"
                               alt="Icon"
                             />
-                            <span className="font-medium text-[#000] text-[0.875rem]">Use case and Performance evaluation note</span>
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Use case and Performance evaluation note
+                            </span>
                           </label>
-                          
                         </div>
 
                         <div className="flex items-center space-x-4 mt-4">
@@ -230,9 +294,10 @@ const CourseDetails = () => {
                               src="/assets/icons/noteBig-icon.svg"
                               alt="Icon"
                             />
-                            <span className="font-medium text-[#000] text-[0.875rem]">Staff Promotion Use Case</span>
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Staff Promotion Use Case
+                            </span>
                           </label>
-                          
                         </div>
 
                         <div className="flex items-center space-x-4 mt-4">
@@ -250,37 +315,450 @@ const CourseDetails = () => {
                               src="/assets/icons/assessmentBig-icon.svg"
                               alt="Icon"
                             />
-                            <span className="font-medium text-[#000] text-[0.875rem]">Regression Assignment</span>
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Regression Assignment
+                            </span>
                           </label>
-                          
                         </div>
-
-                        
-
-                        
                       </>
                     ),
                   },
                   {
                     key: "2",
-                    label: "Module 2: Uses cases and Performance Evaluation",
-                    children: <p></p>,
+                    label: (
+                      <div className="flex items-center justify-between">
+                        <p className="text-[1rem] font-semibold">
+                          Module 2 : Use case and performanace evaluation note
+                        </p>
+                        <div className="flex items-center">
+                          <div className="w-[50%] bg-custom-secondary-2 rounded-full h-3.625rem dark:bg-gray-700">
+                            <div
+                              className={`bg-custom-accent-1 h-full rounded-full`}
+                              style={{ width: '60%' }}
+                            ></div>
+                          </div>
+                          <span className="ml-2 text-[#000000] text-[0.625rem] font-semibold">
+                            {60}%
+                          </span>
+                        </div>
+                      </div>
+                    ),
+                  
+              
+                    children: (
+                      <>
+                        <div>
+                          <Space align="center">
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/notes-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              2 notes
+                            </p>
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/assessment-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              1 graded assessment
+                            </p>
+                          </Space>
+                        </div>
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Use case and Performance evaluation note
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Staff Promotion Use Case
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/assessmentBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Regression Assignment
+                            </span>
+                          </label>
+                        </div>
+                      </>
+                    ),
                   },
+                  
                   {
                     key: "3",
-                    label: "Module 3: Data Preprocessing and Data Cleaning",
-                    children: <p></p>,
+                    label: (
+                      <div className="flex items-center justify-between">
+                        <p className="text-[1rem] font-semibold">
+                          Module 3 : Data Preprocessing
+                        </p>
+                        <div className="flex items-center">
+                          <div className="w-[50%] bg-custom-secondary-2 rounded-full h-3.625rem dark:bg-gray-700">
+                            <div
+                              className={`bg-custom-accent-1 h-full rounded-full`}
+                              style={{ width: '60%' }}
+                            ></div>
+                          </div>
+                          <span className="ml-2 text-[#000000] text-[0.625rem] font-semibold">
+                            {60}%
+                          </span>
+                        </div>
+                      </div>
+                    ),
+                  
+              
+                    children: (
+                      <>
+                        <div>
+                          <Space align="center">
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/notes-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              2 notes
+                            </p>
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/assessment-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              1 graded assessment
+                            </p>
+                          </Space>
+                        </div>
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Use case and Performance evaluation note
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Staff Promotion Use Case
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/assessmentBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Regression Assignment
+                            </span>
+                          </label>
+                        </div>
+                      </>
+                    ),
                   },
                   {
-                    key: "4",
-                    label: "Module 4: Data Processing and Data Analysis",
-                    children: <p></p>,
+                    key: "1",
+                    label: (
+                      <div className="flex items-center justify-between">
+                        <p className="text-[1rem] font-semibold">
+                          Module 4 : Data Processing & Data Analysis
+                        </p>
+                        <div className="flex items-center">
+                          <div className="w-[50%] bg-custom-secondary-2 rounded-full h-3.625rem dark:bg-gray-700">
+                            <div
+                              className={`bg-custom-accent-1 h-full rounded-full`}
+                              style={{ width: '60%' }}
+                            ></div>
+                          </div>
+                          <span className="ml-2 text-[#000000] text-[0.625rem] font-semibold">
+                            {60}%
+                          </span>
+                        </div>
+                      </div>
+                    ),
+                  
+              
+                    children: (
+                      <>
+                        <div>
+                          <Space align="center">
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/notes-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              2 notes
+                            </p>
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/assessment-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              1 graded assessment
+                            </p>
+                          </Space>
+                        </div>
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Use case and Performance evaluation note
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Staff Promotion Use Case
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/assessmentBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Regression Assignment
+                            </span>
+                          </label>
+                        </div>
+                      </>
+                    ),
                   },
                   {
-                    key: "5",
-                    label:
-                      "Module 5: Data Visualization and Data Interpretation",
-                    children: <p></p>,
+                    key: "1",
+                    label: (
+                      <div className="flex items-center justify-between">
+                        <p className="text-[1rem] font-semibold">
+                          Module 5 : Data Visualization & Interpretation
+                        </p>
+                        <div className="flex items-center">
+                          <div className="w-[50%] bg-custom-secondary-2 rounded-full h-3.625rem dark:bg-gray-700">
+                            <div
+                              className={`bg-custom-accent-1 h-full rounded-full`}
+                              style={{ width: '60%' }}
+                            ></div>
+                          </div>
+                          <span className="ml-2 text-[#000000] text-[0.625rem] font-semibold">
+                            {60}%
+                          </span>
+                        </div>
+                      </div>
+                    ),
+                  
+              
+                    children: (
+                      <>
+                        <div>
+                          <Space align="center">
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/notes-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              2 notes
+                            </p>
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/assessment-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              1 graded assessment
+                            </p>
+                          </Space>
+                        </div>
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Use case and Performance evaluation note
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Staff Promotion Use Case
+                            </span>
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/assessmentBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">
+                              Regression Assignment
+                            </span>
+                          </label>
+                        </div>
+                      </>
+                    ),
                   },
                 ]}
               />
