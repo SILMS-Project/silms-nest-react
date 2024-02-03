@@ -20,16 +20,25 @@ Tasks
   ✔ Updated the individual task tracking on the Github Repo.
 
 ✔ Designed Individual Course Page for Student View
+  ✔ Designed Wireframe for page
   ✔ Designed Navigation Bar
   ✔ Designed Side Bar
   ✔ Updated the individual task tracking on the Github Repo.
   ✔ Designed components and modules specific to the individual course page.
+  ✔ Designed page for individual course page
 
 ✔ Reviewed tasks assigned to Team members.
-  ✔ Designed Navigation Bar
-  ✔ Designed Side Bar
-  ✔ Updated the individual task tracking on the Github Repo.
-  ✔ Designed components and modules specific to the individual course page.
+  ✔ Gave feedback on designs and corrections.
+  ✔ Adjusted design to suit one design flow after review was done.
+
+✔ Reassigned some tasks and assigned new ones to team members
+  ✔ Reassigned Carlton and Sobes tasks to Lotanna and I.
+  ✔ Assigned lecturer dashboard page and individual course page.
+  ✔ Designed Lecturer Individual Course page.
+  ✔ Reviewed tasks assigned and made corrections.
+  ✔ Adjusted design to suit a design flow after review
+
+
 
     
 
