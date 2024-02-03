@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { useEffect, useState } from "react";
 import ApexCharts from "apexcharts";
-import { Collapse, CollapseProps, Divider} from "antd";
+import { Collapse, CollapseProps, Divider } from "antd";
 // import Panel from "antd/es/cascader/Panel";
 
 const CourseDetails = () => {
@@ -150,29 +150,264 @@ const CourseDetails = () => {
             </div>
           </div>
         </div>
+
         <div className="grid grid-cols-9 gap-4">
           <div className="col-span-6 flex items-center w-full h-[43px] px-[1.69rem] text-[1rem] text-[#ffffff] bg-[#063760] rounded-[5px]">
             Modules
           </div>
-          <div className="col-span-6 bg-[#ffffff] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
-          <>
-    <Divider orientation="left">Default Size</Divider>
-    <Collapse
-      items={[{ key: '1', label: 'This is default size panel header', children: <p>{text}</p> }]}
-    />
-    <Divider orientation="left">Small Size</Divider>
-    <Collapse
-      size="small"
-      items={[{ key: '1', label: 'This is small size panel header', children: <p>{text}</p> }]}
-    />
-    <Divider orientation="left">Large Size</Divider>
-    <Collapse
-      size="large"
-      items={[{ key: '1', label: 'This is large size panel header', children: <p>{text}</p> }]}
-    />
-  </>
+          <div className="col-span-3 ...">
+            <div className="w-full  bg-[#e6f0ed] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
+              <div className="flex items-center w-full justify-between">
+                <p className="font-semibold text-[#263238] text-[1rem] leading-normal">
+                  Grades
+                </p>
+                <img
+                  className="w-[2.1875rem] h-[2.1875rem]"
+                  src="/assets/icons/menu-icon.svg"
+                  alt="Menu Icon"
+                />
+              </div>
+              <div className="py-6" id="radial-chart"></div>
+
+              <div className="flex flex-col gap-2 w-full">
+                <div className="flex w-full justify-between text-[#949494] text-[0.75rem] font-semibold leading-normal">
+                  <p> Assessment</p>
+                  <p> Grade </p>
+                </div>
+                <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                  <p> Regression Assignment </p>
+                  <p> 6/10 </p>
+                </div>
+                <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                  <p> Preprocessing Assignment</p>
+                  <p> 8/10 </p>
+                </div>
+                <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                  <p> Data Science Project </p>
+                  <p> 6/10 </p>
+                </div>
+                <div className="flex w-full justify-between text-[#263238] text-[0.75rem] font-semibold leading-normal">
+                  <p> Participation </p>
+                  <p> 2/5 </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="col-span-3">
+          <div className="flex flex-col justify-between col-span-6 bg-[#ffffff] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] ">
+            <>
+              <Divider orientation="left">Default Size</Divider>
+              <Collapse
+                items={[
+                  {
+                    key: "1",
+                    label: "This is default size panel header",
+                    children: <p>{text}</p>,
+                  },
+                ]}
+              />
+              <Divider orientation="left">Small Size</Divider>
+              <Collapse
+                size="small"
+                items={[
+                  {
+                    key: "1",
+                    label: "This is small size panel header",
+                    children: <p>{text}</p>,
+                  },
+                ]}
+              />
+              <Divider orientation="left">Large Size</Divider>
+              <Collapse
+                size="large"
+                items={[
+                  {
+                    key: "1",
+                    label: "This is large size panel header",
+                    children: <p>{text}</p>,
+                  },
+                ]}
+              />
+            </>
+          </div>
+          <div className="col-span-3 ...">
+            <div className="bg-[#063760] rounded-[0.3125rem]">
+              <div className="flex flex-col py-6 px-5">
+                <p className="text-white text-base font-semibold">
+                  {" "}
+                  Enrolled Students
+                </p>
+                <p className="text-white text-xs font-semibold">
+                  {" "}
+                  25 students{" "}
+                </p>
+                <div className="flex flex-col w-full justify-between py-2 gap-3">
+                  <div className="flex justify-between">
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Anderson Pepple
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          apepple@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Nweje Wendy
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          nwendy@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Ali-concern Abba
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          aabba@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center align-middle">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Olowokere Anjola
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          oanjola@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Egbuna Kenenna
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          ekenenn@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Oyewole Nifemi
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          onifemi@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Juba Anjolade
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          ajubs@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Pepple Anderson
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          apepple@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Lewu Oyindamola
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          olewu@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-1 items-center py-2">
+                      <img src="/assets/icons/profile-image1.svg" />
+                      <div className="flex flex-col place-items-start justify-center">
+                        <p className="text-white text-xs font-medium leading-normal">
+                          Tswanya Grace
+                        </p>
+                        <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
+                          tswanya@pau.edu.ng
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="grid grid-cols-9 gap-4">
+          <div className="col-span-6 flex items-center w-full h-[43px] px-[1.69rem] text-[1rem] text-[#ffffff] bg-[#063760] rounded-[5px]">
+            Modules
+          </div>
+          <div className="flex flex-col justify-between col-span-6 bg-[#ffffff] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] ">
+            <>
+              <Divider orientation="left">Default Size</Divider>
+              <Collapse
+                items={[
+                  {
+                    key: "1",
+                    label: "This is default size panel header",
+                    children: <p>{text}</p>,
+                  },
+                ]}
+              />
+              <Divider orientation="left">Small Size</Divider>
+              <Collapse
+                size="small"
+                items={[
+                  {
+                    key: "1",
+                    label: "This is small size panel header",
+                    children: <p>{text}</p>,
+                  },
+                ]}
+              />
+              <Divider orientation="left">Large Size</Divider>
+              <Collapse
+                size="large"
+                items={[
+                  {
+                    key: "1",
+                    label: "This is large size panel header",
+                    children: <p>{text}</p>,
+                  },
+                ]}
+              />
+            </>
+          </div>
+          <div className="col-span-3 ">
             <div className="flex flex-col gap-8">
               <div className="w-full  bg-[#e6f0ed] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
                 <div className="flex items-center w-full justify-between">
@@ -347,7 +582,7 @@ const CourseDetails = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </DashboardLayout>
   );
