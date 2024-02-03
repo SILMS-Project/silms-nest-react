@@ -85,13 +85,13 @@ export class ProgramsController {
         return res.status(HttpStatus.OK).json({ programs });
       } 
       catch(error){
-        throw new HttpException('Programs not found', HttpStatus.NOT_FOUND);
+        throw new HttpException('Program not found', HttpStatus.NOT_FOUND);
       }
   }
 
   @Version('1')
-  // GET /programs/schools/:schoolId/programs
-  @Get('schools/:schoolId/programs')
+  // GET /programs/schools/:schoolId
+  @Get('schools/:schoolId')
   @ApiOperation({ summary: 'Get programs by school ID' })
   @ApiResponse({ status: 200, description: 'Programs found by school ID' })
   @ApiResponse({ status: 404, description: 'Programs not found' })
@@ -109,13 +109,18 @@ export class ProgramsController {
   }
 
   @Version('1')
-  // PATCH /programs/update/:id
+  // PATCH /programs/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update a program by ID' })
   @ApiResponse({ status: 200, description: 'Program successfully updated' })
   @ApiResponse({ status: 404, description: 'Program not found' })
-  update(@Param('id') id: string, @Body() updateProgramDto: UpdateProgramDto) {
-    return this.programsService.update(id, updateProgramDto);
+  async update(@Param('id') id: string, @Body() updateProgramDto: UpdateProgramDto, @Res() res: any) {
+    try {
+      const program = await this.programsService.update(id, updateProgramDto);
+      return res.status(HttpStatus.CREATED).json({program});
+    } catch (error) {
+      throw new HttpException(error, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Version('1')
@@ -125,6 +130,6 @@ export class ProgramsController {
   @ApiResponse({ status: 200, description: 'Program successfully deleted' })
   @ApiResponse({ status: 404, description: 'Program not found' })
   remove(@Param('id') id: string) {
-    return this.programsService.remove(+id);
+    return this.programsService.remove(id);
   }
 }

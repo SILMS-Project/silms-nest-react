@@ -23,7 +23,7 @@ export class AuthService {
     private mailService: MailService,
   ) {}
 
-  async create(createAuthDto: CreateAuthDto) : Promise<Auth> {
+  async create(createAuthDto: CreateAuthDto): Promise<Auth> {
     const auth = await this.findOneByEmail(createAuthDto.email);
 
     if (auth) {
@@ -37,7 +37,6 @@ export class AuthService {
     const authProps: AuthProps = {
       ...createAuthDto,
       password: await this.passwordService.hashPassword(createAuthDto.password),
-      isVerified: false,
     };
 
     const newAuth = this.authRepository.create({
@@ -48,10 +47,10 @@ export class AuthService {
   }
 
   async findOneByEmail(email: string) {
-    return await this.authRepository.findOneBy({ email });
+    return await this.authRepository.findOne({where: { email }, relations: ['user']});
   }
 
-  async find(id: string) {
+  async findOne(id: string) {
     const auth = await this.authRepository.findOneBy({ id });
 
     if (!auth) {
@@ -61,28 +60,35 @@ export class AuthService {
   }
 
   async validateUser(email: string, password: string): Promise<any> {
-    const auth = await this.findOneByEmail(email);
+    const user = await this.findOneByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+
 
     const isValidPassword = await this.passwordService.comparePassword(
       password,
-      auth.password,
+      user.password,
     );
 
-    if (auth && isValidPassword) {
-      const { password, email, ...rest } = auth;
-      return rest;
+    if (!isValidPassword) {
+      throw new UnauthorizedException('Invalid credentials');
     }
 
-    throw new UnauthorizedException();
+    // Omit sensitive fields like password from the returned user object
+    const { password: _, ...userInfo } = user;
+    return userInfo;
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const auth = await this.validateUser(
+    const user = await this.validateUser(
       loginUserDto.email,
       loginUserDto.password,
     );
 
-    const payload = { sub: auth.id };
+    const payload = { sub: user.id };
 
     return {
       access_token: this.jwtService.sign(payload),
@@ -91,6 +97,11 @@ export class AuthService {
 
   async update(updateAuthDto: UpdateAuthDto) {
     const auth = await this.findOneByEmail(updateAuthDto.email);
+
+    if (!auth) {
+      throw new Error('Auth does not exist!');
+    }
+
     return await this.authRepository.update(auth, updateAuthDto);
   }
 
@@ -99,7 +110,7 @@ export class AuthService {
       throw new Error('Passwords do not match');
     }
 
-    const auth = await this.find(changePasswordDto.authId);
+    const auth = await this.findOne(changePasswordDto.authId);
 
     if (
       !this.passwordService.comparePassword(
@@ -123,7 +134,7 @@ export class AuthService {
     return await this.authRepository
       .update(auth, { password: hashedPassword })
       .then(() => {
-        message: 'Password changed successfully'
+        message: 'Password changed successfully';
       });
   }
 
@@ -153,7 +164,7 @@ export class AuthService {
     }
 
     const authId = this.jwtService.decode(token.split(' ')[1]).id;
-    const auth = await this.find(authId);
+    const auth = await this.findOne(authId);
     const hashedPassword = await this.passwordService.hashPassword(
       confirmResetPasswordDto.password,
     );
@@ -161,12 +172,12 @@ export class AuthService {
     return await this.authRepository
       .update(auth, { password: hashedPassword })
       .then(() => {
-        message: 'Password reset successfully'
+        message: 'Password reset successfully';
       });
   }
 
   async verifyAccount(token: string) {
-    const auth = await this.find(this.jwtService.decode(token).id);
+    const auth = await this.findOne(this.jwtService.decode(token).id);
 
     if (!auth) {
       throw new Error('Auth does not exist!');

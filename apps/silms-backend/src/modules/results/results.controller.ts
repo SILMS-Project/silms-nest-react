@@ -73,13 +73,15 @@ export class ResultsController {
     return this.resultsService.remove(id);
   }
 
+  @Version('1')
   @Post('calculate')
   calculate(@Body() body: any) {
     return this.resultsService.calculateTotalScoreAndGrade(body.id);
   }
 
-  @Post('calculate-gpa')
-  calculateGPA(@Body() body: any) {
-    return this.resultsService.calculateGPAByStudentId(body.id);
+  @Version('1')
+  @Post('calculate-gpa/:id')
+  calculateGPA(@Param('id') id: string) {
+    return this.resultsService.calculateGPAByStudentId(id);
   }
 }

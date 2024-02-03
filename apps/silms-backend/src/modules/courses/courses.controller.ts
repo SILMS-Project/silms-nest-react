@@ -9,6 +9,7 @@ import {
   Version,
   HttpStatus,
   HttpException,
+  NotFoundException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CoursesService } from './courses.service';
@@ -53,8 +54,13 @@ export class CoursesController {
   @ApiOperation({ summary: 'Get a course by ID' })
   @ApiResponse({ status: 200, description: 'Course found by ID' })
   @ApiResponse({ status: 404, description: 'Course not found' })
-  findOne(@Param('id') id: string) {
-    return this.coursesService.findById(id);
+  async findOne(@Param('id') id: string): Promise<Course> {
+    console.log("hee", id);
+    const course = await this.coursesService.findById(id);
+    if (!course) {
+      throw new NotFoundException('Course not found');
+    }
+    return course
   }
   @Version('1')
   // GET courses/program/id/:id

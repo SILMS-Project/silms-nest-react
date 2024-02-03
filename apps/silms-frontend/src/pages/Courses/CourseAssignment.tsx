@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import { FileInput, Label } from "flowbite-react";
+import { Checkbox, FileInput, Label } from "flowbite-react";
 
 const CourseAssignment = () => {
   return (
@@ -47,8 +47,18 @@ const CourseAssignment = () => {
         <div className="grid grid-cols-7 gap-4">
           <div className="col-span-5">
             <div className="flex flex-col gap-8">
-              <div className="h-80 bg-black">
-                {/* //TODO: Implement assignment description designs*/}
+              <div className="">
+                <div className="w-full rounded-[0.3125rem] bg-[#063760] flex flex-row items-center gap-3 px-4 py-[0.63rem]">
+                  <Checkbox />
+                  <p className="text-base text-[#ffffff] font-semibold leading-normal">Regression Assessment</p>
+                </div>
+                <div className="px-4 py-9 flex flex-col gap-3" >
+                  <div className="flex gap-2">
+                    <img src="/assets/icons/description-icon.svg" alt="description icon" />
+                    <p className="text-black text-base font-semibold leading-normal">Description</p>
+                  </div>
+                  <p className="px-8 text-black text-sm font-medium leading-normal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda a doloremque aspernatur nesciunt. Cumque quibusdam nam modi quas a obcaecati facere placeat earum sit molestias, vero ex iusto minima est enim ut vitae voluptatem quae corrupti illo doloribus id. Rem.</p>
+                </div>
               </div>
               <div className="flex flex-col gap-4">
                 <p className="text-black text-[0.875rem] font-semibold">
@@ -148,71 +158,71 @@ const CourseAssignment = () => {
                   Submissions
                 </p>
                 <div className="flex flex-col justify-between py-7 gap-3">
-                    <div className="flex justify-between items-center px-4 py-1 gap-1 w-full">
-                      <div className="flex gap-2">
-                      <img src="/assets/icons/clock-loader.svg"></img>
-                      <p className="text-black font-semibold text-xs leading-normal">
-                        Submission Status
-                      </p>
-                      </div>
-                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
-                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
-                          Not submitted
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
-                      <div className="flex gap-2">
-                      <img src="/assets/icons/clock-loader.svg"></img>
-                      <p className="text-black font-semibold text-xs leading-normal">
-                      Grading Status
-                      </p>
-                      </div>
-                      <div className="rounded-[0.8125rem] bg-[#9E9E9E] px-2 py-1 w-[6.0625rem]">
-                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
-                          Not graded
-                        </p>
-                      </div>
-                  </div>
-                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
-                      <div className="flex gap-2">
-                      <img src="/assets/icons/clock-loader.svg"></img>
-                      <p className="text-black font-semibold text-xs leading-normal">
-                        Submission Status
-                      </p>
-                      </div>
-                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
-                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
-                          Not submitted
-                        </p>
-                      </div>
-                  </div>
-                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                  <div className="flex justify-between items-center px-4 py-1 gap-1 w-full">
                     <div className="flex gap-2">
                       <img src="/assets/icons/clock-loader.svg"></img>
                       <p className="text-black font-semibold text-xs leading-normal">
                         Submission Status
                       </p>
-                      </div>
-                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem] ">
-                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
-                          Not submitted
-                        </p>
-                      </div>
                     </div>
+                    <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
+                      <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                        Not submitted
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                    <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                        Grading Status
+                      </p>
+                    </div>
+                    <div className="rounded-[0.8125rem] bg-[#9E9E9E] px-2 py-1 w-[6.0625rem]">
+                      <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                        Not graded
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                    <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                        Submission Status
+                      </p>
+                    </div>
+                    <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
+                      <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                        Not submitted
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                    <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                        Submission Status
+                      </p>
+                    </div>
+                    <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem] ">
+                      <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                        Not submitted
+                      </p>
+                    </div>
+                  </div>
 
-                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                  <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
                     <div className="flex gap-2">
                       <img src="/assets/icons/clock-loader.svg"></img>
                       <p className="text-black font-semibold text-xs leading-normal">
                         Submission Status
                       </p>
-                      </div>
-                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
-                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
-                          Not submitted
-                        </p>
-                      </div>
+                    </div>
+                    <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
+                      <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                        Not submitted
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

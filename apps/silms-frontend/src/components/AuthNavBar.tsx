@@ -9,8 +9,18 @@ import {
   NavbarBrand,
   NavbarToggle,
 } from "flowbite-react";
+import { UserStateProps } from "@/store/interfaces/user.interface";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+// import { useGetCurrentSessionQuery } from "@/store/slices/appSlice";
 
 const AuthNavBar = () => {
+  const authSlice = useSelector<RootState, UserStateProps>(
+    (state) => state.auth.user
+  );
+
+  // const {data: currentSessionData} = useGetCurrentSessionQuery();
+
   useEffect(() => {
     const menuButton: any = document.getElementById("menu-button");
     const sideMenu: any = document.querySelector(".side-menu");
@@ -27,7 +37,10 @@ const AuthNavBar = () => {
   }, []);
 
   return (
-    <Navbar fluid className="h-[4.125rem] w-full bg-white shadow-custom z-20 top-0 left-0 fixed">
+    <Navbar
+      fluid
+      className="h-[4.125rem] w-full bg-white shadow-custom z-20 top-0 left-0 fixed"
+    >
       <NavbarBrand className="md:px-8 px-2 gap-2 md:gap-3" href="/">
         <img src="/assets/icons/app-icon.svg" alt="Wisr Logo" />
         <span className="self-center text-black  whitespace-nowrap text-xl md:text-3xl font-semibold dark:text-white">
@@ -40,7 +53,6 @@ const AuthNavBar = () => {
         <Dropdown
           arrowIcon={true}
           inline
-          
           label={
             <div className="flex gap-2 md:gap-3">
               <Avatar
@@ -49,7 +61,9 @@ const AuthNavBar = () => {
                 rounded
               />
               <div className="flex flex-col text-start">
-                <p className="text-xs font-bold">Rukevwe Adams</p>
+                <p className="text-xs font-bold">{`${
+                  authSlice?.firstName || " "
+                } ${authSlice?.lastName || " "}`}</p>
                 <p className="text-[0.625rem] font-medium">CSC 2022/23</p>
               </div>
             </div>

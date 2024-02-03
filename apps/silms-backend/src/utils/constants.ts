@@ -2,6 +2,7 @@ export enum Role {
   Applicant = 'applicant',
   Student = 'student',
   Lecturer = 'lecturer',
+  Admin = 'admin',
 }
 
 export enum AssessmentType {

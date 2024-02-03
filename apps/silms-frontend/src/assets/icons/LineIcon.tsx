@@ -10,8 +10,8 @@ const LineIcon = () => {
       <path
         d="M2 2H27"
         stroke="#C4C4C4"
-        stroke-width="2.5"
-        stroke-linecap="round"
+        strokeWidth="2.5"
+        strokeLinecap="round"
       />
     </svg>
   );
