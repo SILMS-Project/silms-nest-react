@@ -71,6 +71,42 @@ async function bootstrap() {
     this.logger.error(error);
   }
 
+  //const localesPath = join(__dirname, '../../../../', 'demo-backend','src','locales');
+
+  /*i18next
+    
+    .use(i18nextMiddleware.LanguageDetector)
+    //@ts-ignore
+    .use(Backend)
+    .init({
+      debug: false,
+      preload: ['en', 'en-US', 'fr'],
+      ns: ['public', 'adm'],
+      defaultNS: 'public',
+      backend: {
+        loadPath: `${localesPath}/{{lng}}/{{ns}}.json`,
+        addPath: `${localesPath}/{{lng}}/{{ns}}.missing.json`,
+      }
+    }//, (err, t) => {
+      // init set content
+      //console.log(t);
+      //console.log(err);
+      // console.log('INIT DONE');}
+    );
+*/
+
+  /* //expose the underlying http server
+    const httpInstance = app.getHttpAdapter().getInstance();
+  
+    httpInstance.use(
+      //@ts-ignore
+      i18nextMiddleware.handle(i18next, {
+        //ignoreRoutes: [], // or function(req, res, options, i18next) // return true to ignore 
+        removeLngFromUrl: false // removes the language from the url when language detected in path
+      })
+    )
+  */
+
   await app.listen(
     process.env.APP_SERVER_LISTEN_PORT,
     process.env.APP_SERVER_LISTEN_IP,
