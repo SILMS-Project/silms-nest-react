@@ -3,7 +3,6 @@ import EnrollCourseModal from "@/components/EnrollCourseModal";
 import Pagination from "@/components/Pagination";
 import {  Tabs } from "flowbite-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 // const customTabTheme = {
 //   tablist: {
@@ -33,7 +32,7 @@ const CoursesPage = () => {
 
   // Generate cards for the current page
   const startIndex = (currentPage - 1) * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
+  // const endIndex = startIndex + cardsPerPage;
   const currentCards = Array.from(
     { length: cardsPerPage },
     (_, index) => `Card ${startIndex + index + 1}`
@@ -97,7 +96,7 @@ const CoursesPage = () => {
                       <div className="flex gap-2 items-center">
                         <img
                           className="w-4 h-4"
-                          src="assets/images/profile-image.png"
+                          src="/assets/images/profile-image.png"
                         />
                         <p className="text-custom-primary-2 text-[0.625rem]">
                           Pius Onobhayedo, PhD.

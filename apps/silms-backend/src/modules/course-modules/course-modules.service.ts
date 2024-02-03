@@ -16,9 +16,28 @@ export class CourseModulesService {
     ) {}
 
   async create(createCourseModuleDto: CreateCourseModuleDto): Promise<CourseModule> {
-    const courseModule = this.courseModuleRepository.create(createCourseModuleDto);
+    const coursemodule = await this.courseModuleRepository.findOneBy({moduleTitle: createCourseModuleDto.moduleTitle, course: {id: createCourseModuleDto.courseId}});
+    if (coursemodule) {
+      throw new Error('Course already exists');
+    }
+
+    const course = await this.coursesService.findById(
+      createCourseModuleDto.courseId,
+    )
+    if (!course) {
+      throw new Error(
+        `Course with id ${createCourseModuleDto.courseId} does not exist`,
+      );
+    }
+
+    const courseModuleProps = {
+    ...createCourseModuleDto,
+      course: course,
+    };
+
+    const newCourseModule = this.courseModuleRepository.create({...courseModuleProps});
     // Additional logic 
-    const savedCourseModule = await this.courseModuleRepository.save(courseModule);
+    const savedCourseModule = await this.courseModuleRepository.save(newCourseModule);
     return savedCourseModule;
   }
 

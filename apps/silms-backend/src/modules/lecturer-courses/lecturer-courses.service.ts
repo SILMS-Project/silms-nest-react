@@ -68,6 +68,7 @@ export class LecturerCoursesService {
   async findCoursesByLecturer(lecturerId: string): Promise<Course[]> {
     const lecturerCourses = await this.lecturerCoursesRepository.find({
       where: { lecturer: { id: lecturerId } },
+      relations: ['course', 'lecturer'],
     });
 
     return await Promise.all(
@@ -80,6 +81,7 @@ export class LecturerCoursesService {
   async findLecturersByCourse(courseId: string): Promise<Lecturer[]> {
     const lecturerCourses = await this.lecturerCoursesRepository.find({
       where: { course: { id: courseId } },
+      relations: ['course', 'lecturer'],
     });
     return await Promise.all(
       lecturerCourses.map((lecturerCourse) =>
@@ -106,7 +108,21 @@ export class LecturerCoursesService {
       },
     });
 
+
+    if (!lecturerCourse) {
+      if (!createLecturerCourseDto.lecturerId) {
+        throw new Error('Lecturer ID is required for unassignment.');
+      }
+  
+      if (!createLecturerCourseDto.courseId) {
+        throw new Error('Course ID is required for unassignment.');
+      }
+  
+      throw new Error('Lecturer Course Assignment not found.');
+    }
+
     this.remove(lecturerCourse.id);
+    return 'Lecturer unassigned successfully.';
   }
 
   update(id: string, updateLecturerCourseDto: UpdateLecturerCourseDto) {

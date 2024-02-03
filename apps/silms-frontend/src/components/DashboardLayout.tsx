@@ -20,7 +20,7 @@ const DashboardLayout = ({ children }: LayoutProps) => {
             <SideMenu />
           </div>
         </div>
-        <div className="flex-1 overflow-x-auto ml-0 lg:ml-[13.275rem] px-4 lg:px-8 mt-[10px] lg:mt-28 mb-10">
+        <div className="flex-1 overflow-x-auto ml-0 lg:ml-[13.275rem] px-4 lg:px-8 mt-28 mb-10">
           {children}
         </div>
       </div>

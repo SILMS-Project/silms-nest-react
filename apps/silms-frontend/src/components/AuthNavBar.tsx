@@ -28,13 +28,13 @@ const AuthNavBar = () => {
 
   return (
     <Navbar fluid className="h-[4.125rem] w-full bg-white shadow-custom z-20 top-0 left-0 fixed">
-      <NavbarBrand className="md:px-8 px-3 gap-3" href="/">
+      <NavbarBrand className="md:px-8 px-2 gap-2 md:gap-3" href="/">
         <img src="/assets/icons/app-icon.svg" alt="Wisr Logo" />
-        <span className="self-center text-black  whitespace-nowrap text-3xl font-semibold dark:text-white">
+        <span className="self-center text-black  whitespace-nowrap text-xl md:text-3xl font-semibold dark:text-white">
           Wisr
         </span>
       </NavbarBrand>
-      <div className="flex md:order-2 gap-3">
+      <div className="flex md:order-2 gap-1 md:gap-3">
         <img src="/assets/icons/notifications-icon.svg" alt="Notification" />
 
         <Dropdown
@@ -42,7 +42,7 @@ const AuthNavBar = () => {
           inline
           
           label={
-            <div className="flex gap-3">
+            <div className="flex gap-2 md:gap-3">
               <Avatar
                 alt="User settings"
                 img="/assets/images/auth-profile-image.png"

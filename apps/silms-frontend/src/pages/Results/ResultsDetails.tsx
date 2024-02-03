@@ -1,6 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
-import { Link } from "react-router-dom";
 
 const ResultsDetails = () => {
   return (
