@@ -6,7 +6,7 @@ import {
 import { LoginSchema } from "@/utils/Yup";
 import { Alert, Checkbox, Label } from "flowbite-react";
 import { Form, Formik } from "formik";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback,  useState } from "react";
 import { Link } from "react-router-dom";
 import { LiaEyeSlashSolid, LiaEyeSolid } from "react-icons/lia";
 import {  useLoginMutation } from "@/store/slices/appSlice";
@@ -26,8 +26,8 @@ const Login = () => {
   );
   const [
     login,
-    { isLoading: loginIsLoading, error: loginError, isError: loginIsError },
-  ] = useLoginMutation();
+    {  error: loginError, isError: loginIsError },
+  ]:any = useLoginMutation();
 
 
   const handleLogin = useCallback(
@@ -35,7 +35,7 @@ const Login = () => {
       try {
         setIsLoginLoading(true);
         const response = await login(props);
-        if (response.data?.access_token) {
+        if (response?.data?.access_token) {
           localStorage.setItem("token", response.data.access_token);
           dispatch(loadUser());
         }
@@ -101,7 +101,7 @@ const Login = () => {
                           {loginIsError && (
                             <Alert color="failure" className="py-3">
                               <span className="font-medium">
-                                {loginError?.data?.error?.message}
+                                {loginError && loginError?.data?.error?.message}
                               </span>
                             </Alert>
                           )}

@@ -1,4 +1,4 @@
-import { Dispatch, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {  createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserStateProps } from "../interfaces/user.interface";
 import axios from "axios";
 
@@ -55,7 +55,7 @@ const authSlice = createSlice({
       state.user = payload.user;
     });
 
-    builder.addCase(loadUser.rejected, (state, action) => {
+    builder.addCase(loadUser.rejected, () => {
       localStorage.removeItem("token");
       // state.errMsg = {
       //   msg: action.error.message,

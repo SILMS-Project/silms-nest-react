@@ -36,7 +36,7 @@ const CoursesPage = () => {
     (state) => state.auth.user
   );
 
-  const { data: courseData, isLoading, error } = useGetCoursesQuery();
+  const { data: courseData, isLoading } = useGetCoursesQuery();
 
   const { data: studentCoursesData, isLoading: isLoadingStudentCourses } =
     useGetStudentCoursesQuery(authSlice?.student?.id || "");

@@ -8,13 +8,13 @@ import { useParams } from "react-router-dom";
 import { UserStateProps, Role } from "@/store/interfaces/user.interface";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { FC } from 'react';
+// import { FC } from 'react';
 import { Collapse, Space } from "antd";
 // import Panel from "antd/es/cascader/Panel";
 
 const CourseDetails = () => {
 
-  const A: FC = () => <Collapse accordion items={items} />;
+  // const A: FC = () => <Collapse accordion items={items} />;
   const [chartOptions, _] = useState({
     series: [75],
     colors: ["#40E0BA"],
@@ -108,41 +108,41 @@ const CourseDetails = () => {
 
   console.log(error);
   console.log(courseData);
-  const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+//   const text = `
+//   A dog is a type of domesticated animal.
+//   Known for its loyalty and faithfulness,
+//   it can be found as a welcome guest in many households across the world.
+// `;
 
-  const items = [
-      {
-        key: "1",
-        label: "This is panel header 1",
-        children: <p>{text}</p>,
+  // const items = [
+  //     {
+  //       key: "1",
+  //       label: "This is panel header 1",
+  //       children: <p>{text}</p>,
         
-      },
-      {
-        key: "2",
-        label: "This is panel header 2",
-        children: <p>{text}</p>,
+  //     },
+  //     {
+  //       key: "2",
+  //       label: "This is panel header 2",
+  //       children: <p>{text}</p>,
         
-      },
-      {
-        key: "3",
-        label: "This is panel header 3",
-        children: <p>{text}</p>,
-      },
-      {
-        key: "4",
-        label: "This is panel header 4",
-        children: <p>{text}</p>,
-      },
-      {
-        key: "5",
-        label: "This is panel header 5",
-        children: <p>{text}</p>,
-      },
-    ];
+  //     },
+  //     {
+  //       key: "3",
+  //       label: "This is panel header 3",
+  //       children: <p>{text}</p>,
+  //     },
+  //     {
+  //       key: "4",
+  //       label: "This is panel header 4",
+  //       children: <p>{text}</p>,
+  //     },
+  //     {
+  //       key: "5",
+  //       label: "This is panel header 5",
+  //       children: <p>{text}</p>,
+  //     },
+  //   ];
 
   // const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
   //   panelStyle
@@ -1068,7 +1068,6 @@ const CourseDetails = () => {
               </div>
 
               <div className="bg-[#063760] rounded-[0.3125rem]">
-<<<<<<< HEAD
                 <div className="flex flex-col py-6 px-5">
                   <p className="text-white text-base font-semibold">
                     {" "}
@@ -1078,11 +1077,6 @@ const CourseDetails = () => {
                     {" "}
                     25 students{" "}
                   </p>
-=======
-                <div className="flex flex-col py-6 px-4 sm:px-6 md:px-8 truncate">
-                  <p className="text-white text-base font-semibold"> Enrolled Students</p>
-                  <p className="text-white text-xs font-semibold"> 25 students </p>
->>>>>>> origin/dev
                   <div className="flex flex-col w-full justify-between py-2 gap-3">
                     <div className="flex justify-between">
                       <div className="flex gap-1 items-center py-2">

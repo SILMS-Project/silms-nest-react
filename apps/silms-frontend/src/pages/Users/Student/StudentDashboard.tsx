@@ -7,13 +7,13 @@ import ScheduleUnit from "@/components/ScheduleUnit";
 import ConditionalRoute from "@/routes/ConditionalRoute";
 import { Role, UserStateProps } from "@/store/interfaces/user.interface";
 import {
-  useGetCGPAQuery,
+  // useGetCGPAQuery,
   useGetScheduleByProgramAndLevelQuery,
   useGetStudentCoursesQuery,
   useLoadUserQuery,
 } from "@/store/slices/appSlice";
 import { RootState } from "@/store/store";
-import { getRandomColor, scheduleUnits } from "@/utils/colorUtils";
+import { getRandomColor } from "@/utils/colorUtils";
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -24,19 +24,19 @@ const StudentDashboard = () => {
 
   const {
     data: loadUserData,
-    isLoading: loadUserIsLoading,
-    error: loadUserError,
+    // isLoading: loadUserIsLoading,
+    // error: loadUserError,
   } = useLoadUserQuery();
 
   const authSlice = useSelector<RootState, UserStateProps>(
     (state) => state.auth.user
   );
 
-  const { data: cgpaData, error } = useGetCGPAQuery(
-    authSlice?.student?.id || ""
-  );
+  // const { data: cgpaData, error } = useGetCGPAQuery(
+  //   authSlice?.student?.id || ""
+  // );
 
-  console.log(error);
+  // console.log(error);
 
   const { data: scheduleData, isLoading: isLoadingScheduleData } =
     useGetScheduleByProgramAndLevelQuery({
@@ -213,7 +213,6 @@ const StudentDashboard = () => {
                               course,
                               startTime,
                               endTime,
-                              room,
                             }: any) =>
                               dayOfWeek ===
                                 scheduleLabels[parseInt(isSelectedSchedule) - 1]

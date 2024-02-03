@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { LoginProps, UserProps } from "../interfaces/user.interface";
-import { CourseProps } from "../interfaces/course.interface";
+import { LoginProps } from "../interfaces/user.interface";
 import { setAuthToken } from "./authSlice";
 
 // Define the base query
@@ -59,7 +58,7 @@ export const appApi = createApi({
         body: credentials,
       }),
       // invalidatesTags: ["User"],
-      onQueryStarted: async (credentials, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (_:any, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
           localStorage.setItem('token', data.access_token);

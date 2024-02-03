@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { CombinedState, setupListeners } from "@reduxjs/toolkit/query";
+import {  setupListeners } from "@reduxjs/toolkit/query";
 import { appApi } from "./slices/appSlice";
 import storage from "redux-persist/lib/storage";
 import {

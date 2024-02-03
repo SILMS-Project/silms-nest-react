@@ -6,7 +6,7 @@ import ConditionalRoute from "@/routes/ConditionalRoute";
 import { Role, UserStateProps } from "@/store/interfaces/user.interface";
 import { useGetScheduleByProgramAndLevelQuery } from "@/store/slices/appSlice";
 import { RootState } from "@/store/store";
-import { getRandomColor, scheduleUnits } from "@/utils/colorUtils";
+import { getRandomColor } from "@/utils/colorUtils";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -104,7 +104,6 @@ const SchedulePage = () => {
                       course,
                       startTime,
                       endTime,
-                      room,
                     }: any) =>
                       dayOfWeek ===
                         scheduleLabels[parseInt(isSelectedSchedule) - 1]

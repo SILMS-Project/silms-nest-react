@@ -1,4 +1,4 @@
-import { Suspense, createContext, lazy, useEffect } from "react";
+import { Suspense, createContext, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "flowbite";
 import PageLoader from "@/components/PageLoader";
@@ -7,9 +7,8 @@ import { persistStore } from "redux-persist";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
-import { DEV_MODE } from "./global/frontend.settings";
+// import { QueryClient } from "@tanstack/react-query";
+
 import { AppContextType } from "./global/contexts";
 
 type Props = {
@@ -66,12 +65,12 @@ const App: React.FC<Props> = ({ assetMap }) => {
       baseUrl = assetMap.baseUrl;
       title = assetMap.initialContentMap.title!;
     }
-    console.log(title);
+    console.log(title, baseUrl);
     //console.log(`assetMap in AppWithNavDemo = ${JSON.stringify(assetMap)}`)
 
     //create a react query client at the top
     // Create a client
-    const queryClient = new QueryClient();
+    // const queryClient = new QueryClient();
 
     let persister = persistStore(store);
 

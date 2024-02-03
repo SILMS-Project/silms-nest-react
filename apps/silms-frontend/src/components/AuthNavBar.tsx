@@ -12,14 +12,14 @@ import {
 import { UserStateProps } from "@/store/interfaces/user.interface";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useGetCurrentSessionQuery } from "@/store/slices/appSlice";
+// import { useGetCurrentSessionQuery } from "@/store/slices/appSlice";
 
 const AuthNavBar = () => {
   const authSlice = useSelector<RootState, UserStateProps>(
     (state) => state.auth.user
   );
 
-  const {data: currentSessionData} = useGetCurrentSessionQuery();
+  // const {data: currentSessionData} = useGetCurrentSessionQuery();
 
   useEffect(() => {
     const menuButton: any = document.getElementById("menu-button");
