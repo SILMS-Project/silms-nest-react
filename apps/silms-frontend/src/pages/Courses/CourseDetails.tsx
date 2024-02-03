@@ -1,7 +1,11 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { useEffect, useState } from "react";
 import ApexCharts from "apexcharts";
-import { Collapse, CollapseProps, Divider } from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
+import type { CSSProperties } from "react";
+import React from "react";
+import type { CollapseProps } from "antd";
+import { Collapse, Space, theme } from "antd";
 // import Panel from "antd/es/cascader/Panel";
 
 const CourseDetails = () => {
@@ -90,21 +94,26 @@ const CourseDetails = () => {
   it can be found as a welcome guest in many households across the world.
 `;
 
-  const items: CollapseProps["items"] = [
+  const getItems: (panelStyle: CSSProperties) => CollapseProps["items"] = (
+    panelStyle
+  ) => [
     {
       key: "1",
       label: "This is panel header 1",
       children: <p>{text}</p>,
+      style: panelStyle,
     },
     {
       key: "2",
       label: "This is panel header 2",
       children: <p>{text}</p>,
+      style: panelStyle,
     },
     {
       key: "3",
       label: "This is panel header 3",
       children: <p>{text}</p>,
+      style: panelStyle,
     },
   ];
 
@@ -151,9 +160,131 @@ const CourseDetails = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-9 gap-4">
+        <div className="grid grid-cols-9 grid-flow-row gap-4">
           <div className="col-span-6 flex items-center w-full h-[43px] px-[1.69rem] text-[1rem] text-[#ffffff] bg-[#063760] rounded-[5px]">
             Modules
+          </div>
+          <div className="flex flex-col row-start-2 justify-between col-span-6 bg-[#ffffff] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] ">
+            <>
+              {/* <Divider orientation="left">Large Size</Divider> */}
+              <Collapse
+                size="large"
+                items={[
+                  {
+                    key: "1",
+                    label: "Module 1 : Introduction to Data Science",
+                    children: (
+                      <>
+                        <div>
+                          <Space align="center">
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/notes-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              2 notes
+                            </p>
+                            <img
+                              className="w-[1rem] h-[1rem]"
+                              src="/assets/icons/assessment-icon.svg"
+                              alt="Menu Icon"
+                            />
+                            <p className="font-bold text-[#949494] text-[0.75rem] leading-normal">
+                              1 graded assessment
+                            </p>
+                          </Space>
+                        </div>
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">Use case and Performance evaluation note</span>
+                          </label>
+                          
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/noteBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">Staff Promotion Use Case</span>
+                          </label>
+                          
+                        </div>
+
+                        <div className="flex items-center space-x-4 mt-4">
+                          <input
+                            type="checkbox"
+                            id="myCheckbox"
+                            className="form-checkbox h-[0.9375rem] w-[0.9375rem] rounded-[0.3125rem] text-[#063760] focus:ring-0"
+                          />
+                          <label
+                            htmlFor="myCheckbox"
+                            className="flex items-center space-x-2"
+                          >
+                            <img
+                              className="w-[1.125rem] h-[1.125rem]"
+                              src="/assets/icons/assessmentBig-icon.svg"
+                              alt="Icon"
+                            />
+                            <span className="font-medium text-[#000] text-[0.875rem]">Regression Assignment</span>
+                          </label>
+                          
+                        </div>
+
+                        
+
+                        
+                      </>
+                    ),
+                  },
+                  {
+                    key: "2",
+                    label: "Module 2: Uses cases and Performance Evaluation",
+                    children: <p></p>,
+                  },
+                  {
+                    key: "3",
+                    label: "Module 3: Data Preprocessing and Data Cleaning",
+                    children: <p></p>,
+                  },
+                  {
+                    key: "4",
+                    label: "Module 4: Data Processing and Data Analysis",
+                    children: <p></p>,
+                  },
+                  {
+                    key: "5",
+                    label:
+                      "Module 5: Data Visualization and Data Interpretation",
+                    children: <p></p>,
+                  },
+                ]}
+              />
+            </>
           </div>
           <div className="col-span-3 ...">
             <div className="w-full  bg-[#e6f0ed] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
@@ -193,42 +324,7 @@ const CourseDetails = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-between col-span-6 bg-[#ffffff] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] ">
-            <>
-              <Divider orientation="left">Default Size</Divider>
-              <Collapse
-                items={[
-                  {
-                    key: "1",
-                    label: "This is default size panel header",
-                    children: <p>{text}</p>,
-                  },
-                ]}
-              />
-              <Divider orientation="left">Small Size</Divider>
-              <Collapse
-                size="small"
-                items={[
-                  {
-                    key: "1",
-                    label: "This is small size panel header",
-                    children: <p>{text}</p>,
-                  },
-                ]}
-              />
-              <Divider orientation="left">Large Size</Divider>
-              <Collapse
-                size="large"
-                items={[
-                  {
-                    key: "1",
-                    label: "This is large size panel header",
-                    children: <p>{text}</p>,
-                  },
-                ]}
-              />
-            </>
-          </div>
+
           <div className="col-span-3 ...">
             <div className="bg-[#063760] rounded-[0.3125rem]">
               <div className="flex flex-col py-6 px-5">
@@ -497,6 +593,7 @@ const CourseDetails = () => {
                         <img src="/assets/icons/profile-image1.svg" />
                         <div className="flex flex-col place-items-start justify-center align-middle">
                           <p className="text-white text-xs font-medium leading-normal">
+                          <p className="text-white text-xs font-medium leading-normal">
                             Olowokere Anjola
                           </p>
                           <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
@@ -509,7 +606,6 @@ const CourseDetails = () => {
                       <div className="flex gap-1 items-center py-2">
                         <img src="/assets/icons/profile-image1.svg" />
                         <div className="flex flex-col place-items-start justify-center">
-                          <p className="text-white text-xs font-medium leading-normal">
                             Egbuna Kenenna
                           </p>
                           <p className="text-[#969696] text-[0.625rem] font-medium leading-normal">
