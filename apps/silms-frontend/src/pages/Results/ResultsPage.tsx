@@ -17,9 +17,9 @@ const ResultsPage = () => {
           <div className="flex gap-4">
             <div className="flex justify-between items-center bg-custom-secondary-3 p-4 rounded-[0.625rem] w-52">
               <div className="h-full justify-center flex flex-col">
-                <p className="text-custom-primary-1 text-lg font-bold">4.48</p>
+                <p className="text-custom-primary-1 text-lg font-bold">4.87</p>
                 <p className="text-[#969696] text-xs font-medium">
-                  Second-Class Upper
+                  First Class
                 </p>
               </div>
               <img src="/assets/icons/gpa-icon.svg" />
