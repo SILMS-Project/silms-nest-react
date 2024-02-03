@@ -2,19 +2,9 @@
 Route: */course-contents*
 Sample Url: *http://localhost:3000/backend/v1/course-contents/*
 
-### Create New Course Content [POST]
-
-
-### Get All Course Contents [GET]
-
-
-### Get a Course Content by ID [GET]
-
-
-### Get All Course Contents by Module [GET]
-
-
-### Update Course Content by ID [PATCH]
-
-
-### Delete Course Content [DELETE]
+### Create New Course [POST]
+Endpoint: *nil*  
+<span style="color:green;">&#10004;</span> Courses successfully created.  
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Course title is missing.     
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Course content is missing.
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Course module id is missing. 
