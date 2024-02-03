@@ -9,6 +9,7 @@ import {
   Delete,
   Version,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { SchedulesService } from './schedules.service';
 import { Schedule } from './entities/schedule.entity';
@@ -51,9 +52,15 @@ export class SchedulesController {
     type: Schedule,
     isArray: true,
   })
-  async findByProgramAndLevel(@Body() { programId, level }: { programId: string; level: string }) {
+  async findByProgramAndLevel(
+    @Query('programId') programId: string,
+    @Query('level') level: string
+  ) {
     try {
-      const schedules = await this.schedulesService.getAllSchedulesByProgramAndLevel(programId, parseInt(level, 10));
+      const schedules = await this.schedulesService.getAllSchedulesByProgramAndLevel(
+        programId,
+        parseInt(level, 10)
+      );
       return {
         status: HttpStatus.OK,
         message: 'List of schedules by program and level',

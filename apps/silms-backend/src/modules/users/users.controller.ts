@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Version,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -17,12 +19,26 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles-auth.guard';
 import { Roles } from '../auth/guards/roles.decorator';
+import { VerifyLogin } from '../auth/guards/verifylogin.strategy';
 
 @ApiTags('user')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+
+  @Version('1')
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(VerifyLogin)
+  @Get("/user")
+  @ApiOperation({ summary: 'get user' })
+  @ApiResponse({ status: 201, description: 'User successfully fetched' })
+  async user(@Res() res: any, @Req() req: any) {
+    console.log("jjj", req)
+    return res.status(200).send({ user: req.user });
+  }
+  
+  
   @Version('1')
   @Post('create')
   @ApiOperation({ summary: 'Create a new user' })
@@ -34,11 +50,11 @@ export class UsersController {
   @Version('1')
   @Roles(['admin'])
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Get()
+  @Get("users")
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'List of all users' })
-  findAll() {
-    return this.usersService.findAll();
+  async findAll() {
+    return await this.usersService.findAll();
   }
 
   @Version('1')

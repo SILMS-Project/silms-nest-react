@@ -15,7 +15,6 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User | any> {
-
     const user = await this.findByAuthEmail(createUserDto.email);
 
     if (user) {
@@ -24,39 +23,48 @@ export class UsersService {
 
     const userProps: UserProps = {
       ...createUserDto,
-      auth: await this.authService.findOneByEmail(createUserDto.email)
-    }
-
+      auth: await this.authService.findOneByEmail(createUserDto.email),
+    };
 
     // Create user's auth
     const newAuth = await this.authService.create({
       ...createUserDto,
-    })
+    });
 
     const newUser = this.userRepository.create({
       ...userProps,
       auth: newAuth,
-    })
+    });
 
     return await this.userRepository.save(newUser);
   }
 
-  async findByAuthEmail(email: string) : Promise<User> {
-    return await this.userRepository.findOneBy({auth: {email}});
+  async findByAuthEmail(email: string): Promise<User> {
+    return await this.userRepository.findOneBy({ auth: { email } });
   }
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
 
+  async findOneByAuthId(authId: string): Promise<User | undefined> {
+    return await this.userRepository.findOne({
+      where: { auth: { id: authId } },
+      relations: ['auth', 'student', 'lecturer'],
+    });
+  }
+
   async findOneById(id: string): Promise<User | undefined> {
-    return await this.userRepository.findOne({ where: { id } });
+    return await this.userRepository.findOne({
+      where: { id },
+      relations: ['student', 'lecturer'],
+    });
   }
 
   async find(id: string): Promise<User | undefined> {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
-      throw new Error("User not found!");
+      throw new Error('User not found!');
     }
     return user;
   }
@@ -65,7 +73,7 @@ export class UsersService {
     const user = await this.find(id);
 
     return this.userRepository.update(user, updateUserDto).then(() => {
-      message: 'User updated successfully'
+      message: 'User updated successfully';
     });
   }
 
@@ -73,7 +81,7 @@ export class UsersService {
     const user = await this.find(id);
 
     return this.userRepository.remove(user).then(() => {
-      message: 'User deleted successfully'
+      message: 'User deleted successfully';
     });
   }
 }

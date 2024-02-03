@@ -66,6 +66,7 @@ export class SchedulesService {
 
   async getAllSchedulesByProgramAndLevel(programId: string, level: number): Promise<Schedule[]> {
     try {
+      console.log(programId, level)
       // Fetch courses by program and level
       const courses = await this.coursesService.findCourseByLevelProgram(programId, level);
     
@@ -80,7 +81,7 @@ export class SchedulesService {
       // Fetch schedules by course IDs using the 'In' operator
       const schedules = await this.scheduleRepository.find({
         where: { course: { id: In(courseIds) } },
-        relations: ['course', 'session'], // Load related entities
+        relations: ['course', 'course.lecturerCourses.lecturer.user', 'session'], // Load related entities
       });
     
       return schedules;

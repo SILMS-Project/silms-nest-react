@@ -11,6 +11,7 @@ import {
   HttpException,
   Version,
   BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
