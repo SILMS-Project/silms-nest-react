@@ -11,7 +11,7 @@ const ResultsDetails = () => {
             <Breadcrumb aria-label="Default breadcrumb example">
               <BreadcrumbItem href="/result">Result</BreadcrumbItem>
               <BreadcrumbItem href={`/result/${1}`}>
-                Year 1-Semester 1
+                Year 4-Semester 1
               </BreadcrumbItem>
             </Breadcrumb>
           </div>
@@ -23,7 +23,7 @@ const ResultsDetails = () => {
         <div className="flex justify-between w-full items-center">
           <div className="flex flex-col">
             <p className="text-custom-primary-1 font-bold text-base ">
-              Year 1 | Semester 1
+              Year 4 | Semester 1
             </p>
             <p className="text-custom-primary-2 font-normal text-xs">
               Comp-Science-19/20-Year1-Sem1
@@ -59,70 +59,75 @@ const ResultsDetails = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
+            <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
                 <th scope="row" className="text-left px-6 py-5 whitespace-nowrap ">
-                  Communication in English I
+                  Introduction to Computer Science
                 </th>
                 <td className=" px-6 py-5">45.00</td>
-                <td className="px-6 py-5">30.00</td>
-                <td className="px-6 py-5">75.00</td>
+                <td className="px-6 py-5">25.00</td>
+                <td className="px-6 py-5">70.00</td>
                 <td className="px-6 py-5">A</td>
                 <td className="px-6 py-5">5</td>
               </tr>
               <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
                 <th scope="row" className="text-left px-6 py-5 whitespace-nowrap ">
-                  Communication in English I
+                  Introduction to Problem Solving
                 </th>
-                <td className=" px-6 py-5">45.00</td>
+                <td className=" px-6 py-5">40.00</td>
                 <td className="px-6 py-5">30.00</td>
-                <td className="px-6 py-5">75.00</td>
-                <td className="px-6 py-5">A</td>
-                <td className="px-6 py-5">5</td>
-              </tr><tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
+                <td className="px-6 py-5">70.00</td>
+                <td className="px-6 py-5">B</td>
+                <td className="px-6 py-5">4</td>
+              </tr>
+              <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
                 <th scope="row" className="text-left px-6 py-5 whitespace-nowrap ">
-                  Communication in English I
+                  Organization of Programming Languages
                 </th>
                 <td className=" px-6 py-5">45.00</td>
-                <td className="px-6 py-5">30.00</td>
-                <td className="px-6 py-5">75.00</td>
-                <td className="px-6 py-5">A</td>
-                <td className="px-6 py-5">5</td>
-              </tr><tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
+                <td className="px-6 py-5">20.00</td>
+                <td className="px-6 py-5">65.00</td>
+                <td className="px-6 py-5">B</td>
+                <td className="px-6 py-5">3.7</td>
+              </tr>
+              <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
                 <th scope="row" className="text-left px-6 py-5 whitespace-nowrap ">
-                  Communication in English I
+                  Software Engineering
                 </th>
-                <td className=" px-6 py-5">45.00</td>
+                <td className=" px-6 py-5">47.00</td>
                 <td className="px-6 py-5">30.00</td>
-                <td className="px-6 py-5">75.00</td>
+                <td className="px-6 py-5">77.00</td>
                 <td className="px-6 py-5">A</td>
-                <td className="px-6 py-5">5</td>
-              </tr><tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
+                <td className="px-6 py-5">4.8</td>
+              </tr>
+              <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
                 <th scope="row" className="text-left px-6 py-5 whitespace-nowrap ">
-                  Communication in English I
+                  Database Management II
                 </th>
-                <td className=" px-6 py-5">45.00</td>
-                <td className="px-6 py-5">30.00</td>
-                <td className="px-6 py-5">75.00</td>
+                <td className=" px-6 py-5">42.00</td>
+                <td className="px-6 py-5">35.00</td>
+                <td className="px-6 py-5">77.00</td>
                 <td className="px-6 py-5">A</td>
-                <td className="px-6 py-5">5</td>
-              </tr><tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
+                <td className="px-6 py-5">4.5</td>
+              </tr>
+              <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover-bg-gray-100 ">
                 <th scope="row" className="text-left px-6 py-5 whitespace-nowrap ">
-                  Communication in English I
+                  Artificial Intelligence
                 </th>
-                <td className=" px-6 py-5">45.00</td>
-                <td className="px-6 py-5">30.00</td>
-                <td className="px-6 py-5">75.00</td>
+                <td className="px-6 py-5">48.00</td>
+                <td className="px-6 py-5">28.00</td>
+                <td className="px-6 py-5">76.00</td>
                 <td className="px-6 py-5">A</td>
-                <td className="px-6 py-5">5</td>
-              </tr><tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
+                <td className="px-6 py-5">4.7</td>
+              </tr>
+              <tr className="text-center bg-white text-custom-primary-1 text-xs font-bold    hover:bg-gray-100 ">
                 <th scope="row" className="text-left px-6 py-5 whitespace-nowrap ">
-                  Communication in English I
+                  Special Topics in Software Engineering
                 </th>
-                <td className=" px-6 py-5">45.00</td>
-                <td className="px-6 py-5">30.00</td>
-                <td className="px-6 py-5">75.00</td>
-                <td className="px-6 py-5">A</td>
-                <td className="px-6 py-5">5</td>
+                <td className="px-6 py-5">39.00</td>
+                <td className="px-6 py-5">38.00</td>
+                <td className="px-6 py-5">67.00</td>
+                <td className="px-6 py-5">B</td>
+                <td className="px-6 py-5">4</td>
               </tr>
             </tbody>
           </table>
