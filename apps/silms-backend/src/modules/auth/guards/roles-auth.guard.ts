@@ -20,7 +20,7 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    const user = await this.authService.find(request.user.id);
+    const user = await this.authService.findOne(request.user.id);
     return roles[0] === user.role;
   }
 
