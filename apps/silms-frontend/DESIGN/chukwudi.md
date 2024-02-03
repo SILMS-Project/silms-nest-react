@@ -4,3 +4,5 @@ Tasks
   ✔ Created iconography.
   ✔ Worked on typography.
 
+✔ Designed Courses Page.
+  ✔ Created course card for each course offered.
