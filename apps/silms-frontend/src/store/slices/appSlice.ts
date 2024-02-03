@@ -84,6 +84,20 @@ export const appApi = createApi({
       }),
     }),
 
+    getResultByStudentCourseId: builder.query<any, string>({
+      query: (studentCourseId) => ({
+        url : `v1/results/student-course/${studentCourseId}`,
+        method: "GET",
+      }),
+    }),
+
+    getResultsByStudentId: builder.query<any, {studentId: string}>({
+      query: ({studentId}) => ({
+        url: `v1/results/student/${studentId}`,
+        method: "GET",
+      }),
+    }),
+
   }),
 });
 
@@ -99,6 +113,7 @@ export const {
   useGetStudentCoursesQuery,
   useGetCourseQuery,
   useGetCGPAQuery,
-
-
+  useGetResultByStudentCourseIdQuery,
+  useGetResultsByStudentIdQuery,
+  
 } = appApi;
