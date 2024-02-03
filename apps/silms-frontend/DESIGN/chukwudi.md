@@ -9,3 +9,6 @@ Tasks
   ✔ Finished Courses Page Wireframe.
   ✔ Finished Courses Page Design.
   ✔ Worked on icon groups.
+
+✔ Designed Lecturer Dashboard Page.
+    ✔ Finished Lecturer Dashboard Page Wireframe.
