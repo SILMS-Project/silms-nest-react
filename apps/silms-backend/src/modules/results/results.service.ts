@@ -68,7 +68,7 @@ export class ResultsService {
   async findByStudentId(studentId: string): Promise<Result[]> {
     const studentCourses = await this.studentCoursesService.findByStudentId(studentId);
   
-    if (studentCourses.length === 0) {
+    if (!studentCourses || studentCourses.length === 0) {
       throw new Error('No courses found for the student');
     }
   

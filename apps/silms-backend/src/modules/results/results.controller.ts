@@ -56,6 +56,16 @@ export class ResultsController {
   @Version('1')
   @Roles([Role.Lecturer, 'admin'])
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiOperation({ summary: 'Get a result by Student ID' })
+  @ApiResponse({ status: 200, description: 'Found result by Student ID.' })
+  @Get(':studentId')
+  findByStudentId(@Param('studentId') studentId: string){
+    return this.resultsService.findByStudentId(studentId)
+  }
+
+  @Version('1')
+  @Roles([Role.Lecturer, 'admin'])
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Update a result by ID' })
   @ApiResponse({ status: 200, description: 'Updated result by ID.' })
   @Patch(':id')
