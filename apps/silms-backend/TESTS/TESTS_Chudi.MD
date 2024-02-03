@@ -45,4 +45,4 @@ Endpoint: *:id*
 ### Delete Course Content by ID [DELETE]
 Endpoint: *:id*  
 <span style="color:green;">&#10004;</span> Course content deleted successfully
-<span style="color:green;">&#10004;</span> Sends appropriate error message if Course content does not exist. 
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Course content does not exist.
