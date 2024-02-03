@@ -8,3 +8,4 @@ Tasks
   ✔ Created course card for each course offered.
   ✔ Finished Courses Page Wireframe.
   ✔ Finished Courses Page Design.
+  ✔ Worked on icon groups.
