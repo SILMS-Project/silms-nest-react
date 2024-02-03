@@ -46,13 +46,15 @@ export class CoursesService {
   }
 
   async findAll(): Promise<Course[]> {
-    const courses = await this.courseRepository.find();
+    const courses = await this.courseRepository.find(
+      {relations: ['lecturerCourses.lecturer.user']}
+    );
     return courses;
   }
 
   async findById(id: string) {
-    const course = await this.courseRepository.findOne({ where: { id } });
-
+    console.log("ddd: ", id)
+    const course = await this.courseRepository.findOne({ where: { id }, relations: ["courseModules", "lecturerCourses.lecturer.user", "studentCourses.student.user"] });
     if (!course) {
       throw new NotFoundException(`Schedule with ID ${id} not found`);
     }
@@ -73,10 +75,12 @@ export class CoursesService {
     });
     return courses;
   }
-  async findCourseByLevelProgram(programId: string, level: number) {
+  async findCourseByLevelProgram(programName: string, level: number) {
+    // const programId = await this.programsService.findByName(program);
     const courses = await this.courseRepository.find({
-      where: { program: { id: programId }, level: level },
+      where: { program: { programName }, level: level },
     });
+    console.log(courses);
     return courses;
   }
 

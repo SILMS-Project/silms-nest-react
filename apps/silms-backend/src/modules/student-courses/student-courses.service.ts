@@ -40,7 +40,7 @@ export class StudentCoursesService {
   async findByStudentId(studentId: string): Promise<StudentCourse[]> {
     const studentCourse = await this.studentCourseRepository.find({
       where: { student: { id: studentId } },
-      relations: ['student', 'course'],
+      relations: ['student', 'course', 'student.user', 'student.user.auth', 'course.lecturerCourses.lecturer.user', 'result'],
     });
 
     if (!studentCourse) {

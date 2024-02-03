@@ -62,7 +62,7 @@ async function bootstrap() {
   });
 
   try {
-    SwaggerModule.setup('api', app, document, {
+    SwaggerModule.setup('/api', app, document, {
       swaggerOptions: {
         baseUrl: '/backend/v1',
       },

@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
+import { CombinedState, setupListeners } from "@reduxjs/toolkit/query";
 import { appApi } from "./slices/appSlice";
 import storage from "redux-persist/lib/storage";
 import {
@@ -12,15 +12,16 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import menuSlice from "./slices/menuSlice";
+import authSlice from "./slices/authSlice";
 
 export type RootState = {
-  main: any;
-  user: any;
   menu: any;
+  auth: any;
 };
 
 const rootReducer = combineReducers<any>({
   menu: menuSlice,
+  auth: authSlice,
   [appApi.reducerPath]: appApi.reducer,
 });
 

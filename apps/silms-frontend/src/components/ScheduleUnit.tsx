@@ -1,11 +1,9 @@
 interface LayoutProps {
-  icon: string;
   courseCode: string;
   lecturerName: string;
   startTime: string;
   endTime: string;
-  bg: string;
-  textColor: string;
+  color: any
 }
 
 const ScheduleUnit = (props: LayoutProps) => {
@@ -15,10 +13,10 @@ const ScheduleUnit = (props: LayoutProps) => {
         <p className="font-bold text-[0.75rem]">{props.startTime}</p>
       </div>
       <div
-        className={`rounded-[0.625rem] flex flex-row ${props.textColor} ${props.bg} items-center w-full gap-2 sm:gap-4 px-2 sm:px-3 py-4`}
+        className={`rounded-[0.625rem] flex flex-row ${props.color.textColor} ${props.color.bg} items-center w-full gap-2 sm:gap-4 px-2 sm:px-3 py-4`}
       >
         <img
-          src={`${props.icon}`}
+          src={`${props.color.icon}`}
           className="sm:w-[2.375rem] sm:h-[2.375rem] w-[1.75rem] h-[1.75rem]"
           alt="schedule unit icon"
         />

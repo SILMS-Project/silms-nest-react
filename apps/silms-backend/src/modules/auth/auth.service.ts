@@ -61,28 +61,33 @@ export class AuthService {
   }
 
   async validateUser(email: string, password: string): Promise<any> {
-    const auth = await this.findOneByEmail(email);
+    const user = await this.findOneByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
 
     const isValidPassword = await this.passwordService.comparePassword(
       password,
-      auth.password,
+      user.password,
     );
 
-    if (auth && isValidPassword) {
-      const { password, email, ...rest } = auth;
-      return rest;
+    if (!isValidPassword) {
+      throw new UnauthorizedException('Invalid credentials');
     }
 
-    throw new UnauthorizedException();
+    // Omit sensitive fields like password from the returned user object
+    const { password: _, ...userInfo } = user;
+    return userInfo;
   }
 
   async login(loginUserDto: LoginUserDto) {
-    const auth = await this.validateUser(
+    const user = await this.validateUser(
       loginUserDto.email,
       loginUserDto.password,
     );
 
-    const payload = { sub: auth.id };
+    const payload = { sub: user.id };
 
     return {
       access_token: this.jwtService.sign(payload),

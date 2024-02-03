@@ -66,6 +66,16 @@ export class StudentCoursesController {
   }
 
   @Version('1')
+  // GET /student-courses/:id
+  @Get('student/:id')
+  @ApiOperation({ summary: 'Get a student course by  StudentID' })
+  @ApiResponse({ status: 200, description: 'Student course found by  StudentID' })
+  @ApiResponse({ status: 404, description: 'Student course not found' })
+  findOneByStudentId(@Param('id') id: string) {
+    return this.studentCoursesService.findByStudentId(id);
+  }
+
+  @Version('1')
   // PATCH /student-courses/:id
   @Patch(':id')
   @ApiOperation({ summary: 'Update a student course by ID' })
