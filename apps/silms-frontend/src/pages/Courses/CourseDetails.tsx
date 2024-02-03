@@ -124,11 +124,11 @@ const CourseDetails = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-9 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-9 gap-4">
           <div className="col-span-6 w-full h-[43px] bg-[#063760] rounded-[5px]">
             {/* //TODO:  Implement the course details modules designs*/}
           </div>
-          <div className="col-span-3">
+          <div className="lg:col-span-3 md:col-span-4">
             <div className="flex flex-col gap-8">
               <div className="w-full  bg-[#e6f0ed] rounded-[0.3125rem] px-[1.69rem] py-[1.5rem] flex flex-col justify-between">
                 <div className="flex items-center w-full justify-between">
@@ -171,7 +171,7 @@ const CourseDetails = () => {
               </div>
 
               <div className="bg-[#063760] rounded-[0.3125rem]">
-                <div className="flex flex-col py-6 px-5">
+                <div className="flex flex-col py-6 px-4 sm:px-6 md:px-8">
                   <p className="text-white text-base font-semibold"> Enrolled Students</p>
                   <p className="text-white text-xs font-semibold"> 25 students </p>
                   <div className="flex flex-col w-full justify-between py-2 gap-3">
