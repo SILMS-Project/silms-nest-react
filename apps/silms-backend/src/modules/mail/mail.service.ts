@@ -5,6 +5,8 @@ import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import { Auth } from '../auth/entities/auth.entity';
 
+require('dotenv').config();
+
 export const emailIconsPath = join(
   __dirname,
   '../../../src/modules/mail/attachments',
@@ -64,7 +66,7 @@ export class MailService {
     )}/backend/auth/verify-account/${emailToken}`;
 
     const confirmationTemplate = {
-      from: process.env.SENDGRID_FROM_EMAIL,
+      from: process.env.EMAIL_USER,
       subject: 'Verify Your Email Address For Wisr',
       context: {
         url: url,
@@ -96,13 +98,11 @@ export class MailService {
   }
 
   async sendResetPassword(auth: Auth, emailToken: string): Promise<void> {
-    const url = `${this.configService.get(
-      'SERVER_URL',
-    )}/backend/auth/confirm-reset-password/${emailToken}`;
+    const url = `http://localhost:3000/backend/auth/confirm-reset-password/${emailToken}`;
 
     const confirmationTemplate = {
-      from: process.env.SENDGRID_FROM_EMAIL,
-      subject: '[Wisr] Password Reset Request',
+      from: process.env.EMAIL_USER,
+      subject: 'Password Reset Request',
       context: {
         email: auth.email,
         name: `${auth.user.firstName} ${auth.user.lastName}`,
@@ -116,18 +116,23 @@ export class MailService {
       ...confirmationTemplate,
     };
 
-    await this.sendUpdatePasswordMail(msg);
+    await this.sendUpdatePasswordMail(msg)
   }
 
   async sendUpdatePasswordMail(options: ISendMailOptions): Promise<void> {
     try {
+      console.log(options)
       return await this.mailerService.sendMail({
+        from: process.env.EMAIL_USER,
         to: options.to,
         subject: options.subject,
         text: options.text,
         template: 'updatePassword',
         context: options.context,
         attachments: options.attachments,
+
+      }).then((r) => {
+        console.log(r.from)
       });
     } catch (error) {
       throw new Error(error);

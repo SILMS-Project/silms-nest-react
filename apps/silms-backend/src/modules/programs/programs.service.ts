@@ -5,43 +5,38 @@ import { UpdateProgramDto } from './dto/update-program.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Program } from '@modules/programs/entities/program.entity';
 import { Repository } from 'typeorm';
-import { School } from '../schools/entities/school.entity';
 import { SchoolsService } from '../schools/schools.service';
+import { ProgramProps } from './interfaces/program.interface';
 
 @Injectable()
 export class ProgramsService {
   constructor(
     @InjectRepository(Program)
     private readonly programRepository: Repository<Program>,
-    @InjectRepository(School)
-    private readonly schoolRepository: Repository<School>,
     private schoolsService: SchoolsService,
   ) {}
 
   async create(createProgramDto: CreateProgramDto) {
-    try {
-      const program = await this.programRepository.save(createProgramDto);
-      const school = await this.schoolRepository.findOne({
-        where: { id: createProgramDto.schoolId },
-      });
-      if (!school) {
-        throw new Error(
-          `school with id ${createProgramDto.schoolId} not found`,
-        );
-      }
-      program.school = school;
-      const savedProgram = await this.programRepository.save(program);
-      return savedProgram;
-    } catch (error) {
-      return {
-        message: 'Failed to create program',
-        error: error.message || error,
-      };
+    console.log(createProgramDto.programName)
+    const program = await this.programRepository.findOne({where: {programName: createProgramDto.programName}});
+    console.log(program)
+    if (program) {
+      throw new Error("Program already exists!")
     }
+    const school = await this.schoolsService.findOne(createProgramDto.schoolId);
+
+    const programProps: ProgramProps = {
+      ...createProgramDto,
+      school
+    }
+
+    const newProgram = this.programRepository.create(programProps)
+
+    return await this.programRepository.save(newProgram)
   }
+
   async findAll(): Promise<Program[]> {
-    const program = await this.programRepository.find();
-    return program;
+    return await this.programRepository.find({relations: ['school']});
   }
 
   // function to find a program by its id
@@ -56,21 +51,27 @@ export class ProgramsService {
   }
 
   // function to find a program by its name
-  async findByName(programName: string): Promise<Program[]> {
-    const programs = await this.programRepository.find({ where: { programName } });
+  async findByName(programName: string): Promise<Program> {
+    const program = await this.programRepository.findOne({ where: { programName }, relations:['school'] });
     
-    if (!programs || programs.length === 0) {
-      throw new NotFoundException(`Schedule with Name ${programName} not found`);
+    if (!program) {
+      throw new NotFoundException(`Program with Name ${programName} not found`);
     }
 
-    return programs;
+    return program;
   }
 
   async getAllProgramsBySchool(schoolId: string) {
-    return this.programRepository.find({
+    const programs = await this.programRepository.find({
       where: { school: { id: schoolId } },
       relations: ['courses'],
     });
+
+    if (!programs || programs.length === 0) {
+      throw new NotFoundException(`No Program with schoolId ${schoolId}`);
+    }
+
+    return programs;
   }
 
 
@@ -87,16 +88,16 @@ export class ProgramsService {
     // Only fetch school if schoolId is provided in the DTO
     if (updateProgramDto.schoolId) {
       const school = await this.schoolsService.findOne(updateProgramDto.schoolId);
-      if (!school) {
-        throw new NotFoundException(`Course with ID ${updateProgramDto.schoolId} not found`);
-      }
       program.school = school;
     }
     // Save the updated schedule
     return this.programRepository.save(program);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} program`;
+  async remove(id: string) {
+    const program = await this.findById(id);
+    return await this.programRepository.remove(program).then(() => {
+      return {message: `Program with ${id} deleted.`}
+    })
   }
 }

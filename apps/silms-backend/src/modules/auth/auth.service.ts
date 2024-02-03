@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   async findOneByEmail(email: string) {
-    return await this.authRepository.findOneBy({ email });
+    return await this.authRepository.findOne({where: { email }, relations: ['user']});
   }
 
   async findOne(id: string) {
@@ -70,9 +70,6 @@ export class AuthService {
       throw new Error('Account not verified');
     }
 
-    if (auth.isLoggedIn) {
-      throw new Error('User already logged in');
-    }
 
     const isValidPassword = await this.passwordService.comparePassword(
       password,
@@ -83,7 +80,7 @@ export class AuthService {
       const { password, email, ...rest } = auth;
       return rest;
     }
-
+    
     throw new UnauthorizedException();
   }
 
@@ -92,8 +89,6 @@ export class AuthService {
       loginUserDto.email,
       loginUserDto.password,
     );
-
-    
 
     const payload = { sub: auth.id };
 
