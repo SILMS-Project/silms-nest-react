@@ -12,3 +12,4 @@ Tasks
 
 ✔ Designed Lecturer Dashboard Page.
     ✔ Finished Lecturer Dashboard Page Wireframe.
+    ✔ Finished Lecturer Dashboard Page Design.
