@@ -1,12 +1,12 @@
-import EnrolledCoursesIcon from "@/assets/icons/EnrolledCoursesIcon";
-import HiIcon from "@/assets/icons/HiIcon";
-import LineIcon from "@/assets/icons/LineIcon";
-import OutStandingFeesIcon from "@/assets/icons/OutStandingFeesIcon";
-import ReportIcon from "@/assets/icons/ReportIcon";
-import UnitsDoneIcon from "@/assets/icons/UnitsDoneIcon";
-import CalenderImage from "@/assets/images/CalenderImage";
+// import EnrolledCoursesIcon from "@/assets/icons/EnrolledCoursesIcon";
+// import HiIcon from "@/assets/icons/HiIcon";
+// import LineIcon from "@/assets/icons/LineIcon";
+// import OutStandingFeesIcon from "@/assets/icons/OutStandingFeesIcon";
+// import ReportIcon from "@/assets/icons/ReportIcon";
+// import UnitsDoneIcon from "@/assets/icons/UnitsDoneIcon";
+// import CalenderImage from "@/assets/images/CalenderImage";
 import DashboardLayout from "@/components/DashboardLayout";
-import ScheduleItem from "@/components/ScheduleItem";
+// import ScheduleItem from "@/components/ScheduleItem";
 
 const SchedulePage = () => {
   // const menus = [
