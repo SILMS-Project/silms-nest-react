@@ -17,3 +17,8 @@ Endpoint: *:id*
 <span style="color:green;">&#10004;</span> Successfully retrieved Course content by ID.
 <span style="color:green;">&#10004;</span> Sends appropriate error message if Course content does not exist.  
 
+### Get all Courses under a Program [GET]
+Endpoint: *program/id/:id*  
+<span style="color:green;">&#10004;</span> Successfully retrieved all Course contents.
+<span style="color:green;">&#10004;</span> Sends appropriate error message if Course content does not exist. 
+
