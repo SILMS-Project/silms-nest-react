@@ -7,3 +7,4 @@ Tasks
 ✔ Designed Courses Page.
   ✔ Created course card for each course offered.
   ✔ Finished Courses Page Wireframe.
+  ✔ Finished Courses Page Design.
