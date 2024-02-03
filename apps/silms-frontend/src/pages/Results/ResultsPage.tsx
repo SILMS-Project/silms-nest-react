@@ -17,9 +17,9 @@ const ResultsPage = () => {
           <div className="flex gap-4">
             <div className="flex justify-between items-center bg-custom-secondary-3 p-4 rounded-[0.625rem] w-52">
               <div className="h-full justify-center flex flex-col">
-                <p className="text-custom-primary-1 text-lg font-bold">4.48</p>
+                <p className="text-custom-primary-1 text-lg font-bold">4.87</p>
                 <p className="text-[#969696] text-xs font-medium">
-                  Second-Class Upper
+                  First Class
                 </p>
               </div>
               <img src="/assets/icons/gpa-icon.svg" />
@@ -81,17 +81,17 @@ const ResultsPage = () => {
                     className="flex flex-col px-6 py-4 whitespace-nowrap"
                   >
                     <p className="text-custom-primary-1 font-bold text-base ">
-                      Year 4 | Semester 1
+                      Year 3 | Semester 2
                     </p>
                     <p className="text-custom-primary-2 font-normal text-sm">
-                      Comp-Science-22/23-Year4-Sem1
+                      Comp-Science-22/23-Year3-Sem2
                     </p>
                   </th>
                 </Link>
                 <td>
                   <div className="flex justify-end px-8">
                     <div className="bg-custom-primary-1 text-custom-secondary-3  px-6 py-1 font-bold text-lg rounded-[0.3125rem]">
-                      4.80
+                      4.73
                     </div>
                   </div>
                 </td>
@@ -102,17 +102,17 @@ const ResultsPage = () => {
                     className="flex flex-col px-6 py-4 whitespace-nowrap"
                   >
                     <p className="text-custom-primary-1 font-bold text-base ">
-                      Year 4 | Semester 1
+                      Year 3 | Semester 1
                     </p>
                     <p className="text-custom-primary-2 font-normal text-sm">
-                      Comp-Science-22/23-Year4-Sem1
+                      Comp-Science-22/23-Year3-Sem1
                     </p>
                   </th>
                 </Link>
                 <td>
                   <div className="flex justify-end px-8">
                     <div className="bg-custom-primary-1 text-custom-secondary-3  px-6 py-1 font-bold text-lg rounded-[0.3125rem]">
-                      4.80
+                      4.79
                     </div>
                   </div>
                 </td>
@@ -123,17 +123,17 @@ const ResultsPage = () => {
                     className="flex flex-col px-6 py-4 whitespace-nowrap"
                   >
                     <p className="text-custom-primary-1 font-bold text-base ">
-                      Year 4 | Semester 1
+                      Year 2 | Semester 2
                     </p>
                     <p className="text-custom-primary-2 font-normal text-sm">
-                      Comp-Science-22/23-Year4-Sem1
+                      Comp-Science-22/23-Year2-Sem2
                     </p>
                   </th>
                 </Link>
                 <td>
                   <div className="flex justify-end px-8">
                     <div className="bg-custom-primary-1 text-custom-secondary-3  px-6 py-1 font-bold text-lg rounded-[0.3125rem]">
-                      4.80
+                      4.96
                     </div>
                   </div>
                 </td>
@@ -144,17 +144,17 @@ const ResultsPage = () => {
                     className="flex flex-col px-6 py-4 whitespace-nowrap"
                   >
                     <p className="text-custom-primary-1 font-bold text-base ">
-                      Year 4 | Semester 1
+                      Year 2 | Semester 1
                     </p>
                     <p className="text-custom-primary-2 font-normal text-sm">
-                      Comp-Science-22/23-Year4-Sem1
+                      Comp-Science-22/23-Year2-Sem1
                     </p>
                   </th>
                 </Link>
                 <td>
                   <div className="flex justify-end px-8">
                     <div className="bg-custom-primary-1 text-custom-secondary-3  px-6 py-1 font-bold text-lg rounded-[0.3125rem]">
-                      4.80
+                      5.00
                     </div>
                   </div>
                 </td>
@@ -165,17 +165,17 @@ const ResultsPage = () => {
                     className="flex flex-col px-6 py-4 whitespace-nowrap"
                   >
                     <p className="text-custom-primary-1 font-bold text-base ">
-                      Year 4 | Semester 1
+                      Year 1 | Semester 2
                     </p>
                     <p className="text-custom-primary-2 font-normal text-sm">
-                      Comp-Science-22/23-Year4-Sem1
+                      Comp-Science-22/23-Year1-Sem2
                     </p>
                   </th>
                 </Link>
                 <td>
                   <div className="flex justify-end px-8">
                     <div className="bg-custom-primary-1 text-custom-secondary-3  px-6 py-1 font-bold text-lg rounded-[0.3125rem]">
-                      4.80
+                      4.84
                     </div>
                   </div>
                 </td>
@@ -186,38 +186,17 @@ const ResultsPage = () => {
                     className="flex flex-col px-6 py-4 whitespace-nowrap"
                   >
                     <p className="text-custom-primary-1 font-bold text-base ">
-                      Year 4 | Semester 1
+                      Year 1 | Semester 1
                     </p>
                     <p className="text-custom-primary-2 font-normal text-sm">
-                      Comp-Science-22/23-Year4-Sem1
+                      Comp-Science-22/23-Year1-Sem1
                     </p>
                   </th>
                 </Link>
                 <td>
                   <div className="flex justify-end px-8">
                     <div className="bg-custom-primary-1 text-custom-secondary-3  px-6 py-1 font-bold text-lg rounded-[0.3125rem]">
-                      4.80
-                    </div>
-                  </div>
-                </td>
-              </tr><tr className="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <Link to={`/result/${1}`} className="">
-                  <th
-                    scope="row"
-                    className="flex flex-col px-6 py-4 whitespace-nowrap"
-                  >
-                    <p className="text-custom-primary-1 font-bold text-base ">
-                      Year 4 | Semester 1
-                    </p>
-                    <p className="text-custom-primary-2 font-normal text-sm">
-                      Comp-Science-22/23-Year4-Sem1
-                    </p>
-                  </th>
-                </Link>
-                <td>
-                  <div className="flex justify-end px-8">
-                    <div className="bg-custom-primary-1 text-custom-secondary-3  px-6 py-1 font-bold text-lg rounded-[0.3125rem]">
-                      4.80
+                      5.00
                     </div>
                   </div>
                 </td>
