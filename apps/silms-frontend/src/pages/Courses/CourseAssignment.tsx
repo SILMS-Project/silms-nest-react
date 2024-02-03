@@ -143,8 +143,78 @@ const CourseAssignment = () => {
                   </div>
                 </div>
               </div>
-              <div className="h-96 bg-lime-600">
-                {/* //TODO: Implement submission status designs */}
+              <div className="bg-[#E6F0ED] rounded-[0.3125rem] w-full">
+                <p className="text-[#063760] text-base font-semibold leading-normal text-center mt-6">
+                  Submissions
+                </p>
+                <div className="flex flex-col justify-between py-7 gap-3">
+                    <div className="flex justify-between items-center px-4 py-1 gap-1 w-full">
+                      <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                        Submission Status
+                      </p>
+                      </div>
+                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
+                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                          Not submitted
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                      <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                      Grading Status
+                      </p>
+                      </div>
+                      <div className="rounded-[0.8125rem] bg-[#9E9E9E] px-2 py-1 w-[6.0625rem]">
+                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                          Not graded
+                        </p>
+                      </div>
+                  </div>
+                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                      <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                        Submission Status
+                      </p>
+                      </div>
+                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
+                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                          Not submitted
+                        </p>
+                      </div>
+                  </div>
+                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                    <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                        Submission Status
+                      </p>
+                      </div>
+                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem] ">
+                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                          Not submitted
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between px-4 py-1 gap-1 w-full">
+                    <div className="flex gap-2">
+                      <img src="/assets/icons/clock-loader.svg"></img>
+                      <p className="text-black font-semibold text-xs leading-normal">
+                        Submission Status
+                      </p>
+                      </div>
+                      <div className="rounded-[0.8125rem] bg-[#DB4545] px-2 py-1 w-[6.0625rem]">
+                        <p className="text-[#fff] text-[0.625rem] font-medium leading-normal text-center">
+                          Not submitted
+                        </p>
+                      </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
