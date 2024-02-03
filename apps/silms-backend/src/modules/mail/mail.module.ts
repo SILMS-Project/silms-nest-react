@@ -5,6 +5,8 @@ import { join } from 'path';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { ConfigService } from '@nestjs/config';
 
+require('dotenv').config();
+
 @Module({
   imports: [
     MailerModule.forRootAsync({

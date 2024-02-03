@@ -26,11 +26,12 @@ export class CreateProgramDto {
       { courseCode: 'A', courseTitle: 'Course A', unit: 3, semester: 1, p: 4 },
     ],
   })
-  @IsNotEmpty({ message: 'Courses are required' })
-  @IsArray({ message: 'Courses should be an array' })
-  @ValidateNested({ each: true })
-  @Type(() => Course)
-  readonly courses: Course[];
+
+  // @IsNotEmpty({ message: 'Courses are required' })
+  // @IsArray({ message: 'Courses should be an array' })
+  // @ValidateNested({ each: true })
+  // @Type(() => Course)
+  // readonly courses: Course[];
 
   @ApiProperty()
   @IsNotEmpty({ message: 'Requirements are required' })

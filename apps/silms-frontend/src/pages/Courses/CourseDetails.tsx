@@ -1043,7 +1043,7 @@ const CourseDetails = () => {
                 </div>
                 <div className="py-6" id="radial-chart"></div>
 
-                <div className="flex flex-col gap-2 w-full">
+                <div className="flex flex-col gap-2 w-full truncate">
                   <div className="flex w-full justify-between text-[#949494] text-[0.75rem] font-semibold leading-normal">
                     <p> Assessment</p>
                     <p> Grade </p>
@@ -1068,6 +1068,7 @@ const CourseDetails = () => {
               </div>
 
               <div className="bg-[#063760] rounded-[0.3125rem]">
+<<<<<<< HEAD
                 <div className="flex flex-col py-6 px-5">
                   <p className="text-white text-base font-semibold">
                     {" "}
@@ -1077,6 +1078,11 @@ const CourseDetails = () => {
                     {" "}
                     25 students{" "}
                   </p>
+=======
+                <div className="flex flex-col py-6 px-4 sm:px-6 md:px-8 truncate">
+                  <p className="text-white text-base font-semibold"> Enrolled Students</p>
+                  <p className="text-white text-xs font-semibold"> 25 students </p>
+>>>>>>> origin/dev
                   <div className="flex flex-col w-full justify-between py-2 gap-3">
                     <div className="flex justify-between">
                       <div className="flex gap-1 items-center py-2">

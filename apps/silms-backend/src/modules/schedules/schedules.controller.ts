@@ -84,7 +84,7 @@ export class SchedulesController {
   }
 
   @Version('1')
-  @Patch('update/:id')
+  @Patch(':id')
   @ApiOperation({ summary: 'Update a schedule by ID' })
   @ApiResponse({ status: 200, description: 'Schedule successfully updated' })
   @ApiResponse({ status: 404, description: 'Schedule not found' })
@@ -96,7 +96,7 @@ export class SchedulesController {
   }
 
   @Version('1')
-  @Delete('delete/:id')
+  @Delete(':id')
   @ApiOperation({ summary: 'Delete a schedule by ID' })
   @ApiResponse({ status: 200, description: 'Schedule successfully deleted' })
   @ApiResponse({ status: 404, description: 'Schedule not found' })
