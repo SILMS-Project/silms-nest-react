@@ -1,14 +1,14 @@
-import { Suspense, createContext, lazy } from "react";
+import { Suspense, createContext, lazy, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "flowbite";
-import PageLoader from "@/components/PageLoader";
+import PageLoader from "./components/PageLoader";
 import React from "react";
 import { persistStore } from "redux-persist";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-// import { QueryClient } from "@tanstack/react-query";
-
+import { DEV_MODE } from "./global/frontend.settings";
+import { useTranslation } from 'react-i18next';
 import { AppContextType } from "./global/contexts";
 
 type Props = {
@@ -35,23 +35,23 @@ type Props = {
 export const AppContext = createContext<AppContextType>(null);
 
 const App: React.FC<Props> = ({ assetMap }) => {
-  // const { i18n } = useTranslation();
+  const {  i18n } = useTranslation();
 
-  // const changeI18nLanguageToClientPreferred = async () => {
-  //   if (i18n.language != assetMap?.clientFirstAcceptLanguage)
-  //     await i18n.changeLanguage(assetMap?.clientFirstAcceptLanguage);
-  // };
-  // useEffect(() => {
-  //   //check if assetMap sent in production mode; if not, redirect to a proper ssr endpoint.
-  //   console.log(assetMap)
-  //   if (!DEV_MODE) {
-  //     //attempt to change language here to locale
-  //     changeI18nLanguageToClientPreferred();
-  //     if (!assetMap) {
-  //       window.location.href = "/"; //simulate a mouse click
-  //     }
-  //   }
-  // });
+  const changeI18nLanguageToClientPreferred = async () => {
+    if (i18n.language != assetMap?.clientFirstAcceptLanguage)
+      await i18n.changeLanguage(assetMap?.clientFirstAcceptLanguage);
+  };
+  useEffect(() => {
+    //check if assetMap sent in production mode; if not, redirect to a proper ssr endpoint.
+
+    if (!DEV_MODE) {
+      //attempt to change language here to locale
+      changeI18nLanguageToClientPreferred();
+      if (!assetMap) {
+        window.location.href = "/"; //simulate a mouse click
+      }
+    }
+  });
 
   const appBody = () => {
     //can be used at DEV time and PROD time
@@ -65,189 +65,180 @@ const App: React.FC<Props> = ({ assetMap }) => {
       baseUrl = assetMap.baseUrl;
       title = assetMap.initialContentMap.title!;
     }
-    console.log(title, baseUrl);
+    console.log(title);
+    console.log(baseUrl);
     //console.log(`assetMap in AppWithNavDemo = ${JSON.stringify(assetMap)}`)
-
-    //create a react query client at the top
-    // Create a client
-    // const queryClient = new QueryClient();
 
     let persister = persistStore(store);
 
-    console.log("vvv");
-
-
     return (
-      // <AppContext.Provider value={{ baseUrl }}>
-      //   <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <PersistGate loading={null} persistor={persister}>
-              <Router>
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Home/HomePage"))
-                        )}
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="/login"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Auth/Login"))
-                        )}
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="/student-dashboard"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(
-                            () =>
-                              import("@/pages/Users/Student/StudentDashboard")
-                          )
-                        )}
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="/lecturer-dashboard"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(
-                            () =>
-                              import("@/pages/Users/Lecturer/LecturerDashboard")
-                          )
-                        )}
-                      </Suspense>
-                    }
-                  />
+      <AppContext.Provider value={{ baseUrl }}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persister}>
+            <Router>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Home/HomePage"))
+                      )}
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/login"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Auth/Login"))
+                      )}
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/student-dashboard"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(
+                          () => import("../src/pages/Users/Student/StudentDashboard")
+                        )
+                      )}
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/lecturer-dashboard"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(
+                          () =>
+                            import("../src/pages/Users/Lecturer/LecturerDashboard")
+                        )
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/courses"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Courses/CoursesPage"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/courses"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Courses/CoursesPage"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/courses/:id"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Courses/CourseDetails"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/courses/:id"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Courses/CourseDetails"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/enrollment"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Courses/CourseEnrollment"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/enrollment"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Courses/CourseEnrollment"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/courses/:id/assignments/:assignmentid"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Courses/CourseAssignment"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/courses/:id/assignments/:assignmentid"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Courses/CourseAssignment"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/result"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Results/ResultsPage"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/result"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Results/ResultsPage"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/schedule"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Courses/SchedulePage"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/schedule"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Courses/SchedulePage"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/attendance"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(
-                            () => import("@/pages/Users/Student/AttendancePage")
-                          )
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/attendance"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(
+                          () => import("../src/pages/Users/Student/AttendancePage")
+                        )
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/result/:id"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Results/ResultsDetails"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/result/:id"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Results/ResultsDetails"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="/settings"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Users/SettingsPage"))
-                        )}
-                      </Suspense>
-                    }
-                  />
+                <Route
+                  path="/settings"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Users/SettingsPage"))
+                      )}
+                    </Suspense>
+                  }
+                />
 
-                  <Route
-                    path="*"
-                    element={
-                      <Suspense fallback={<PageLoader />}>
-                        {React.createElement(
-                          lazy(() => import("@/pages/Errors/NotFound"))
-                        )}
-                      </Suspense>
-                    }
-                  />
-                </Routes>
-              </Router>
-            </PersistGate>
-          </Provider>
-      //   </QueryClientProvider>
-      // </AppContext.Provider>
+                <Route
+                  path="*"
+                  element={
+                    <Suspense fallback={<PageLoader />}>
+                      {React.createElement(
+                        lazy(() => import("../src/pages/Errors/NotFound"))
+                      )}
+                    </Suspense>
+                  }
+                />
+              </Routes>
+            </Router>
+          </PersistGate>
+        </Provider>
+      </AppContext.Provider>
     );
   };
 
@@ -305,7 +296,7 @@ const App: React.FC<Props> = ({ assetMap }) => {
     } else {
       return (
         <>
-          {appBody()} 
+          {appBody()}
           {/* //only the body in dev mode. CSS should be available at
           dev mode with createRoot */}
         </>

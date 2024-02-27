@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout";
 import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
 import { Link } from "react-router-dom";
 
