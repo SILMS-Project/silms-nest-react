@@ -1,19 +1,19 @@
-import CalenderIcon from "@/assets/icons/CalenderIcon";
-import LineIcon from "@/assets/icons/LineIcon";
-import DashboardLayout from "@/components/DashboardLayout";
-import PageLoader from "@/components/PageLoader";
-import ScheduleItemsLabel from "@/components/ScheduleItemsLabel";
-import ScheduleUnit from "@/components/ScheduleUnit";
-import ConditionalRoute from "@/routes/ConditionalRoute";
-import { Role, UserStateProps } from "@/store/interfaces/user.interface";
+import CalenderIcon from "../../../assets/icons/CalenderIcon";
+import LineIcon from "../../../assets/icons/LineIcon";
+import DashboardLayout from "../../../components/DashboardLayout";
+import PageLoader from "../../../components/PageLoader";
+import ScheduleItemsLabel from "../../../components/ScheduleItemsLabel";
+import ScheduleUnit from "../../../components/ScheduleUnit";
+import ConditionalRoute from "../../../routes/ConditionalRoute";
+import { Role, UserStateProps } from "../../../store/interfaces/user.interface";
 import {
   // useGetCGPAQuery,
   useGetScheduleByProgramAndLevelQuery,
   useGetStudentCoursesQuery,
   useLoadUserQuery,
-} from "@/store/slices/appSlice";
-import { RootState } from "@/store/store";
-import { getRandomColor } from "@/utils/colorUtils";
+} from "../../../store/slices/appSlice";
+import { RootState } from "../../../store/store";
+import { getRandomColor } from "../../../utils/colorUtils";
 import { Datepicker } from "flowbite-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";

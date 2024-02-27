@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout";
 import { Checkbox, FileInput, Label } from "flowbite-react";
 
 const CourseAssignment = () => {

@@ -2,19 +2,19 @@ import {
   LoginProps,
   Role,
   UserStateProps,
-} from "@/store/interfaces/user.interface";
-import { LoginSchema } from "@/utils/Yup";
+} from "../../store/interfaces/user.interface";
+import { LoginSchema } from "../../utils/Yup";
 import { Alert, Checkbox, Label } from "flowbite-react";
 import { Form, Formik } from "formik";
 import { useCallback,  useState } from "react";
 import { Link } from "react-router-dom";
 import { LiaEyeSlashSolid, LiaEyeSolid } from "react-icons/lia";
-import {  useLoginMutation } from "@/store/slices/appSlice";
-import ButtonSpinner from "@/components/ButtonSpinner";
-import ConditionalRoute from "@/routes/ConditionalRoute";
+import {  useLoginMutation } from "../../store/slices/appSlice";
+import ButtonSpinner from "../../components/ButtonSpinner";
+import ConditionalRoute from "../../routes/ConditionalRoute";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import { loadUser } from "@/store/slices/authSlice";
+import { RootState } from "../../store/store";
+import { loadUser } from "../../store/slices/authSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);

@@ -1,12 +1,12 @@
-import DashboardLayout from "@/components/DashboardLayout";
-import PageLoader from "@/components/PageLoader";
-import ScheduleItemsLabel from "@/components/ScheduleItemsLabel";
-import ScheduleUnit from "@/components/ScheduleUnit";
-import ConditionalRoute from "@/routes/ConditionalRoute";
-import { Role, UserStateProps } from "@/store/interfaces/user.interface";
-import { useGetScheduleByProgramAndLevelQuery } from "@/store/slices/appSlice";
-import { RootState } from "@/store/store";
-import { getRandomColor } from "@/utils/colorUtils";
+import DashboardLayout from "../../components/DashboardLayout";
+import PageLoader from "../../components/PageLoader";
+import ScheduleItemsLabel from "../../components/ScheduleItemsLabel";
+import ScheduleUnit from "../../components/ScheduleUnit";
+import ConditionalRoute from "../../routes/ConditionalRoute";
+import { Role, UserStateProps } from "../../store/interfaces/user.interface";
+import { useGetScheduleByProgramAndLevelQuery } from "../../store/slices/appSlice";
+import { RootState } from "../../store/store";
+import { getRandomColor } from "../../utils/colorUtils";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 

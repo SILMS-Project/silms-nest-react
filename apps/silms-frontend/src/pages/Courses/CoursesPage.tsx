@@ -1,14 +1,14 @@
-import DashboardLayout from "@/components/DashboardLayout";
-import EnrollCourseModal from "@/components/EnrollCourseModal";
-import PageLoader from "@/components/PageLoader";
-import Pagination from "@/components/Pagination";
-import ConditionalRoute from "@/routes/ConditionalRoute";
-import { Role, UserStateProps } from "@/store/interfaces/user.interface";
+import DashboardLayout from "../../components/DashboardLayout";
+import EnrollCourseModal from "../../components/EnrollCourseModal";
+import PageLoader from "../../components/PageLoader";
+import Pagination from "../../components/Pagination";
+import ConditionalRoute from "../../routes/ConditionalRoute";
+import { Role, UserStateProps } from "../../store/interfaces/user.interface";
 import {
   useGetCoursesQuery,
   useGetStudentCoursesQuery,
-} from "@/store/slices/appSlice";
-import { RootState } from "@/store/store";
+} from "../../store/slices/appSlice";
+import { RootState } from "../../store/store";
 import { Tabs } from "flowbite-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
